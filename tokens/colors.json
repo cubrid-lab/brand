@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "note": "CUBRID Lab language-identification tokens; not official CUBRID brand colors.",
+  "languages": {
+    "python": "#3776AB",
+    "typescript": "#3178C6",
+    "go": "#00ADD8",
+    "rust": "#CE422B",
+    "neutral": "#5B6573"
+  }
+}
