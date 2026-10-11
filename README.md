@@ -43,26 +43,34 @@ Pending role-symbol approval:
 - `cubrid-benchmark` — Benchmark / neutral/multi-language
 - `cubrid-kubernetes-operator` — Operator / Go
 
-## Source layout
+## Source of truth
+
+`tokens/geometry.json` is the canonical numeric geometry. `scripts/build.py` deterministically generates the neutral Driver template and all approved repository variants from that geometry, the language-color tokens, and the repository registry.
 
 ```text
-src/                 role geometry sources
-tokens/              geometry and language colors
+tokens/              canonical geometry and language colors
 registry/            repository -> role/language mapping
 scripts/             deterministic asset generation
-dist/                generated approved assets
-docs/                 design rationale and Korean guide
+src/                 generated neutral role template
+dist/                generated approved repository assets
+tests/               geometry, mapping, and generation invariants
+docs/                design rationale and Korean guide
 ```
+
+Do not edit generated SVG geometry directly.
 
 ## Build and verify
 
 ```bash
 python scripts/build.py
 python -m unittest discover -s tests -v
+git diff --exit-code -- src/driver.svg dist
 ```
 
-## Status
+## Licensing and status
 
-The Driver symbol is **design-approved** for continued development. This does **not** mean trademark, non-infringement, or formal legal review is complete. See [BRAND_USAGE.md](BRAND_USAGE.md) and [PROVENANCE.md](PROVENANCE.md).
+Code in `scripts/` and `tests/` is MIT-licensed. Visual marks and generated brand assets are **not yet licensed for redistribution** while asset licensing and trademark review are pending. See [LICENSE](LICENSE), [BRAND_USAGE.md](BRAND_USAGE.md), and [PROVENANCE.md](PROVENANCE.md).
+
+The Driver symbol is **design-approved** for continued development. This does **not** mean trademark, non-infringement, or formal legal review is complete.
 
 Refs #1.

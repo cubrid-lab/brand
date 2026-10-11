@@ -17,6 +17,12 @@ The geometric Driver symbol in this repository is an original CUBRID Lab design 
 
 No official CUBRID logo is copied into the initial Driver symbol.
 
+## Visual-asset license status
+
+The MIT license in this repository covers only `scripts/` and `tests/`. The names, marks, generated SVGs, and other visual brand assets are **not yet licensed for redistribution** while the maintainers review asset licensing and trademark implications.
+
+Publication in this public repository should not be interpreted as a grant of trademark rights or a general license to reuse the visual marks.
+
 ## Language identifiers
 
 Language colors are internal visual tokens. The repository does not include Python, TypeScript, Go, Rust, Kubernetes, or other third-party logos in the Driver assets.

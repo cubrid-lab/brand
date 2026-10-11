@@ -13,7 +13,7 @@ Design constraints selected by the maintainer:
 - Driver should express connection without copying a plug, chain, Poké Ball, language logo, or existing CUBRID logo,
 - the mark must be reproducible from numeric geometry.
 
-AI-assisted ideation was used during exploration. The checked-in SVG is a deliberately reconstructed geometric design defined by repository-controlled coordinates and tokens.
+AI-assisted ideation was used during exploration. The checked-in Driver geometry was deliberately reconstructed as numeric points controlled by `tokens/geometry.json`. Generated SVGs are outputs of those repository-controlled coordinates and are not independent geometry sources.
 
 ## Excluded concepts
 
@@ -24,4 +24,5 @@ Earlier promotional illustrations, mascot concepts, and generated posters are **
 - Driver concept: design direction approved
 - Driver geometry: checked in for engineering review
 - ORM / MCP / Operator / Cookbook symbols: pending
+- visual-asset redistribution license: pending
 - trademark / legal clearance: pending

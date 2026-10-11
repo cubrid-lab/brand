@@ -7,13 +7,15 @@ This repository is the source of truth for CUBRID Lab brand geometry, tokens, ge
 ## Rules
 
 1. **Shape = technical role; color = implementation language.**
-2. Never assign a repository-specific color directly when a language token exists.
-3. Do not copy third-party logos into role symbols.
-4. Do not describe CUBRID Lab token colors as official CUBRID brand colors.
-5. Do not mark a role symbol approved until a maintainer explicitly approves it.
-6. Keep experimental concepts out of `dist/`.
-7. Generated assets must be reproducible from `src/`, `tokens/`, and `registry/`.
-8. Legal/trademark review status must remain separate from design approval.
+2. `tokens/geometry.json` is the canonical geometry source. Generated SVG geometry must never become a second source of truth.
+3. Never assign a repository-specific color directly when a language token exists.
+4. Do not copy third-party logos into role symbols.
+5. Do not describe CUBRID Lab token colors as official CUBRID brand colors.
+6. Do not mark a role symbol approved until a maintainer explicitly approves it.
+7. Keep experimental concepts out of `dist/`.
+8. Generated assets must be reproducible from `tokens/`, `registry/`, and `scripts/`.
+9. Legal/trademark review status must remain separate from design approval.
+10. Do not broaden the visual-asset license while rights/trademark review is pending.
 
 ## Workflow
 
@@ -31,7 +33,7 @@ Issue assignment is mandatory before implementation.
 ```bash
 python scripts/build.py
 python -m unittest discover -s tests -v
-git diff --exit-code -- dist
+git diff --exit-code -- src/driver.svg dist
 ```
 
 Refs #1.
