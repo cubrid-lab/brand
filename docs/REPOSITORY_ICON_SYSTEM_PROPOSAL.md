@@ -78,7 +78,7 @@ The study depicts a separate cube-like **CUBRID Lab** emblem and wordmark, plus 
 >
 > Database · Developers · Open Community · A Better Tomorrow
 >
-> 더 많은 연결로 더 나은 내일을
+> More connections, a better tomorrow (English rendering of the study's Korean line)
 >
 > Build Beyond Boundaries. Open for What's Next.
 
