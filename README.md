@@ -11,6 +11,8 @@ The system follows two rules:
 - **Shape = technical role**
 - **Color = implementation language**
 
+The [repository icon-system study](docs/REPOSITORY_ICON_SYSTEM_PROPOSAL.md) records a broader infographic as a **design review proposal**. Its additional symbols, palette entries, organization mark, and copy are not approved assets or mappings.
+
 The first design-approved role symbol is **Driver**, restored to the original **Connector Study / 02** geometry: two congruent modules rotated 180° about the 24×24 canvas center, with 0°/60°/120° edges and a 1.5-unit mitered seam. See [the numerical construction](docs/GEOMETRY.md) and the preserved [approved prototype](provenance/connector-study-02/driver-python.svg).
 
 Current language tokens:
