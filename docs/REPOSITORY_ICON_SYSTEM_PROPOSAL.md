@@ -1,10 +1,10 @@
 # Repository icon system — design review proposal
 
-**Status:** Proposal for design review ([issue #4](https://github.com/cubrid-lab/brand/issues/4)). No new role symbol, organization mark, repository mapping, or language token is approved by this document. Legal and trademark review remains separate.
+**Status:** Historical design study from [issue #4](https://github.com/cubrid-lab/brand/issues/4). The maintainer subsequently selected its icon direction for implementation in [issue #6](https://github.com/cubrid-lab/brand/issues/6). See the current [icon gallery](ICON_GALLERY.md). Organization identity, legal, and trademark review remain separate.
 
-This document records the content of a maintainer-supplied repository-icon infographic (October 2026). The original image is preserved below as an **unapproved design reference**, outside `dist/`. It is not a generated asset or a second source of truth for any icon or organization mark, and its inclusion does not expand the visual-asset license. The accepted Driver construction remains in [`tokens/geometry.json`](../tokens/geometry.json) and its immutable reference remains in [`provenance/connector-study-02/driver-python.svg`](../provenance/connector-study-02/driver-python.svg).
+This document records the content of a maintainer-supplied repository-icon infographic (October 2026). The original image is preserved below as a **selected visual reference**, outside `dist/`. It is not a generated asset or a second source of SVG geometry, and its inclusion does not expand the visual-asset license. The current Driver construction is in [`tokens/geometry.json`](../tokens/geometry.json); the former Connector Study / 02 remains unchanged as [historical provenance](../provenance/connector-study-02/driver-python.svg).
 
-![CUBRID Lab repository icon-system infographic, unapproved design study](studies/repository-icon-system-infographic.png)
+![CUBRID Lab repository icon-system infographic, selected visual study](studies/repository-icon-system-infographic.png)
 
 ## System concept
 
@@ -21,35 +21,35 @@ The study describes the system as “a consistent and meaningful icon system for
 | Drivers | `pycubrid` | Python Driver | Python | Driver / Python, approved |
 | Drivers | `cubrid-go` | Go Driver | Go | Driver / Go, approved |
 | Drivers | `cubrid-rs` | Rust Driver | Rust | Driver / Rust, approved |
-| ORMs / Dialects | `sqlalchemy-cubrid` | SQLAlchemy Dialect | Python | ORM / Python, symbol pending |
-| ORMs / Dialects | `gorm-cubrid` | GORM Dialect | Go | ORM / Go, symbol pending |
-| ORMs / Dialects | `drizzle-cubrid` | Drizzle ORM | Rust | ORM / **TypeScript**, symbol pending; study label conflicts |
-| ORMs / Dialects | `sea-orm-cubrid` | SeaORM Dialect | Rust | ORM / Rust, symbol pending |
-| Tools & AI | `cubrid-mcp-server` | Model Context Protocol | Python | MCP / Python, symbol pending |
-| Tools & AI | `cubrid-cookbook-python` | Examples and Guides | Python | Cookbook / Python, symbol pending |
-| Tools & AI | `cubrid-benchmark` | Performance Tools | Rust | Benchmark / **neutral**, symbol pending; study label conflicts |
-| Infrastructure | `cubrid-kubernetes-operator` | Kubernetes Operator | Go | Operator / Go, symbol pending |
-| Infrastructure | `showcase` | Project Showcase | TypeScript | No registry mapping; [current language statistics](https://api.github.com/repos/cubrid-lab/showcase/languages) list Python, Shell, and Vue, but no TypeScript (October 2026) |
-| Infrastructure | `docs` | Documentation | Markdown | Presented as a surface; repository identity is unspecified |
-| Infrastructure | `community` | Discussions & Support | Markdown | Presented as a surface; repository identity is unspecified |
+| ORMs / Dialects | `sqlalchemy-cubrid` | SQLAlchemy Dialect | Python | ORM / Python, generated |
+| ORMs / Dialects | `gorm-cubrid` | GORM Dialect | Go | ORM / Go, generated |
+| ORMs / Dialects | `drizzle-cubrid` | Drizzle ORM | Rust | ORM / **TypeScript**, generated; study label conflicts |
+| ORMs / Dialects | `sea-orm-cubrid` | SeaORM Dialect | Rust | ORM / Rust, generated |
+| Tools & AI | `cubrid-mcp-server` | Model Context Protocol | Python | MCP / Python, generated |
+| Tools & AI | `cubrid-cookbook-python` | Examples and Guides | Python | Cookbook / Python, generated |
+| Tools & AI | `cubrid-benchmark` | Performance Tools | Rust | Benchmark / **Neutral**, generated; study label conflicts |
+| Infrastructure | `cubrid-kubernetes-operator` | Kubernetes Operator | Go | Operator / Go, generated |
+| Infrastructure | `showcase` | Project Showcase | TypeScript | Showcase / **Neutral**, generated; [language statistics](https://api.github.com/repos/cubrid-lab/showcase/languages) do not show TypeScript (October 2026) |
+| Infrastructure | `docs` | Documentation | Markdown | Docs / Neutral concept surface, generated |
+| Infrastructure | `community` | Discussions & Support | Markdown | Community / Neutral concept surface, generated |
 
-The study omits `cubrid-client`, whose **Driver / TypeScript** mapping is already approved. Omission from the illustration does not change that mapping. `showcase` exists as a repository, but the study's TypeScript label conflicts with its current language statistics and is not an approved mapping. `docs` and `community` must not be added to the registry as repository names without identifying actual repositories.
+The study omits `cubrid-client`, whose **Driver / TypeScript** variant remains generated. `showcase` uses Neutral because its study label conflicts with its current mixed-content repository. `docs` and `community` are recorded as concept surfaces, not repository names.
 
-## Role meanings proposed for future symbols
+## Role meanings used in the generated symbols
 
 | Study label | Meaning | Current registry role |
 | --- | --- | --- |
-| Driver | Connect | `driver` — approved geometry; the illustrated cube/plug is only a candidate |
-| ORM | Layer | `orm` — pending |
-| MCP | Network | `mcp` — pending |
-| Guide | Book | `cookbook` — pending |
-| Tool | Analytics | `benchmark` — pending |
-| Operator | Control | `operator` — pending |
-| Showcase | Play | No mapping |
-| Docs | Document | No mapping |
-| Community | People | No mapping |
+| Driver | Connect | `driver` — cube connector |
+| ORM | Layer | `orm` — stacked chevrons |
+| MCP | Network | `mcp` — connected nodes |
+| Guide | Book | `cookbook` — open book |
+| Tool | Analytics | `benchmark` — ascending bars |
+| Operator | Control | `operator` — generic six-spoke dial |
+| Showcase | Play | `showcase` — play triangle |
+| Docs | Document | `docs` — document lines |
+| Community | People | `community` — people |
 
-These are silhouette briefs, not approved drawings. The accepted Driver is **Connector Study / 02**; the Driver pictured in the infographic must not replace it without a separate design decision and geometry review. Other roles need distinct, original shapes. Do not incorporate third-party logos.
+These descriptions guided original vector reconstructions in the generator. The maintainer's newer direction superseded Connector Study / 02 for Driver. The previous SVG remains historical evidence; no third-party logo is incorporated in the new drawings.
 
 ## Language palette in the study
 
@@ -58,19 +58,19 @@ These are silhouette briefs, not approved drawings. The accepted Driver is **Con
 | Python | `#3776AB` | `#3776AB` |
 | Go | `#00ADD8` | `#00ADD8` |
 | Rust | `#DEA384` | `#DEA384` |
-| JavaScript | `#F7DF1E` | Not defined |
-| OCaml | `#A34CC3` | Not defined |
+| JavaScript | `#F7DF1E` | `#F7DF1E`; no repository mapped |
+| OCaml | `#A34CC3` | `#A34CC3`; no repository mapped |
 | TypeScript | `#3178C6` | `#3178C6` |
-| Neutral | `#6B7280` | `#5B6573`; study swatch differs |
+| Neutral | `#6B7280` | `#6B7280` |
 
-The study's additional swatches are proposals only. No repository-specific color should be hard-coded where a language token exists. These colors are CUBRID Lab internal design tokens, not official CUBRID brand colors or claims about language brands.
+No repository-specific color should be hard-coded where a language token exists. These are CUBRID Lab internal design tokens, not official CUBRID brand colors or claims about language brands.
 
 ## Construction and preview checks
 
-- Draw and review on a 24×24 grid with consistent 60°/120° angles and open negative space. Preserve the exact accepted Driver parameters rather than approximating them from the infographic.
+- Draw and review on a 24×24 grid with consistent 60°/120° rhombus corners and open negative space. The raster cannot supply exact vector parameters; the selected numerical reconstruction lives in the geometry token.
 - Preview proposed symbols at **16, 24, 32, 48, and 64 px**. Check legibility at 16 px and consistency at each size.
 - Preview a monochrome version at **100%, 70%, 40%, and 20%** opacity. The study shows these examples; their contrast and accessibility are not yet validated.
-- Test each role in its language colors only after its geometry is approved. Experimental concepts stay outside `dist/`.
+- Test each role in its language colors. Organization identity candidates and any future experimental concepts stay outside `dist/`.
 
 ## Organization identity and copy
 
@@ -88,10 +88,9 @@ It also uses **“Same geometry · Clear roles · Language colors · One CUBRID�
 
 The organization emblem and wordmark belong to [issue #3](https://github.com/cubrid-lab/brand/issues/3). The Driver role symbol is not the organization logo. No organization avatar, profile, or identity asset changes follow from this study.
 
-## Decisions before implementation
+## Implementation decisions and remaining review
 
-1. Review each pending role's silhouette against the approved Driver and other roles; record explicit maintainer design approval per role.
-2. Resolve the study's `drizzle-cubrid`, `cubrid-benchmark`, and Neutral mismatches against the canonical registry and tokens. Confirm whether JavaScript and OCaml tokens are needed.
-3. Resolve Showcase's TypeScript label against the repository's current languages, and identify the intended repositories and implementation languages for Docs and Community before adding mappings.
-4. Review the organization emblem and copy under issue #3, including rights, similarity, and trademark work separately from design approval.
-5. After approval, implement numeric geometry in tokens and the generator, add regression tests, update guidance, and obtain independent post-implementation review before publishing generated assets.
+1. The registry uses TypeScript for Drizzle and Neutral for Benchmark and Showcase. Docs and Community are concept surfaces. JavaScript and OCaml tokens are defined but currently unused.
+2. The maintainer selected the cube-based Driver direction, whose four variants replace the former assets in `dist/icons/`. Other individual role symbols are generated under `studies/icons/` for explicit approval; numerical geometry, tests, and the [gallery](ICON_GALLERY.md) document both sets.
+3. Review the organization emblem and copy under issue #3, including rights, similarity, and trademark work separately from repository-icon design selection. The organization avatar and profile remain unchanged.
+4. Perform independent post-implementation review and complete visual-asset licensing and legal work before broad deployment.

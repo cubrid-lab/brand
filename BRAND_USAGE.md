@@ -8,14 +8,14 @@ CUBRID is a trademark of its owner. References to CUBRID identify compatibility 
 
 ## Current status
 
-The geometric Driver symbol in this repository is an original CUBRID Lab design direction built from simple vector geometry. Its design approval does **not** constitute:
+The repository role icons in this repository are original CUBRID Lab geometric reconstructions based on a maintainer-supplied visual study. Design selection does **not** constitute:
 
 - trademark clearance,
 - a non-infringement opinion,
 - permission to imply endorsement,
 - permission to modify or redistribute any official CUBRID trademark asset.
 
-No official CUBRID logo is copied into the initial Driver symbol.
+The three-color organization emblem and wordmark are separate candidates. They must not be deployed to the GitHub organization avatar or profile until their design and rights review under [issue #3](https://github.com/cubrid-lab/brand/issues/3) is recorded.
 
 ## Visual-asset license status
 
@@ -23,18 +23,18 @@ The MIT license in this repository covers only `scripts/` and `tests/`. The name
 
 Publication in this public repository should not be interpreted as a grant of trademark rights or a general license to reuse the visual marks.
 
-## Language identifiers
+## Third-party marks and language identifiers
 
-Language colors are internal visual tokens. The repository does not include Python, TypeScript, Go, Rust, Kubernetes, or other third-party logos in the Driver assets.
+Language colors are internal visual tokens. The generated icons do not include Python, TypeScript, Go, Rust, Kubernetes, or other third-party logos. The Operator's six-spoke control dial is not the Kubernetes logo.
 
-## Before broad brand deployment
+## Before organization-wide deployment
 
-Before using a CUBRID Lab mark as an organization-wide identity outside the repositories, maintainers should complete and record:
+Before using a CUBRID Lab identity mark as the organization avatar or in the profile, maintainers should complete and record:
 
 1. confusing-similarity review,
 2. relevant trademark searches,
 3. confirmation of the intended use of the CUBRID name,
-4. asset-license approval,
+4. asset-license and creator-rights approval,
 5. final human design review.
 
 This document is project governance, not legal advice.

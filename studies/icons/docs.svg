@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="#6B7280" role="img" aria-labelledby="docs-title docs-desc">
+  <title id="docs-title">CUBRID Lab docs icon — docs</title>
+  <desc id="docs-desc">Cube-based docs role symbol. Symbol candidate; design and legal review pending.</desc>
+  <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="currentColor"/>
+  <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="currentColor"/>
+  <path d="M 12.7 13.25 L 22 8 L 22 17.25 L 12.7 22.5 Z" fill="currentColor"/>
+  <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="#fff" opacity="0.08"/>
+  <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="#000" opacity="0.10"/>
+  <path d="M 15 13.6 L 20 10.8 L 20 12.1 L 15 14.9 Z M 15 16 L 20 13.2 L 20 14.5 L 15 17.3 Z M 15 18.4 L 20 15.6 L 20 16.9 L 15 19.7 Z" fill="#fff"/>
+</svg>

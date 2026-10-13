@@ -1,24 +1,17 @@
 {
-  "schema_version": 1,
-  "design_id": "connector-study-02",
-  "view_box": [
-    0,
-    0,
-    24,
-    24
-  ],
-  "center": [
-    12,
-    12
-  ],
-  "envelope_width": 20,
-  "envelope_height_sqrt3_coefficient": 8,
-  "seam_width": 1.5,
-  "edge_directions_degrees": [
-    0,
-    60,
-    120
-  ],
-  "module_relation": "B = rotate(A, 180 degrees, center=(12,12))",
-  "decimal_places": 9
+  "schema_version": 2,
+  "design_id": "repository-icon-cube-01",
+  "reference_image": "docs/studies/repository-icon-system-infographic.png",
+  "view_box": [0, 0, 24, 24],
+  "center": [12, 12],
+  "half_width": 10,
+  "top_y": 1,
+  "roof_rise": 5.773502692,
+  "face_outer_top_y": 8,
+  "face_center_top_y": 13.25,
+  "face_outer_bottom_y": 17.25,
+  "face_center_bottom_y": 22.5,
+  "seam_half_width": 0.7,
+  "rhombus_corner_angles_degrees": [60, 120],
+  "decimal_places": 3
 }

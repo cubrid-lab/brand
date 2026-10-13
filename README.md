@@ -6,78 +6,66 @@ Canonical brand-system source for CUBRID Lab.
 
 ## Design system
 
-The system follows two rules:
+- **Shape = technical role.** Nine role symbols share one 24×24 isometric construction grammar and use distinct internal marks.
+- **Color = implementation language.** Every repository variant uses a language token; mixed-language repositories and non-repository surfaces use Neutral.
 
-- **Shape = technical role**
-- **Color = implementation language**
+The maintainer selected the [cube-based infographic](docs/studies/repository-icon-system-infographic.png) to replace the former Driver drawing and build out the individual icon family. The [icon gallery](docs/ICON_GALLERY.md) previews all 15 generated variants and the separate organization-mark study. The [numerical construction](docs/GEOMETRY.md) documents the SVG reconstruction. The raster is a visual reference, not a source of generated geometry.
 
-The [repository icon-system study](docs/REPOSITORY_ICON_SYSTEM_PROPOSAL.md) records a broader infographic as a **design review proposal**. Its additional symbols, palette entries, organization mark, and copy are not approved assets or mappings.
+Current language and neutral tokens are defined in [`tokens/colors.json`](tokens/colors.json):
 
-The first design-approved role symbol is **Driver**, restored to the original **Connector Study / 02** geometry: two congruent modules rotated 180° about the 24×24 canvas center, with 0°/60°/120° edges and a 1.5-unit mitered seam. See [the numerical construction](docs/GEOMETRY.md) and the preserved [approved prototype](provenance/connector-study-02/driver-python.svg).
+| Token | Color |
+| --- | --- |
+| Python | `#3776AB` |
+| TypeScript | `#3178C6` |
+| Go | `#00ADD8` |
+| Rust | `#DEA384` |
+| JavaScript | `#F7DF1E` |
+| OCaml | `#A34CC3` |
+| Neutral | `#6B7280` |
 
-Current language tokens:
+These are **CUBRID Lab design tokens**, not official CUBRID brand colors or claims about language brands. JavaScript and OCaml currently have no mapped repositories. The infographic's labels differ from the actual mappings for Drizzle, Benchmark, and Showcase; the registry records the implementation-language decisions.
 
-| Language | Token | Color |
-|---|---|---|
-| Python | `python` | `#3776AB` |
-| TypeScript | `typescript` | `#3178C6` |
-| Go | `go` | `#00ADD8` |
-| Rust | `rust` | `#DEA384` |
+## Repository and surface mapping
 
-These colors are **CUBRID Lab design tokens**, not claims about official CUBRID brand colors. The Python, Go, and Rust variants preserve the selected Connector Study / 02 colors; TypeScript remains an extension proposal.
+Machine-readable mappings live in [`registry/repositories.json`](registry/repositories.json). `dist/icons/` contains the four selected Driver variants. The other nine repository icons and two concept surfaces are generated under `studies/icons/` pending symbol approval. `docs` and `community` are not asserted to be repository names.
+
+Role geometry is common across repositories with the same role. The six-spoke Operator control dial is an original generic mark and does not copy the Kubernetes logo or any other third-party logo.
 
 ## Organization identity
 
-**CUBRID Lab** is the organization name and future wordmark. The Driver connector is a repository **role symbol**, **not** the organization logo. A separate organization-level emblem, wordmark, and profile/avatar rollout require design and rights review; see [issue #3](https://github.com/cubrid-lab/brand/issues/3). The GitHub handle remains `cubrid-lab`.
-
-## Repository mapping
-
-Machine-readable mappings live in `registry/repositories.json`.
-
-Approved today:
-
-- `pycubrid` — Driver / Python
-- `cubrid-client` — Driver / TypeScript
-- `cubrid-go` — Driver / Go
-- `cubrid-rs` — Driver / Rust
-
-Pending role-symbol approval:
-
-- `sqlalchemy-cubrid`, `drizzle-cubrid`, `gorm-cubrid`, `sea-orm-cubrid` — ORM/Dialect
-- `cubrid-mcp-server` — MCP / Python
-- `cubrid-cookbook-python` — Cookbook / Python
-- `cubrid-benchmark` — Benchmark / neutral/multi-language
-- `cubrid-kubernetes-operator` — Operator / Go
+The [three-color organization-mark study](studies/organization/mark.svg) and its [horizontal](studies/organization/lockup-horizontal.svg) and [stacked](studies/organization/lockup-stacked.svg) lockups are separate from role icons. They are review candidates under [issue #3](https://github.com/cubrid-lab/brand/issues/3). The GitHub organization avatar and profile remain unchanged until design and rights review is recorded. The GitHub handle remains `cubrid-lab`.
 
 ## Source of truth
 
-`tokens/geometry.json` is the canonical numerical parameters of accepted Connector Study / 02. `scripts/build.py` deterministically generates the neutral Driver template and all approved repository variants from that geometry, the language-color tokens, and the repository registry.
-
 ```text
-tokens/              canonical geometry and language colors
-registry/            repository -> role/language mapping
-scripts/             deterministic asset generation
-src/                 generated neutral role template
-dist/                generated approved repository assets
-tests/               geometry, mapping, and generation invariants
-docs/                exact construction and Korean guide
-provenance/          immutable accepted visual reference
+tokens/              numeric geometry, language colors, organization study colors
+registry/            repository and concept-surface mappings
+scripts/             deterministic SVG generation
+src/                 generated color-inheriting role templates
+dist/icons/           generated selected Driver variants
+studies/icons/        generated individual symbol candidates (pending review)
+studies/organization/ generated organization-identity candidates (pending review)
+docs/                construction, gallery, and visual-reference study
+provenance/          immutable superseded Connector Study / 02 reference
 ```
 
-Do not edit generated SVG geometry directly.
+The old Driver SVG and numerical parameters remain under [`provenance/connector-study-02/`](provenance/connector-study-02/) as historical evidence. Do not edit generated SVG geometry directly.
 
 ## Build and verify
 
 ```bash
-python scripts/build.py
-python -m unittest discover -s tests -v
-git diff --exit-code -- src/driver.svg dist
+python3 scripts/build.py
+python3 -m unittest discover -s tests -v
+git diff --exit-code -- src dist studies/icons studies/organization
+test -z "$(git ls-files --others --exclude-standard -- src dist studies/icons studies/organization)"
 ```
 
-## Licensing and status
+CI uses `python` on its Python 3.12 runner.
+
+## Licensing and review status
 
 Code in `scripts/` and `tests/` is MIT-licensed. Visual marks and generated brand assets are **not yet licensed for redistribution** while asset licensing and trademark review are pending. See [LICENSE](LICENSE), [BRAND_USAGE.md](BRAND_USAGE.md), and [PROVENANCE.md](PROVENANCE.md).
 
-The Driver symbol is **design-approved** for continued development. This does **not** mean trademark, non-infringement, or formal legal review is complete.
+Design selection for repository icons does **not** mean trademark, non-infringement, or formal legal review is complete. The organization mark is still a candidate and must not be deployed as the organization avatar before its separate review.
 
-Refs #1.
+Refs #3, #4, #6.
