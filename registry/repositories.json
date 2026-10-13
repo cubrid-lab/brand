@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "repositories": {
+    "pycubrid": {"role": "driver", "language": "python", "status": "approved"},
+    "cubrid-client": {"role": "driver", "language": "typescript", "status": "approved"},
+    "cubrid-go": {"role": "driver", "language": "go", "status": "approved"},
+    "cubrid-rs": {"role": "driver", "language": "rust", "status": "approved"},
+
+    "sqlalchemy-cubrid": {"role": "orm", "language": "python", "status": "pending-symbol"},
+    "drizzle-cubrid": {"role": "orm", "language": "typescript", "status": "pending-symbol"},
+    "gorm-cubrid": {"role": "orm", "language": "go", "status": "pending-symbol"},
+    "sea-orm-cubrid": {"role": "orm", "language": "rust", "status": "pending-symbol"},
+
+    "cubrid-mcp-server": {"role": "mcp", "language": "python", "status": "pending-symbol"},
+    "cubrid-cookbook-python": {"role": "cookbook", "language": "python", "status": "pending-symbol"},
+    "cubrid-benchmark": {"role": "benchmark", "language": "neutral", "status": "pending-symbol"},
+    "cubrid-kubernetes-operator": {"role": "operator", "language": "go", "status": "pending-symbol"}
+  }
+}
