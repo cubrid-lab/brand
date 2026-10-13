@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-import json
+import hashlib
 import math
-import re
 import subprocess
 import sys
 import unittest
@@ -11,76 +10,117 @@ from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from scripts.build import COLORS, GEOMETRY, REGISTRY, driver_polygons, outputs
+from scripts.build import (
+    COLORS,
+    GEOMETRY,
+    ORGANIZATION,
+    REGISTRY,
+    ROLES,
+    SURFACES,
+    cube_polygons,
+    outputs,
+    render_icon,
+)
+
+SVG = "{http://www.w3.org/2000/svg}"
 
 
 class BrandTests(unittest.TestCase):
-    def test_original_study_parameters(self):
-        self.assertEqual(GEOMETRY["design_id"], "connector-study-02")
+    def test_selected_geometry(self):
+        self.assertEqual(GEOMETRY["design_id"], "repository-icon-cube-01")
         self.assertEqual(GEOMETRY["view_box"], [0, 0, 24, 24])
-        self.assertEqual(GEOMETRY["seam_width"], 1.5)
-        self.assertEqual(GEOMETRY["edge_directions_degrees"], [0, 60, 120])
+        self.assertEqual(GEOMETRY["rhombus_corner_angles_degrees"], [60, 120])
+        self.assertAlmostEqual(GEOMETRY["roof_rise"] / GEOMETRY["half_width"], 1 / math.sqrt(3), places=8)
+        top, left, right = (cube_polygons()[face] for face in ("top", "left", "right"))
+        self.assertEqual([len(top), len(left), len(right)], [4, 4, 4])
+        self.assertEqual(top[0][0], GEOMETRY["center"][0])
+        self.assertEqual(left[0][0] + right[1][0], 24)
+        self.assertGreater(right[0][0] - left[1][0], 0)
+        for x, y in top + left + right:
+            self.assertGreaterEqual(x, 0)
+            self.assertLessEqual(x, 24)
+            self.assertGreaterEqual(y, 0)
+            self.assertLessEqual(y, 24)
 
-    def test_study_language_palette(self):
+    def test_historical_and_visual_references_are_unchanged(self):
+        expected = {
+            "provenance/connector-study-02/driver-python.svg": "2dda23aae3d5e418badb4f633ae1a00fbe9983aa35f8c8e2083feb7a3a0ae3b9",
+            "docs/studies/repository-icon-system-infographic.png": "aeda456461b4336fc8545335a24629ec7dfe25b701f41760ac120a9e0f9c5716",
+        }
+        for name, digest in expected.items():
+            with self.subTest(name=name):
+                self.assertEqual(hashlib.sha256((ROOT / name).read_bytes()).hexdigest(), digest)
+
+    def test_color_tokens_and_mappings(self):
         self.assertEqual(COLORS["python"], "#3776AB")
         self.assertEqual(COLORS["go"], "#00ADD8")
         self.assertEqual(COLORS["rust"], "#DEA384")
+        self.assertEqual(COLORS["neutral"], "#6B7280")
+        self.assertEqual(REGISTRY["drizzle-cubrid"]["language"], "typescript")
+        self.assertEqual(REGISTRY["cubrid-benchmark"]["language"], "neutral")
+        self.assertEqual(REGISTRY["showcase"]["language"], "neutral")
+        self.assertFalse(set(REGISTRY) & set(SURFACES))
+        for name, meta in {**REGISTRY, **SURFACES}.items():
+            with self.subTest(name=name):
+                self.assertIn(meta["role"], ROLES)
+                self.assertIn(meta["language"], COLORS)
+                self.assertIn(meta["status"], {"approved", "pending-symbol"})
+                self.assertEqual(meta["status"] == "approved", meta["role"] == "driver")
 
-    def test_rotation_envelope_and_edges(self):
-        left, right = driver_polygons()
-        self.assertEqual(len(left), 7)
-        self.assertEqual(len(right), 7)
-        for (x, y), (u, v) in zip(left, right):
-            self.assertAlmostEqual(x + u, 24, places=9)
-            self.assertAlmostEqual(y + v, 24, places=9)
-        pts = left + right
-        self.assertAlmostEqual(max(x for x, _ in pts) - min(x for x, _ in pts), 20)
-        self.assertAlmostEqual(max(y for _, y in pts) - min(y for _, y in pts), 8 * math.sqrt(3))
-        for polygon in (left, right):
-            for (x1, y1), (x2, y2) in zip(polygon, polygon[1:] + polygon[:1]):
-                angle = math.degrees(math.atan2(y2 - y1, x2 - x1)) % 180
-                self.assertTrue(any(abs(angle - a) < 1e-8 for a in (0, 60, 120, 180)), angle)
+    def test_role_geometry_is_shared_across_languages(self):
+        shapes = set()
+        for role in ROLES:
+            with self.subTest(role=role):
+                python = ElementTree.fromstring(render_icon(role, COLORS["python"], "sample"))
+                rust = ElementTree.fromstring(render_icon(role, COLORS["rust"], "sample"))
+                self.assertEqual(python.attrib["color"], COLORS["python"])
+                self.assertEqual(rust.attrib["color"], COLORS["rust"])
+                self.assertEqual(
+                    [ElementTree.tostring(node) for node in list(python)[2:]],
+                    [ElementTree.tostring(node) for node in list(rust)[2:]],
+                )
+                shapes.add(tuple(ElementTree.tostring(node) for node in list(python)[2:]))
+        self.assertEqual(len(shapes), len(ROLES))
 
-    def test_generated_contour_matches_approved_original(self):
-        source = ROOT / "provenance/connector-study-02/driver-python.svg"
-        svg = ElementTree.fromstring(source.read_text(encoding="utf-8"))
-        paths = svg.findall(".//{http://www.w3.org/2000/svg}path")
-        self.assertEqual(len(paths), 2)
-
-        def extract(d):
-            values = [float(v) for v in re.findall(r"-?\d+\.\d+", d)]
-            return list(zip(values[::2], values[1::2]))
-
-        original_left = extract(paths[0].attrib["d"])
-        original_right = extract(paths[1].attrib["d"])
-        self.assertEqual([len(original_left), len(original_right)], [7, 8])
-        left, right = driver_polygons()
-        simplified_right = original_right[:6] + original_right[7:]
-        for original, generated in ((original_left, left), (simplified_right, right)):
-            for (a, b), (c, d) in zip(original, generated):
-                self.assertAlmostEqual(a, c, places=8)
-                self.assertAlmostEqual(b, d, places=8)
-
-    def test_mappings(self):
-        for meta in REGISTRY.values():
-            self.assertIn(meta["language"], COLORS)
-        self.assertEqual(REGISTRY["cubrid-mcp-server"]["language"], "python")
-        self.assertEqual(REGISTRY["cubrid-kubernetes-operator"]["language"], "go")
+    def test_generated_svg_structure(self):
+        generated = outputs()
+        self.assertEqual(len(generated), len(ROLES) + len(REGISTRY) + len(SURFACES) + 3)
+        for path, content in generated.items():
+            with self.subTest(path=path.name):
+                svg = ElementTree.fromstring(content)
+                self.assertEqual(svg.tag, SVG + "svg")
+                expected_view_box = {
+                    "lockup-horizontal.svg": "0 0 300 64",
+                    "lockup-stacked.svg": "0 0 200 154",
+                }.get(path.name, "0 0 24 24")
+                self.assertEqual(svg.attrib["viewBox"], expected_view_box)
+                self.assertIsNotNone(svg.find(SVG + "title"))
+                self.assertIsNotNone(svg.find(SVG + "desc"))
+                self.assertGreater(len(svg.findall(".//" + SVG + "path")), 0)
+        organization = ElementTree.fromstring(generated[ROOT / "studies/organization/mark.svg"])
+        self.assertEqual(
+            {path.attrib["fill"] for path in organization.findall(SVG + "path")},
+            set(ORGANIZATION["face_colors"].values()),
+        )
 
     def test_deterministic_outputs(self):
-        subprocess.run([sys.executable, str(ROOT / "scripts/build.py")], check=True)
-        generated = outputs()
-        for path, content in generated.items():
-            self.assertEqual(path.read_text(encoding="utf-8"), content)
+        build = [sys.executable, str(ROOT / "scripts/build.py")]
+        subprocess.run(build, check=True)
+        expected = outputs()
+        first = {path: path.read_bytes() for path in expected}
+        subprocess.run(build, check=True)
+        for path, content in expected.items():
+            with self.subTest(path=path.name):
+                self.assertEqual(path.read_text(encoding="utf-8"), content)
+                self.assertEqual(path.read_bytes(), first[path])
         self.assertEqual(
             {p.name for p in (ROOT / "dist/icons").glob("*.svg")},
-            {"pycubrid.svg", "cubrid-client.svg", "cubrid-go.svg", "cubrid-rs.svg"},
+            {f"{name}.svg" for name, meta in {**REGISTRY, **SURFACES}.items() if meta["status"] == "approved"},
         )
-        for repo, meta in REGISTRY.items():
-            if meta["role"] == "driver" and meta["status"] == "approved":
-                svg = (ROOT / "dist/icons" / f"{repo}.svg").read_text()
-                self.assertIn(COLORS[meta["language"]], svg)
-                self.assertEqual(svg.count("<path "), 2)
+        self.assertEqual(
+            {p.name for p in (ROOT / "studies/icons").glob("*.svg")},
+            {f"{name}.svg" for name, meta in {**REGISTRY, **SURFACES}.items() if meta["status"] == "pending-symbol"},
+        )
 
 
 if __name__ == "__main__":

@@ -1,35 +1,26 @@
-# Driver geometry — accepted Connector Study / 02
+# Repository icon geometry — Cube Study / 01
 
-The original user-approved prototype is retained verbatim at
-`provenance/connector-study-02/driver-python.svg`. The prior bootstrap accidentally
-substituted a different path shape; this change restores the original contour.
+The maintainer selected the cube-based icon system shown in the [supplied infographic](studies/repository-icon-system-infographic.png) to replace the prior Driver artwork. The raster is the visual reference; [`tokens/geometry.json`](../tokens/geometry.json) supplies the reproducible numerical construction, and [`scripts/build.py`](../scripts/build.py) renders every role. The vector drawings are deliberate reconstructions of the raster, not claims of pixel-exact source paths.
 
-The Driver mark comprises two congruent polygons in a 24 × 24 viewBox.
+## Shared 24×24 construction
 
-Let `s = sqrt(3)`, `g = 1.5`, and `d = g / s`. Polygon A vertices are:
+Let `c = 12`, `h = 10`, `r = 10 / √3` (stored as `5.773502692`), and `t = 1`. The top rhombus is:
 
-1. `(6, 12 - 4s)`
-2. `(2, 12)`
-3. `(6, 12 + 4s)`
-4. `(12 - d, 12 + 4s)`
-5. `(10 - d, 12 + 2s)`
-6. `(14 - d, 12 - 2s)`
-7. `(12 - d, 12 - 4s)`
+1. `(c, t)`
+2. `(c + h, t + r)`
+3. `(c, t + 2r)`
+4. `(c - h, t + r)`
 
-Polygon B is derived by rotating A by 180° about `(12,12)`; equivalently,
-`(x,y) → (24-x,24-y)`.
+Its internal corners are 60° and 120°. The left and right face vertices are computed from the inset center seam and face-height parameters in the token file. Their gap leaves visible negative space around the top and center seams. Each role uses the same cube grammar, with a distinct white geometric mark. ORM uses the shared rhombus plus two open chevron layers instead of the cube faces.
 
-The outer silhouette is 20u × 8√3u, with edge directions 0°, 60°, and 120°.
-The channel has perpendicular mitered width 1.5u. The original imported B path
-contains one redundant collinear vertex; the generator removes it without changing
-the outline. Tests compare regenerated coordinates with the retained original.
+The role marks are original vector primitives: Driver connector and node, ORM layers, MCP network, Cookbook book, Benchmark bars, Operator six-spoke control dial, Showcase play triangle, Docs lines, and Community people. The Operator dial is deliberately six-spoke and is not a Kubernetes logo.
 
-Colors identify implementation language. Python/Go/Rust colors are carried over
-from Study / 02. TypeScript is a separately proposed project token; no language
-logos are embedded. The Driver shape is **not** the organization-wide logo.
+## Color and identity
 
-## Status
+One role keeps the same geometry across languages. The root SVG color is taken only from [`tokens/colors.json`](../tokens/colors.json). Mixed-language repositories and non-repository surfaces use the Neutral token. The infographic's mismatched labels do not override actual repository languages: Drizzle is TypeScript, Benchmark is mixed-language/Neutral, and Showcase is Neutral until its identity is refined.
 
-Design direction approved; review of brand naming, non-infringement and graphics
-redistribution licensing remains pending. Do not deploy organization-level identity
-from a Driver-specific symbol.
+The [organization-mark study](../studies/organization/mark.svg) uses the same construction grammar but a separate three-color face treatment and no role glyph. Its colors come from [`tokens/organization.json`](../tokens/organization.json). It is a distinct identity candidate, not the Driver icon. Organization avatar rollout and rights review are tracked in [issue #3](https://github.com/cubrid-lab/brand/issues/3).
+
+## Provenance and status
+
+The former Connector Study / 02 Driver SVG and its numerical parameters remain unchanged under [`provenance/connector-study-02/`](../provenance/connector-study-02/). They document the superseded design; they are not inputs to the current generator. The current repo-role icons were selected for implementation in [issue #6](https://github.com/cubrid-lab/brand/issues/6). Design selection does not establish trademark clearance or a redistribution license.

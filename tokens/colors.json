@@ -1,11 +1,13 @@
 {
   "schema_version": 1,
-  "note": "CUBRID Lab project tokens, not official language or CUBRID brand colors. Rust restored to accepted Study / 02 palette; TypeScript is proposed.",
+  "note": "CUBRID Lab project tokens, not official language or CUBRID brand colors. Color follows implementation language; neutral is used for mixed-language or non-repository surfaces.",
   "languages": {
     "python": "#3776AB",
     "typescript": "#3178C6",
     "go": "#00ADD8",
     "rust": "#DEA384",
-    "neutral": "#5B6573"
+    "javascript": "#F7DF1E",
+    "ocaml": "#A34CC3",
+    "neutral": "#6B7280"
   }
 }

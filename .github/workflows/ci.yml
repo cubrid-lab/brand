@@ -20,4 +20,5 @@ jobs:
         run: |
           python scripts/build.py
           python -m unittest discover -s tests -v
-          git diff --exit-code -- src/driver.svg dist
+          git diff --exit-code -- src dist studies/icons studies/organization
+          test -z "$(git ls-files --others --exclude-standard -- src dist studies/icons studies/organization)"

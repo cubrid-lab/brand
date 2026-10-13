@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "design_id": "organization-cube-study-01",
+  "reference_image": "docs/studies/repository-icon-system-infographic.png",
+  "face_colors": {
+    "top": "#006BDA",
+    "left": "#00A36F",
+    "right": "#E60039"
+  },
+  "status": "pending-rights-review"
+}

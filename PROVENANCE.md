@@ -1,29 +1,25 @@
 # Provenance
 
-## Driver connector
+## Selected repository icon direction
 
-The initial Driver connector was developed during a CUBRID Lab branding design session in October 2026.
+In October 2026 the maintainer supplied the [repository icon-system infographic](docs/studies/repository-icon-system-infographic.png) and directed that its cube-based Driver replace the previous Driver, with individual role icons generated from the same visual direction. The image is retained byte-for-byte as a visual reference. Numeric construction parameters live in [`tokens/geometry.json`](tokens/geometry.json); [`scripts/build.py`](scripts/build.py) reconstructs the family as original vector geometry and produces all checked-in SVGs.
 
-Design constraints selected by the maintainer:
+The raster does not contain exact SVG paths or numerical stroke parameters. The generated vectors are an original reconstruction, not a pixel-exact extraction. The source image contains inconsistent language labels and presentation colors. Repository colors follow language tokens and the actual mapping: Drizzle is TypeScript, Benchmark is Neutral because it is multi-language, and Showcase is Neutral pending a stable implementation-language decision.
 
-- geometry must remain recognizable in monochrome,
-- color identifies implementation language,
-- shape identifies repository role,
-- Driver and ORM must have different silhouettes,
-- Driver should express connection without copying a plug, chain, Poké Ball, language logo, or existing CUBRID logo,
-- the mark must be reproducible from numeric geometry.
+The prior **Connector Study / 02** Driver SVG and its parameters remain unchanged under [`provenance/connector-study-02/`](provenance/connector-study-02/). That study was previously selected and restored after an incorrect bootstrap polygon. It is now superseded by the maintainer's newer cube-based direction; it is preserved as historical evidence rather than silently overwritten.
 
-AI-assisted ideation was used during exploration. The first bootstrap PR mistakenly used a **different** polygon. This correction restores the exact selected **Connector Study / 02** construction and retains the earlier original SVG verbatim under `provenance/connector-study-02/driver-python.svg`. Numeric parameters live in `tokens/geometry.json`; the generator uses the original closed-form construction, and tests compare vertex coordinates to the retained source. Generated SVGs are outputs, not independent sources.
+The role glyphs were drawn with simple vector primitives. The Operator uses a generic six-spoke control dial, not a Kubernetes logo. No official CUBRID, language, or other third-party logo was copied into the symbols.
 
-## Excluded concepts
+## Organization identity
 
-Earlier promotional illustrations, mascot concepts, and generated posters are **not** source assets and are intentionally excluded from this repository.
+The infographic also depicts a separate three-color CUBRID Lab cube and wordmark. Numeric face colors are recorded in [`tokens/organization.json`](tokens/organization.json), and the emblem plus two lockups are generated under `studies/organization/`. They are identity candidates for [issue #3](https://github.com/cubrid-lab/brand/issues/3), separate from the Driver role symbol. System font fallbacks are used for the text; no font file is bundled.
 
 ## Review state
 
-- Driver concept: design direction approved
-- Driver geometry: restored from original Connector Study / 02 and checked against the retained reference
-- Organization emblem / CUBRID Lab wordmark: pending (issue #3)
-- ORM / MCP / Operator / Cookbook symbols: pending
-- visual-asset redistribution license: pending
-- trademark / legal clearance: pending
+- Driver icon: the maintainer selected the cube-based direction, and its four variants are generated in `dist/icons/`.
+- Other role symbols: individual candidates are generated in `studies/icons/` and await explicit approval before release.
+- Organization emblem and wordmark: design and rights review pending (issue #3); no organization avatar or profile change has been made.
+- Visual-asset redistribution license: pending.
+- Trademark and legal clearance: pending.
+
+AI assistance was used to reconstruct the SVGs and prepare this documentation. Publication in this repository is not a grant of rights to use the visual assets.
