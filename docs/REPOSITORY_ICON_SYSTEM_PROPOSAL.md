@@ -2,7 +2,9 @@
 
 **Status:** Proposal for design review ([issue #4](https://github.com/cubrid-lab/brand/issues/4)). No new role symbol, organization mark, repository mapping, or language token is approved by this document. Legal and trademark review remains separate.
 
-This document records the content of a maintainer-supplied repository-icon infographic (October 2026). It is a study, not a source asset. The infographic itself is not checked in because its illustrated icons and organization mark are not reproducible from the canonical tokens, registry, and build script. The accepted Driver construction remains in [`tokens/geometry.json`](../tokens/geometry.json) and its immutable reference remains in [`provenance/connector-study-02/driver-python.svg`](../provenance/connector-study-02/driver-python.svg).
+This document records the content of a maintainer-supplied repository-icon infographic (October 2026). The original image is preserved below as an **unapproved design reference**, outside `dist/`. It is not a generated asset or a second source of truth for any icon or organization mark, and its inclusion does not expand the visual-asset license. The accepted Driver construction remains in [`tokens/geometry.json`](../tokens/geometry.json) and its immutable reference remains in [`provenance/connector-study-02/driver-python.svg`](../provenance/connector-study-02/driver-python.svg).
+
+![CUBRID Lab repository icon-system infographic, unapproved design study](studies/repository-icon-system-infographic.png)
 
 ## System concept
 
