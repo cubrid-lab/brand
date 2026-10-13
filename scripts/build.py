@@ -1,68 +1,87 @@
 #!/usr/bin/env python3
+"""Generate exact CUBRID Lab Connector Study / 02 Driver contours.
+
+All geometry is constructed analytically from the accepted study,
+not copied from the replacement polygon used by the first bootstrap PR.
+"""
 from __future__ import annotations
 
 import json
+import math
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-COLORS = json.loads((ROOT / "tokens/colors.json").read_text())["languages"]
-GEOMETRY = json.loads((ROOT / "tokens/geometry.json").read_text())
-REGISTRY = json.loads((ROOT / "registry/repositories.json").read_text())["repositories"]
-SRC = ROOT / "src/driver.svg"
+GEOMETRY = json.loads((ROOT / "tokens/geometry.json").read_text(encoding="utf-8"))
+COLORS = json.loads((ROOT / "tokens/colors.json").read_text(encoding="utf-8"))["languages"]
+REGISTRY = json.loads((ROOT / "registry/repositories.json").read_text(encoding="utf-8"))["repositories"]
 OUT = ROOT / "dist/icons"
+COLOR_RE = re.compile(r"^#[0-9A-Fa-f]{6}$")
 
 
-def number(value: int | float) -> str:
-    return str(int(value)) if float(value).is_integer() else str(value)
+def driver_polygons() -> tuple[list[tuple[float, float]], list[tuple[float, float]]]:
+    """Two congruent modules separated by the study's mitered 1.5-unit seam."""
+    s = math.sqrt(3)
+    d = GEOMETRY["seam_width"] / s
+    left = [
+        (6, 12 - 4 * s),
+        (2, 12),
+        (6, 12 + 4 * s),
+        (12 - d, 12 + 4 * s),
+        (10 - d, 12 + 2 * s),
+        (14 - d, 12 - 2 * s),
+        (12 - d, 12 - 4 * s),
+    ]
+    cx, cy = GEOMETRY["center"]
+    return left, [(2 * cx - x, 2 * cy - y) for x, y in left]
 
 
-def path_data(points: list[list[int | float]]) -> str:
-    commands = [f"M{number(points[0][0])} {number(points[0][1])}"]
-    commands.extend(f"L{number(x)} {number(y)}" for x, y in points[1:])
-    return " ".join(commands) + " Z"
+def path_data(points: list[tuple[float, float]]) -> str:
+    precision = GEOMETRY["decimal_places"]
+    return "M " + " L ".join(f"{x:.{precision}f} {y:.{precision}f}" for x, y in points) + " Z"
 
 
-def driver_paths() -> tuple[str, str]:
-    driver = GEOMETRY["driver"]
-    left = driver["left_points"]
-    axis = driver["mirror_axis_x"]
-    right = [[2 * axis - x, y] for x, y in left]
-    return path_data(left), path_data(right)
-
-
-def render(color: str, label: str) -> str:
-    view_box = " ".join(number(v) for v in GEOMETRY["view_box"])
-    left, right = driver_paths()
+def render(color: str, key: str) -> str:
+    if color != "currentColor" and not COLOR_RE.fullmatch(color):
+        raise ValueError("invalid color")
+    if not re.fullmatch(r"[a-z][a-z0-9-]*", key):
+        raise ValueError("invalid identifier")
+    coords = " ".join(str(n) for n in GEOMETRY["view_box"])
+    paths = "\n".join(f'    <path d="{path_data(poly)}"/>' for poly in driver_polygons())
     return (
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{view_box}" '
-        f'role="img" aria-label="{label} Driver symbol">\n'
-        "  <!-- Generated from tokens/geometry.json. Do not edit geometry here. -->\n"
-        "  <!-- Design-approved direction; legal/trademark clearance pending. -->\n"
-        f'  <path id="left" d="{left}" fill="{color}"/>\n'
-        f'  <path id="right" d="{right}" fill="{color}"/>\n'
-        "</svg>\n"
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{coords}" color="{color}"\n'
+        f'     role="img" aria-labelledby="{key}-title {key}-desc">\n'
+        f'  <title id="{key}-title">CUBRID Lab geometric Driver — {key}</title>\n'
+        f'  <desc id="{key}-desc">Connector Study / 02: two matching polygons related by a 180-degree rotation, '
+        'with a 1.5-unit mitered seam. Design accepted; legal clearance pending.</desc>\n'
+        '  <g fill="currentColor">\n'
+        f'{paths}\n'
+        '  </g>\n'
+        '</svg>\n'
     )
 
 
-def main() -> None:
-    OUT.mkdir(parents=True, exist_ok=True)
-
-    # Neutral template is generated too, so geometry.json remains the single source of truth.
-    SRC.write_text(render("currentColor", "CUBRID Lab"), encoding="utf-8")
-
-    expected: set[str] = set()
+def outputs() -> dict[Path, str]:
+    expected = {ROOT / "src/driver.svg": render("currentColor", "driver")}
     for repo, meta in sorted(REGISTRY.items()):
-        if meta["role"] != "driver" or meta["status"] != "approved":
-            continue
-        color = COLORS[meta["language"]]
-        target = OUT / f"{repo}.svg"
-        expected.add(target.name)
-        target.write_text(render(color, repo), encoding="utf-8")
+        if meta["role"] == "driver" and meta["status"] == "approved":
+            expected[OUT / f"{repo}.svg"] = render(COLORS[meta["language"]], repo)
+    return expected
 
-    # Prevent stale approved assets when mappings are removed or renamed.
-    for target in OUT.glob("*.svg"):
-        if target.name not in expected:
-            target.unlink()
+
+def main() -> None:
+    assert GEOMETRY["design_id"] == "connector-study-02"
+    assert GEOMETRY["view_box"] == [0, 0, 24, 24]
+    assert GEOMETRY["center"] == [12, 12]
+    assert GEOMETRY["seam_width"] == 1.5
+    expected = outputs()
+    OUT.mkdir(parents=True, exist_ok=True)
+    for target, content in expected.items():
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(content, encoding="utf-8")
+    for stale in OUT.glob("*.svg"):
+        if stale not in expected:
+            stale.unlink()
 
 
 if __name__ == "__main__":

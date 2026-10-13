@@ -13,7 +13,7 @@ Design constraints selected by the maintainer:
 - Driver should express connection without copying a plug, chain, Poké Ball, language logo, or existing CUBRID logo,
 - the mark must be reproducible from numeric geometry.
 
-AI-assisted ideation was used during exploration. The checked-in Driver geometry was deliberately reconstructed as numeric points controlled by `tokens/geometry.json`. Generated SVGs are outputs of those repository-controlled coordinates and are not independent geometry sources.
+AI-assisted ideation was used during exploration. The first bootstrap PR mistakenly used a **different** polygon. This correction restores the exact selected **Connector Study / 02** construction and retains the earlier original SVG verbatim under `provenance/connector-study-02/driver-python.svg`. Numeric parameters live in `tokens/geometry.json`; the generator uses the original closed-form construction, and tests compare vertex coordinates to the retained source. Generated SVGs are outputs, not independent sources.
 
 ## Excluded concepts
 
@@ -22,7 +22,8 @@ Earlier promotional illustrations, mascot concepts, and generated posters are **
 ## Review state
 
 - Driver concept: design direction approved
-- Driver geometry: checked in for engineering review
+- Driver geometry: restored from original Connector Study / 02 and checked against the retained reference
+- Organization emblem / CUBRID Lab wordmark: pending (issue #3)
 - ORM / MCP / Operator / Cookbook symbols: pending
 - visual-asset redistribution license: pending
 - trademark / legal clearance: pending

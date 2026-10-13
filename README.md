@@ -11,7 +11,7 @@ The system follows two rules:
 - **Shape = technical role**
 - **Color = implementation language**
 
-The first approved role symbol is **Driver**: two mirrored geometric modules joined around a central channel. It represents a driver bridging an application runtime and CUBRID while remaining visually distinct from the vertically layered ORM concept.
+The first design-approved role symbol is **Driver**, restored to the original **Connector Study / 02** geometry: two congruent modules rotated 180° about the 24×24 canvas center, with 0°/60°/120° edges and a 1.5-unit mitered seam. See [the numerical construction](docs/GEOMETRY.md) and the preserved [approved prototype](provenance/connector-study-02/driver-python.svg).
 
 Current language tokens:
 
@@ -20,9 +20,13 @@ Current language tokens:
 | Python | `python` | `#3776AB` |
 | TypeScript | `typescript` | `#3178C6` |
 | Go | `go` | `#00ADD8` |
-| Rust | `rust` | `#CE422B` |
+| Rust | `rust` | `#DEA384` |
 
-These colors are **CUBRID Lab design tokens**, not claims about official CUBRID brand colors.
+These colors are **CUBRID Lab design tokens**, not claims about official CUBRID brand colors. The Python, Go, and Rust variants preserve the selected Connector Study / 02 colors; TypeScript remains an extension proposal.
+
+## Organization identity
+
+**CUBRID Lab** is the organization name and future wordmark. The Driver connector is a repository **role symbol**, **not** the organization logo. A separate organization-level emblem, wordmark, and profile/avatar rollout require design and rights review; see [issue #3](https://github.com/cubrid-lab/brand/issues/3). The GitHub handle remains `cubrid-lab`.
 
 ## Repository mapping
 
@@ -45,7 +49,7 @@ Pending role-symbol approval:
 
 ## Source of truth
 
-`tokens/geometry.json` is the canonical numeric geometry. `scripts/build.py` deterministically generates the neutral Driver template and all approved repository variants from that geometry, the language-color tokens, and the repository registry.
+`tokens/geometry.json` is the canonical numerical parameters of accepted Connector Study / 02. `scripts/build.py` deterministically generates the neutral Driver template and all approved repository variants from that geometry, the language-color tokens, and the repository registry.
 
 ```text
 tokens/              canonical geometry and language colors
@@ -54,7 +58,8 @@ scripts/             deterministic asset generation
 src/                 generated neutral role template
 dist/                generated approved repository assets
 tests/               geometry, mapping, and generation invariants
-docs/                design rationale and Korean guide
+docs/                exact construction and Korean guide
+provenance/          immutable accepted visual reference
 ```
 
 Do not edit generated SVG geometry directly.

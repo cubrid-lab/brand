@@ -1,6 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="cubrid-client Driver symbol">
-  <!-- Generated from tokens/geometry.json. Do not edit geometry here. -->
-  <!-- Design-approved direction; legal/trademark clearance pending. -->
-  <path id="left" d="M2 6 L7 3 L11 5.3 L11 9 L8 7.3 L6 8.5 L6 15.5 L8 16.7 L11 15 L11 18.7 L7 21 L2 18 L4 16.8 L4 7.2 Z" fill="#3178C6"/>
-  <path id="right" d="M22 6 L17 3 L13 5.3 L13 9 L16 7.3 L18 8.5 L18 15.5 L16 16.7 L13 15 L13 18.7 L17 21 L22 18 L20 16.8 L20 7.2 Z" fill="#3178C6"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="#3178C6"
+     role="img" aria-labelledby="cubrid-client-title cubrid-client-desc">
+  <title id="cubrid-client-title">CUBRID Lab geometric Driver — cubrid-client</title>
+  <desc id="cubrid-client-desc">Connector Study / 02: two matching polygons related by a 180-degree rotation, with a 1.5-unit mitered seam. Design accepted; legal clearance pending.</desc>
+  <g fill="currentColor">
+    <path d="M 6.000000000 5.071796770 L 2.000000000 12.000000000 L 6.000000000 18.928203230 L 11.133974596 18.928203230 L 9.133974596 15.464101615 L 13.133974596 8.535898385 L 11.133974596 5.071796770 Z"/>
+    <path d="M 18.000000000 18.928203230 L 22.000000000 12.000000000 L 18.000000000 5.071796770 L 12.866025404 5.071796770 L 14.866025404 8.535898385 L 10.866025404 15.464101615 L 12.866025404 18.928203230 Z"/>
+  </g>
 </svg>

@@ -7,7 +7,7 @@ This repository is the source of truth for CUBRID Lab brand geometry, tokens, ge
 ## Rules
 
 1. **Shape = technical role; color = implementation language.**
-2. `tokens/geometry.json` is the canonical geometry source. Generated SVG geometry must never become a second source of truth.
+2. `tokens/geometry.json` defines the accepted `connector-study-02` parameters. `scripts/build.py` implements its closed-form geometry; both must agree with the immutable source at `provenance/connector-study-02/driver-python.svg`. Generated SVG geometry must never become a second source of truth.
 3. Never assign a repository-specific color directly when a language token exists.
 4. Do not copy third-party logos into role symbols.
 5. Do not describe CUBRID Lab token colors as official CUBRID brand colors.
@@ -16,6 +16,7 @@ This repository is the source of truth for CUBRID Lab brand geometry, tokens, ge
 8. Generated assets must be reproducible from `tokens/`, `registry/`, and `scripts/`.
 9. Legal/trademark review status must remain separate from design approval.
 10. Do not broaden the visual-asset license while rights/trademark review is pending.
+11. The Driver role icon is not the CUBRID Lab organization logo. Design the organization mark separately (issue #3), and do not silently repurpose role icons.
 
 ## Workflow
 

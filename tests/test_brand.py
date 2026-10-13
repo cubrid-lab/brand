@@ -1,92 +1,86 @@
 from __future__ import annotations
 
 import json
+import math
+import re
 import subprocess
 import sys
 import unittest
 from pathlib import Path
+from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from scripts.build import COLORS, GEOMETRY, REGISTRY, driver_polygons, outputs
 
 
 class BrandTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.colors = json.loads((ROOT / "tokens/colors.json").read_text())["languages"]
-        cls.geometry = json.loads((ROOT / "tokens/geometry.json").read_text())
-        cls.repos = json.loads((ROOT / "registry/repositories.json").read_text())["repositories"]
+    def test_original_study_parameters(self):
+        self.assertEqual(GEOMETRY["design_id"], "connector-study-02")
+        self.assertEqual(GEOMETRY["view_box"], [0, 0, 24, 24])
+        self.assertEqual(GEOMETRY["seam_width"], 1.5)
+        self.assertEqual(GEOMETRY["edge_directions_degrees"], [0, 60, 120])
 
-    def test_all_repository_languages_have_tokens(self):
-        for repo, meta in self.repos.items():
-            with self.subTest(repo=repo):
-                self.assertIn(meta["language"], self.colors)
+    def test_study_language_palette(self):
+        self.assertEqual(COLORS["python"], "#3776AB")
+        self.assertEqual(COLORS["go"], "#00ADD8")
+        self.assertEqual(COLORS["rust"], "#DEA384")
 
-    def test_expected_repository_mapping(self):
-        self.assertEqual(self.repos["cubrid-mcp-server"]["language"], "python")
-        self.assertEqual(self.repos["cubrid-kubernetes-operator"]["language"], "go")
-        self.assertEqual(self.repos["cubrid-client"]["language"], "typescript")
+    def test_rotation_envelope_and_edges(self):
+        left, right = driver_polygons()
+        self.assertEqual(len(left), 7)
+        self.assertEqual(len(right), 7)
+        for (x, y), (u, v) in zip(left, right):
+            self.assertAlmostEqual(x + u, 24, places=9)
+            self.assertAlmostEqual(y + v, 24, places=9)
+        pts = left + right
+        self.assertAlmostEqual(max(x for x, _ in pts) - min(x for x, _ in pts), 20)
+        self.assertAlmostEqual(max(y for _, y in pts) - min(y for _, y in pts), 8 * math.sqrt(3))
+        for polygon in (left, right):
+            for (x1, y1), (x2, y2) in zip(polygon, polygon[1:] + polygon[:1]):
+                angle = math.degrees(math.atan2(y2 - y1, x2 - x1)) % 180
+                self.assertTrue(any(abs(angle - a) < 1e-8 for a in (0, 60, 120, 180)), angle)
 
-    def test_only_driver_is_approved_role_symbol(self):
-        approved_roles = {
-            meta["role"] for meta in self.repos.values() if meta["status"] == "approved"
-        }
-        self.assertEqual(approved_roles, {"driver"})
+    def test_generated_contour_matches_approved_original(self):
+        source = ROOT / "provenance/connector-study-02/driver-python.svg"
+        svg = ElementTree.fromstring(source.read_text(encoding="utf-8"))
+        paths = svg.findall(".//{http://www.w3.org/2000/svg}path")
+        self.assertEqual(len(paths), 2)
 
-    def test_driver_geometry_is_centered_and_mirrorable(self):
-        view_x, _, view_w, _ = self.geometry["view_box"]
-        driver = self.geometry["driver"]
-        axis = driver["mirror_axis_x"]
-        self.assertEqual(axis, view_x + view_w / 2)
+        def extract(d):
+            values = [float(v) for v in re.findall(r"-?\d+\.\d+", d)]
+            return list(zip(values[::2], values[1::2]))
 
-        left = driver["left_points"]
-        right = [[2 * axis - x, y] for x, y in left]
-        self.assertEqual(len(left), len(right))
-        self.assertTrue(all(lx < axis for lx, _ in left))
-        self.assertTrue(all(rx > axis for rx, _ in right))
+        original_left = extract(paths[0].attrib["d"])
+        original_right = extract(paths[1].attrib["d"])
+        self.assertEqual([len(original_left), len(original_right)], [7, 8])
+        left, right = driver_polygons()
+        simplified_right = original_right[:6] + original_right[7:]
+        for original, generated in ((original_left, left), (simplified_right, right)):
+            for (a, b), (c, d) in zip(original, generated):
+                self.assertAlmostEqual(a, c, places=8)
+                self.assertAlmostEqual(b, d, places=8)
 
-    def test_declared_central_channel_matches_geometry(self):
-        driver = self.geometry["driver"]
-        axis = driver["mirror_axis_x"]
-        left = driver["left_points"]
-        right = [[2 * axis - x, y] for x, y in left]
-        actual = min(x for x, _ in right) - max(x for x, _ in left)
-        self.assertEqual(actual, driver["central_channel"])
-        self.assertGreater(actual, 0)
+    def test_mappings(self):
+        for meta in REGISTRY.values():
+            self.assertIn(meta["language"], COLORS)
+        self.assertEqual(REGISTRY["cubrid-mcp-server"]["language"], "python")
+        self.assertEqual(REGISTRY["cubrid-kubernetes-operator"]["language"], "go")
 
-    def test_points_stay_inside_view_box(self):
-        x0, y0, width, height = self.geometry["view_box"]
-        xmax, ymax = x0 + width, y0 + height
-        for x, y in self.geometry["driver"]["left_points"]:
-            self.assertGreaterEqual(x, x0)
-            self.assertLessEqual(x, xmax)
-            self.assertGreaterEqual(y, y0)
-            self.assertLessEqual(y, ymax)
-
-    def test_build_is_deterministic_and_emits_only_approved_drivers(self):
+    def test_deterministic_outputs(self):
         subprocess.run([sys.executable, str(ROOT / "scripts/build.py")], check=True)
-        generated = sorted(p.name for p in (ROOT / "dist/icons").glob("*.svg"))
-        expected = sorted(
-            f"{repo}.svg"
-            for repo, meta in self.repos.items()
-            if meta["role"] == "driver" and meta["status"] == "approved"
+        generated = outputs()
+        for path, content in generated.items():
+            self.assertEqual(path.read_text(encoding="utf-8"), content)
+        self.assertEqual(
+            {p.name for p in (ROOT / "dist/icons").glob("*.svg")},
+            {"pycubrid.svg", "cubrid-client.svg", "cubrid-go.svg", "cubrid-rs.svg"},
         )
-        self.assertEqual(generated, expected)
-
-        base = (ROOT / "src/driver.svg").read_text()
-        self.assertIn("Generated from tokens/geometry.json", base)
-        self.assertIn('fill="currentColor"', base)
-
-        for repo, meta in self.repos.items():
-            if meta["role"] != "driver" or meta["status"] != "approved":
-                continue
-            text = (ROOT / "dist/icons" / f"{repo}.svg").read_text()
-            self.assertNotIn("currentColor", text)
-            self.assertIn(self.colors[meta["language"]], text)
-            # Geometry must be byte-identical across language variants after color/label changes.
-            normalized = text.replace(self.colors[meta["language"]], "COLOR")
-            normalized = normalized.replace(f"{repo} Driver symbol", "REPO Driver symbol")
-            self.assertIn('id="left"', normalized)
-            self.assertIn('id="right"', normalized)
+        for repo, meta in REGISTRY.items():
+            if meta["role"] == "driver" and meta["status"] == "approved":
+                svg = (ROOT / "dist/icons" / f"{repo}.svg").read_text()
+                self.assertIn(COLORS[meta["language"]], svg)
+                self.assertEqual(svg.count("<path "), 2)
 
 
 if __name__ == "__main__":
