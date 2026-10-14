@@ -27,7 +27,7 @@ These are **CUBRID Lab design tokens**, not official CUBRID brand colors or clai
 
 ## Repository and surface mapping
 
-Machine-readable mappings live in [`registry/repositories.json`](registry/repositories.json). `dist/icons/` contains the four selected Driver variants. The other nine repository icons and two concept surfaces are generated under `studies/icons/` pending symbol approval. `docs` and `community` are not asserted to be repository names.
+Machine-readable mappings live in [`registry/repositories.json`](registry/repositories.json). `dist/icons/` contains the seven approved repository icons: the four Driver variants and, approved by the maintainer on 2026-10-14 ([issue #6](https://github.com/cubrid-lab/brand/issues/6)), the Python ORM (`sqlalchemy-cubrid`), MCP (`cubrid-mcp-server`), and Cookbook (`cubrid-cookbook-python`) icons. The other six repository icons and two concept surfaces are generated under `studies/icons/` pending symbol approval. `docs` and `community` are not asserted to be repository names.
 
 Role geometry is common across repositories with the same role. The six-spoke Operator control dial is an original generic mark and does not copy the Kubernetes logo or any other third-party logo.
 
@@ -42,7 +42,7 @@ tokens/              numeric geometry, language colors, organization study color
 registry/            repository and concept-surface mappings
 scripts/             deterministic SVG generation
 src/                 generated color-inheriting role templates
-dist/icons/           generated selected Driver variants
+dist/icons/           generated approved repository icons
 studies/icons/        generated individual symbol candidates (pending review)
 studies/organization/ generated organization-identity candidates (pending review)
 docs/                construction, gallery, and visual-reference study

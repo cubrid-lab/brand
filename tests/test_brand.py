@@ -23,6 +23,17 @@ from scripts.build import (
 )
 
 SVG = "{http://www.w3.org/2000/svg}"
+# Role symbols the maintainer explicitly approved (AGENTS.md rule 6): the four
+# Driver variants, and on 2026-10-14 the Python ORM, MCP and Cookbook symbols (#6).
+APPROVED = {
+    "pycubrid",
+    "cubrid-client",
+    "cubrid-go",
+    "cubrid-rs",
+    "sqlalchemy-cubrid",
+    "cubrid-mcp-server",
+    "cubrid-cookbook-python",
+}
 
 
 class BrandTests(unittest.TestCase):
@@ -65,7 +76,7 @@ class BrandTests(unittest.TestCase):
                 self.assertIn(meta["role"], ROLES)
                 self.assertIn(meta["language"], COLORS)
                 self.assertIn(meta["status"], {"approved", "pending-symbol"})
-                self.assertEqual(meta["status"] == "approved", meta["role"] == "driver")
+                self.assertEqual(meta["status"] == "approved", name in APPROVED)
 
     def test_role_geometry_is_shared_across_languages(self):
         shapes = set()
