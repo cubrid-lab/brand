@@ -60,9 +60,11 @@ under `studies/icons/`; an absent icon in those repositories is not a broken
 integration. Record explicit maintainer approval before promoting or applying
 them. The registry remains authoritative as approvals change.
 
-The organization emblem and wordmark have their own review under
-[issue #3](https://github.com/cubrid-lab/brand/issues/3). A repository's role icon
-must not become the organization avatar or organization-site logo.
+The organization emblem has separate scoped approval and
+[usage guidance](ORGANIZATION_MARK_USAGE.md). Wordmark and broader legal/license
+review remain under [issue #3](https://github.com/cubrid-lab/brand/issues/3).
+A repository's role icon must not become the organization avatar or
+organization-site logo.
 
 ## Verification
 

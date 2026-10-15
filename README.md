@@ -9,7 +9,7 @@ Canonical brand-system source for CUBRID Lab.
 - **Shape = technical role.** Nine role symbols share one 24×24 isometric construction grammar and use distinct internal marks.
 - **Color = implementation language.** Every repository variant uses a language token; mixed-language repositories and non-repository surfaces use Neutral.
 
-The maintainer selected the [cube-based infographic](docs/studies/repository-icon-system-infographic.png) to replace the former Driver drawing and build out the individual icon family. The [icon gallery](docs/ICON_GALLERY.md) previews all 15 generated variants and the separate organization-mark study. The [numerical construction](docs/GEOMETRY.md) documents the SVG reconstruction. The raster is a visual reference, not a source of generated geometry.
+The maintainer selected the [cube-based infographic](docs/studies/repository-icon-system-infographic.png) to replace the former Driver drawing and build out the individual icon family. The [icon gallery](docs/ICON_GALLERY.md) previews all 15 generated variants, the separate organization emblem, and wordmark studies. The [numerical construction](docs/GEOMETRY.md) documents the SVG reconstruction. The raster is a visual reference, not a source of generated geometry.
 
 Current language and neutral tokens are defined in [`tokens/colors.json`](tokens/colors.json):
 
@@ -35,18 +35,19 @@ See [Applying repository icons](docs/REPOSITORY_ICON_USAGE.md) for the shared RE
 
 ## Organization identity
 
-The [three-color organization-mark study](studies/organization/mark.svg) and its [horizontal](studies/organization/lockup-horizontal.svg) and [stacked](studies/organization/lockup-stacked.svg) lockups are separate from role icons. They are review candidates under [issue #3](https://github.com/cubrid-lab/brand/issues/3). The GitHub organization avatar and profile remain unchanged until design and rights review is recorded. The GitHub handle remains `cubrid-lab`.
+The [three-color organization emblem](dist/organization/mark.svg) is separate from role icons. On 2026-10-15 the maintainer approved its design and use as the CUBRID Lab organization avatar and profile mark, recorded in [issue #3](https://github.com/cubrid-lab/brand/issues/3). The [horizontal](studies/organization/lockup-horizontal.svg) and [stacked](studies/organization/lockup-stacked.svg) wordmark lockups remain review candidates. General redistribution licensing and independent legal/trademark clearance remain pending. See [Organization mark usage](docs/ORGANIZATION_MARK_USAGE.md) for the scoped approval and rollout. The GitHub handle remains `cubrid-lab`.
 
 ## Source of truth
 
 ```text
-tokens/              numeric geometry, language colors, organization study colors
+tokens/              numeric geometry, language colors, scoped organization approval
 registry/            repository and concept-surface mappings
 scripts/             deterministic SVG generation
 src/                 generated color-inheriting role templates
 dist/icons/           generated approved repository icons
+dist/organization/    generated organization emblem approved for own-organization use
 studies/icons/        generated individual symbol candidates (pending review)
-studies/organization/ generated organization-identity candidates (pending review)
+studies/organization/ generated wordmark candidates (pending review)
 docs/                construction, gallery, and visual-reference study
 provenance/          immutable superseded Connector Study / 02 reference
 ```
@@ -68,6 +69,6 @@ CI uses `python` on its Python 3.12 runner.
 
 Code in `scripts/` and `tests/` is MIT-licensed. Visual marks and generated brand assets are **not yet licensed for redistribution** while asset licensing and trademark review are pending. See [LICENSE](LICENSE), [BRAND_USAGE.md](BRAND_USAGE.md), and [PROVENANCE.md](PROVENANCE.md).
 
-Design selection for repository icons does **not** mean trademark, non-infringement, or formal legal review is complete. The organization mark is still a candidate and must not be deployed as the organization avatar before its separate review.
+Design selection for repository icons does **not** mean trademark, non-infringement, or formal legal review is complete. The organization emblem's scoped design and own-organization-use approval does not broaden the visual-asset redistribution license or approve the wordmark candidates.
 
 Refs #3, #4, #6.

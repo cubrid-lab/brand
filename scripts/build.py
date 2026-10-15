@@ -1,4 +1,4 @@
-"""Build CUBRID Lab role icons and the organization-mark study from numeric tokens."""
+"""Build CUBRID Lab role icons and organization identity from numeric tokens."""
 from __future__ import annotations
 
 import json
@@ -116,11 +116,27 @@ def organization_faces() -> str:
     return "\n".join(f'  <path d="{path_data(faces[face])}" fill="{colors[face]}"/>' for face in ("top", "left", "right"))
 
 
+def organization_emblem_approved() -> bool:
+    approval = ORGANIZATION["emblem"]
+    statuses = (approval["design_status"], approval["organization_use_rights_status"])
+    if any(status not in {"approved", "pending"} for status in statuses):
+        raise ValueError("invalid organization approval status")
+    return all(status == "approved" for status in statuses)
+
+
 def render_organization_mark() -> str:
+    approved = organization_emblem_approved()
+    title = "CUBRID Lab organization emblem" + ("" if approved else " study")
+    description = (
+        "Three-color cube. Design and CUBRID Lab organization avatar/profile use approved; "
+        "general redistribution license and legal clearance pending."
+        if approved
+        else "Three-color cube concept; design and rights review pending."
+    )
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="org-title org-desc">\n'
-        '  <title id="org-title">CUBRID Lab organization emblem study</title>\n'
-        '  <desc id="org-desc">Three-color cube concept; design and rights review pending.</desc>\n'
+        f'  <title id="org-title">{title}</title>\n'
+        f'  <desc id="org-desc">{description}</desc>\n'
         f'{organization_faces()}\n'
         '</svg>\n'
     )
@@ -160,7 +176,8 @@ def outputs() -> dict[Path, str]:
         expected[destination / f"{name}.svg"] = render_icon(
             meta["role"], COLORS[meta["language"]], name, meta["status"]
         )
-    expected[ROOT / "studies/organization/mark.svg"] = render_organization_mark()
+    organization_directory = "dist/organization" if organization_emblem_approved() else "studies/organization"
+    expected[ROOT / organization_directory / "mark.svg"] = render_organization_mark()
     for layout in ("horizontal", "stacked"):
         expected[ROOT / "studies/organization" / f"lockup-{layout}.svg"] = render_organization_lockup(layout)
     return expected
@@ -174,7 +191,7 @@ def main() -> None:
     for target, content in expected.items():
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(content, encoding="utf-8")
-    for directory in (OUT, STUDY_OUT):
+    for directory in (OUT, STUDY_OUT, ROOT / "dist/organization", ROOT / "studies/organization"):
         for stale in directory.glob("*.svg"):
             if stale not in expected:
                 stale.unlink()

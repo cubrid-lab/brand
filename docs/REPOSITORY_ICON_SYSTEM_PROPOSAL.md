@@ -2,6 +2,8 @@
 
 **Status:** Historical design study from [issue #4](https://github.com/cubrid-lab/brand/issues/4). The maintainer subsequently selected its icon direction for implementation in [issue #6](https://github.com/cubrid-lab/brand/issues/6). See the current [icon gallery](ICON_GALLERY.md). Organization identity, legal, and trademark review remain separate.
 
+For the current emblem approval and deployment guidance, see [Organization mark usage](ORGANIZATION_MARK_USAGE.md).
+
 This document records the content of a maintainer-supplied repository-icon infographic (October 2026). The original image is preserved below as a **selected visual reference**, outside `dist/`. It is not a generated asset or a second source of SVG geometry, and its inclusion does not expand the visual-asset license. The current Driver construction is in [`tokens/geometry.json`](../tokens/geometry.json); the former Connector Study / 02 remains unchanged as [historical provenance](../provenance/connector-study-02/driver-python.svg).
 
 ![CUBRID Lab repository icon-system infographic, selected visual study](studies/repository-icon-system-infographic.png)

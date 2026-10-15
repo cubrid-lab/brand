@@ -15,7 +15,7 @@ The repository role icons in this repository are original CUBRID Lab geometric r
 - permission to imply endorsement,
 - permission to modify or redistribute any official CUBRID trademark asset.
 
-The three-color organization emblem and wordmark are separate candidates. They must not be deployed to the GitHub organization avatar or profile until their design and rights review under [issue #3](https://github.com/cubrid-lab/brand/issues/3) is recorded.
+On 2026-10-15 the maintainer explicitly approved the three-color organization emblem's design and rights for use as the CUBRID Lab organization avatar and profile mark, recorded in [issue #3](https://github.com/cubrid-lab/brand/issues/3). This authorization covers that emblem and those organization surfaces only. The horizontal and stacked wordmark lockups remain review candidates.
 
 ## Visual-asset license status
 
@@ -23,18 +23,20 @@ The MIT license in this repository covers only `scripts/` and `tests/`. The name
 
 Publication in this public repository should not be interpreted as a grant of trademark rights or a general license to reuse the visual marks.
 
+The emblem's recorded own-organization-use authorization is separate from this pending general redistribution license. It is not a statement that independent legal or trademark clearance has been completed.
+
 ## Third-party marks and language identifiers
 
 Language colors are internal visual tokens. The generated icons do not include Python, TypeScript, Go, Rust, Kubernetes, or other third-party logos. The Operator's six-spoke control dial is not the Kubernetes logo.
 
-## Before organization-wide deployment
+## Broader use and remaining review
 
-Before using a CUBRID Lab identity mark as the organization avatar or in the profile, maintainers should complete and record:
+The scoped emblem authorization above does not claim that independent similarity or trademark searches were performed. Before broader use or granting a general visual-asset license, maintainers should complete and record:
 
 1. confusing-similarity review,
 2. relevant trademark searches,
 3. confirmation of the intended use of the CUBRID name,
 4. asset-license and creator-rights approval,
-5. final human design review.
+5. final human design review of any additional identity assets, including the pending wordmark lockups.
 
 This document is project governance, not legal advice.
