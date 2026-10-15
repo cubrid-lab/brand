@@ -31,6 +31,8 @@ Machine-readable mappings live in [`registry/repositories.json`](registry/reposi
 
 Role geometry is common across repositories with the same role. The six-spoke Operator control dial is an original generic mark and does not copy the Kubernetes logo or any other third-party logo.
 
+See [Applying repository icons](docs/REPOSITORY_ICON_USAGE.md) for the shared README header, immutable asset URLs, documentation-site configuration, and rollout inventory.
+
 ## Organization identity
 
 The [three-color organization-mark study](studies/organization/mark.svg) and its [horizontal](studies/organization/lockup-horizontal.svg) and [stacked](studies/organization/lockup-stacked.svg) lockups are separate from role icons. They are review candidates under [issue #3](https://github.com/cubrid-lab/brand/issues/3). The GitHub organization avatar and profile remain unchanged until design and rights review is recorded. The GitHub handle remains `cubrid-lab`.
