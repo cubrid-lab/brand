@@ -14,7 +14,7 @@
     "cubrid-mcp-server": {"role": "mcp", "language": "python", "status": "approved"},
     "cubrid-cookbook-python": {"role": "cookbook", "language": "python", "status": "approved"},
     "cubrid-benchmark": {"role": "benchmark", "language": "neutral", "status": "pending-symbol"},
-    "cubrid-kubernetes-operator": {"role": "operator", "language": "go", "status": "pending-symbol"},
+    "cubrid-kubernetes-operator": {"role": "operator", "language": "go", "status": "approved"},
     "showcase": {"role": "showcase", "language": "neutral", "status": "pending-symbol"}
   },
   "surfaces": {
