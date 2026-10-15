@@ -39,10 +39,10 @@ The same generated Driver SVG is shown at the study's requested sizes:
 | --- | --- | --- | --- | --- |
 | <img src="../dist/icons/pycubrid.svg" width="16" alt="Driver at 16 pixels"> | <img src="../dist/icons/pycubrid.svg" width="24" alt="Driver at 24 pixels"> | <img src="../dist/icons/pycubrid.svg" width="32" alt="Driver at 32 pixels"> | <img src="../dist/icons/pycubrid.svg" width="48" alt="Driver at 48 pixels"> | <img src="../dist/icons/pycubrid.svg" width="64" alt="Driver at 64 pixels"> |
 
-## Organization identity study
+## Organization identity
 
-The organization mark is separate from every repository role icon. The mark and lockups remain outside `dist/` while design and rights review under [issue #3](https://github.com/cubrid-lab/brand/issues/3) is pending. The wordmark uses system sans-serif fallbacks; no third-party font is bundled.
+The organization emblem is separate from every repository role icon. Its design and CUBRID Lab avatar/profile use were approved on 2026-10-15 under [issue #3](https://github.com/cubrid-lab/brand/issues/3), and it is generated in `dist/organization/`. The wordmark lockups remain review candidates outside `dist/` and use system sans-serif fallbacks; no third-party font is bundled. General redistribution licensing and independent legal/trademark clearance remain pending.
 
 | Avatar at 16 px | Avatar at 64 px | Horizontal lockup | Stacked lockup |
 | --- | --- | --- | --- |
-| <img src="../studies/organization/mark.svg" width="16" alt="Organization-mark study at 16 pixels"> | <img src="../studies/organization/mark.svg" width="64" alt="Organization-mark study at 64 pixels"> | <img src="../studies/organization/lockup-horizontal.svg" width="240" alt="Horizontal organization lockup study"> | <img src="../studies/organization/lockup-stacked.svg" width="120" alt="Stacked organization lockup study"> |
+| <img src="../dist/organization/mark.svg" width="16" alt="Organization emblem at 16 pixels"> | <img src="../dist/organization/mark.svg" width="64" alt="Organization emblem at 64 pixels"> | <img src="../studies/organization/lockup-horizontal.svg" width="240" alt="Horizontal organization lockup study"> | <img src="../studies/organization/lockup-stacked.svg" width="120" alt="Stacked organization lockup study"> |

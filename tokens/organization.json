@@ -7,5 +7,13 @@
     "left": "#00A36F",
     "right": "#E60039"
   },
-  "status": "pending-rights-review"
+  "emblem": {
+    "design_status": "approved",
+    "organization_use_rights_status": "approved",
+    "approved_on": "2026-10-15",
+    "approval_issue": "https://github.com/cubrid-lab/brand/issues/3"
+  },
+  "wordmarks_status": "pending-review",
+  "legal_clearance_status": "pending",
+  "redistribution_license_status": "pending"
 }

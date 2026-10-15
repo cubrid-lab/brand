@@ -6,10 +6,13 @@ import subprocess
 import sys
 import unittest
 from pathlib import Path
+from tempfile import TemporaryDirectory
+from unittest.mock import patch
 from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from scripts import build
 from scripts.build import (
     COLORS,
     GEOMETRY,
@@ -39,6 +42,61 @@ APPROVED = {
 
 
 class BrandTests(unittest.TestCase):
+    def test_organization_emblem_has_scoped_approval(self):
+        generated = outputs()
+        mark = ROOT / "dist/organization/mark.svg"
+        self.assertIn(mark, generated.keys())
+        self.assertNotIn(ROOT / "studies/organization/mark.svg", generated)
+        svg = ElementTree.fromstring(generated[mark])
+        self.assertIn("organization avatar/profile use approved", svg.find(SVG + "desc").text)
+        self.assertIn("legal clearance pending", svg.find(SVG + "desc").text)
+        self.assertEqual(ORGANIZATION["legal_clearance_status"], "pending")
+        self.assertEqual(ORGANIZATION["redistribution_license_status"], "pending")
+        self.assertEqual(ORGANIZATION["wordmarks_status"], "pending-review")
+        with patch.dict(ORGANIZATION, {"emblem": {"design_status": "pending", "organization_use_rights_status": "pending"}}):
+            pending = outputs()
+        for layout in ("horizontal", "stacked"):
+            path = ROOT / f"studies/organization/lockup-{layout}.svg"
+            self.assertEqual(generated[path], pending[path])
+            self.assertNotIn(ROOT / f"dist/organization/lockup-{layout}.svg", generated)
+
+    def test_organization_emblem_requires_both_approvals(self):
+        for design, rights in (("pending", "pending"), ("approved", "pending"), ("pending", "approved")):
+            with self.subTest(design=design, rights=rights), patch.dict(
+                ORGANIZATION, {"emblem": {"design_status": design, "organization_use_rights_status": rights}}
+            ):
+                generated = outputs()
+                self.assertNotIn(ROOT / "dist/organization/mark.svg", generated)
+                svg = ElementTree.fromstring(generated[ROOT / "studies/organization/mark.svg"])
+                self.assertIn("review pending", svg.find(SVG + "desc").text)
+
+    def test_organization_emblem_rejects_unknown_approval(self):
+        for field in ("design_status", "organization_use_rights_status"):
+            approval = {"design_status": "approved", "organization_use_rights_status": "approved"}
+            approval[field] = "unknown"
+            with (
+                self.subTest(field=field),
+                patch.dict(ORGANIZATION, {"emblem": approval}),
+                self.assertRaisesRegex(ValueError, "organization approval"),
+            ):
+                outputs()
+
+    def test_organization_emblem_cleanup_follows_approval(self):
+        with TemporaryDirectory() as folder:
+            root = Path(folder)
+            with patch.multiple(build, ROOT=root, OUT=root / "dist/icons", STUDY_OUT=root / "studies/icons"):
+                approved = root / "dist/organization/mark.svg"
+                study = root / "studies/organization/mark.svg"
+                build.main()
+                self.assertTrue(approved.exists())
+                with patch.dict(ORGANIZATION, {"emblem": {"design_status": "approved", "organization_use_rights_status": "pending"}}):
+                    build.main()
+                    self.assertFalse(approved.exists())
+                    self.assertTrue(study.exists())
+                build.main()
+                self.assertTrue(approved.exists())
+                self.assertFalse(study.exists())
+
     def test_selected_geometry(self):
         self.assertEqual(GEOMETRY["design_id"], "repository-icon-cube-01")
         self.assertEqual(GEOMETRY["view_box"], [0, 0, 24, 24])
@@ -110,7 +168,7 @@ class BrandTests(unittest.TestCase):
                 self.assertIsNotNone(svg.find(SVG + "title"))
                 self.assertIsNotNone(svg.find(SVG + "desc"))
                 self.assertGreater(len(svg.findall(".//" + SVG + "path")), 0)
-        organization = ElementTree.fromstring(generated[ROOT / "studies/organization/mark.svg"])
+        organization = ElementTree.fromstring(generated[ROOT / "dist/organization/mark.svg"])
         self.assertEqual(
             {path.attrib["fill"] for path in organization.findall(SVG + "path")},
             set(ORGANIZATION["face_colors"].values()),

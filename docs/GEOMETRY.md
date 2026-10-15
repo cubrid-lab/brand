@@ -19,7 +19,7 @@ The role marks are original vector primitives: Driver connector and node, ORM la
 
 One role keeps the same geometry across languages. The root SVG color is taken only from [`tokens/colors.json`](../tokens/colors.json). Mixed-language repositories and non-repository surfaces use the Neutral token. The infographic's mismatched labels do not override actual repository languages: Drizzle is TypeScript, Benchmark is mixed-language/Neutral, and Showcase is Neutral until its identity is refined.
 
-The [organization-mark study](../studies/organization/mark.svg) uses the same construction grammar but a separate three-color face treatment and no role glyph. Its colors come from [`tokens/organization.json`](../tokens/organization.json). It is a distinct identity candidate, not the Driver icon. Organization avatar rollout and rights review are tracked in [issue #3](https://github.com/cubrid-lab/brand/issues/3).
+The [organization emblem](../dist/organization/mark.svg) uses the same construction grammar but a separate three-color face treatment and no role glyph. Its colors and scoped approvals come from [`tokens/organization.json`](../tokens/organization.json). The maintainer approved this distinct identity for CUBRID Lab's own avatar and profile use on 2026-10-15. Deployment and remaining wordmark/legal review are tracked separately in [issue #3](https://github.com/cubrid-lab/brand/issues/3).
 
 ## Provenance and status
 

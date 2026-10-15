@@ -12,7 +12,7 @@ The role glyphs were drawn with simple vector primitives. The Operator uses a ge
 
 ## Organization identity
 
-The infographic also depicts a separate three-color CUBRID Lab cube and wordmark. Numeric face colors are recorded in [`tokens/organization.json`](tokens/organization.json), and the emblem plus two lockups are generated under `studies/organization/`. They are identity candidates for [issue #3](https://github.com/cubrid-lab/brand/issues/3), separate from the Driver role symbol. System font fallbacks are used for the text; no font file is bundled.
+The infographic also depicts a separate three-color CUBRID Lab cube and wordmark. Numeric face colors and scoped emblem approvals are recorded in [`tokens/organization.json`](tokens/organization.json). The emblem is generated under `dist/organization/`; two wordmark lockups remain candidates under `studies/organization/`. They are separate from the Driver role symbol and tracked in [issue #3](https://github.com/cubrid-lab/brand/issues/3). System font fallbacks are used for the text; no font file is bundled. The original emblem study remains available at [the pre-approval revision](https://github.com/cubrid-lab/brand/blob/572addda0f5403a455c27ec742eacd315f9ff929/studies/organization/mark.svg).
 
 ## Review state
 
@@ -20,7 +20,8 @@ The infographic also depicts a separate three-color CUBRID Lab cube and wordmark
 - Python ORM, MCP, and Cookbook icons (`sqlalchemy-cubrid`, `cubrid-mcp-server`, `cubrid-cookbook-python`): explicitly approved by the maintainer on 2026-10-14 ([issue #6](https://github.com/cubrid-lab/brand/issues/6)) and generated in `dist/icons/`. This is a design approval only.
 - Go Operator icon (`cubrid-kubernetes-operator`): selected for repository use by the maintainer on 2026-10-15 ([issue #6](https://github.com/cubrid-lab/brand/issues/6)) and generated in `dist/icons/`. The existing geometry and Go color token are unchanged. Legal review and the general visual-asset license remain pending.
 - Other role symbols: individual candidates are generated in `studies/icons/` and await explicit approval before release.
-- Organization emblem and wordmark: design and rights review pending (issue #3); no organization avatar or profile change has been made.
+- Organization emblem: on 2026-10-15 the maintainer reviewed the three-color cube and answered “ㅇㅇ” (“yes”) to approval of both its design and organization-use rights. This authorizes its use as the CUBRID Lab organization avatar and profile mark only (issue #3). Deployment is verified separately from approval.
+- Organization wordmark lockups: design and rights review pending (issue #3).
 - Visual-asset redistribution license: pending.
 - Trademark and legal clearance: pending.
 
