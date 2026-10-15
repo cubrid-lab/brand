@@ -18,6 +18,7 @@ The infographic also depicts a separate three-color CUBRID Lab cube and wordmark
 
 - Driver icon: the maintainer selected the cube-based direction, and its four variants are generated in `dist/icons/`.
 - Python ORM, MCP, and Cookbook icons (`sqlalchemy-cubrid`, `cubrid-mcp-server`, `cubrid-cookbook-python`): explicitly approved by the maintainer on 2026-10-14 ([issue #6](https://github.com/cubrid-lab/brand/issues/6)) and generated in `dist/icons/`. This is a design approval only.
+- Go Operator icon (`cubrid-kubernetes-operator`): selected for repository use by the maintainer on 2026-10-15 ([issue #6](https://github.com/cubrid-lab/brand/issues/6)) and generated in `dist/icons/`. The existing geometry and Go color token are unchanged. Legal review and the general visual-asset license remain pending.
 - Other role symbols: individual candidates are generated in `studies/icons/` and await explicit approval before release.
 - Organization emblem and wordmark: design and rights review pending (issue #3); no organization avatar or profile change has been made.
 - Visual-asset redistribution license: pending.

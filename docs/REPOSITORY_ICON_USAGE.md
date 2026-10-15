@@ -36,7 +36,7 @@ navigation. This convention is already applied to `pycubrid`, `sqlalchemy-cubrid
 
 ## Rollout inventory
 
-The seven approved repository icons use these revisions. Both revisions contain
+The seven earlier repository integrations retain these revisions. Both revisions contain
 byte-identical Driver SVGs; the later revision also contains the newly approved
 Python ORM, MCP, and Cookbook icons.
 
@@ -49,8 +49,13 @@ Python ORM, MCP, and Cookbook icons.
 | `cubrid-client` | Driver | TypeScript | `aa62d38b48d165e39f0c56ed706a9dadb090a2bb` | [#65](https://github.com/cubrid-lab/cubrid-client/issues/65) |
 | `cubrid-go` | Driver | Go | `aa62d38b48d165e39f0c56ed706a9dadb090a2bb` | [#33](https://github.com/cubrid-lab/cubrid-go/issues/33) |
 | `cubrid-rs` | Driver | Rust | `aa62d38b48d165e39f0c56ed706a9dadb090a2bb` | [#14](https://github.com/cubrid-lab/cubrid-rs/issues/14) |
+| `cubrid-kubernetes-operator` | Operator | Go | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | [#429](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/429) |
 
-The six repository icons still marked `pending-symbol` remain review candidates
+The Operator icon was selected on 2026-10-15. Its README must pin the promotion
+commit containing `dist/icons/cubrid-kubernetes-operator.svg`; the older study
+URL is historical evidence rather than an approved integration source.
+
+The five repository icons still marked `pending-symbol` remain review candidates
 under `studies/icons/`; an absent icon in those repositories is not a broken
 integration. Record explicit maintainer approval before promoting or applying
 them. The registry remains authoritative as approvals change.
