@@ -19,7 +19,8 @@ The infographic also depicts a separate three-color CUBRID Lab cube and wordmark
 - Driver icon: the maintainer selected the cube-based direction, and its four variants are generated in `dist/icons/`.
 - Python ORM, MCP, and Cookbook icons (`sqlalchemy-cubrid`, `cubrid-mcp-server`, `cubrid-cookbook-python`): explicitly approved by the maintainer on 2026-10-14 ([issue #6](https://github.com/cubrid-lab/brand/issues/6)) and generated in `dist/icons/`. This is a design approval only.
 - Go Operator icon (`cubrid-kubernetes-operator`): selected for repository use by the maintainer on 2026-10-15 ([issue #6](https://github.com/cubrid-lab/brand/issues/6)) and generated in `dist/icons/`. The existing geometry and Go color token are unchanged. Legal review and the general visual-asset license remain pending.
-- Other role symbols: individual candidates are generated in `studies/icons/` and await explicit approval before release.
+- TypeScript, Go, and Rust ORM icons (`drizzle-cubrid`, `gorm-cubrid`, `sea-orm-cubrid`): explicitly approved by the maintainer on 2026-10-20 ([issue #6](https://github.com/cubrid-lab/brand/issues/6)) and generated in `dist/icons/` using the shared ORM role geometry and their respective language tokens. Legal review and the general visual-asset license remain pending.
+- Other role symbols (`cubrid-benchmark`, `showcase`, `docs`, `community`): individual candidates are generated in `studies/icons/` and await explicit approval before release.
 - Organization emblem: on 2026-10-15 the maintainer reviewed the three-color cube and answered “ㅇㅇ” (“yes”) to approval of both its design and organization-use rights. This authorizes its use as the CUBRID Lab organization avatar and profile mark only (issue #3). Deployment is verified separately from approval.
 - Organization wordmark lockups: design and rights review pending (issue #3).
 - Visual-asset redistribution license: pending.

@@ -23,19 +23,19 @@ The study describes the system as “a consistent and meaningful icon system for
 | Drivers | `pycubrid` | Python Driver | Python | Driver / Python, approved |
 | Drivers | `cubrid-go` | Go Driver | Go | Driver / Go, approved |
 | Drivers | `cubrid-rs` | Rust Driver | Rust | Driver / Rust, approved |
-| ORMs / Dialects | `sqlalchemy-cubrid` | SQLAlchemy Dialect | Python | ORM / Python, generated |
-| ORMs / Dialects | `gorm-cubrid` | GORM Dialect | Go | ORM / Go, generated |
-| ORMs / Dialects | `drizzle-cubrid` | Drizzle ORM | Rust | ORM / **TypeScript**, generated; study label conflicts |
-| ORMs / Dialects | `sea-orm-cubrid` | SeaORM Dialect | Rust | ORM / Rust, generated |
-| Tools & AI | `cubrid-mcp-server` | Model Context Protocol | Python | MCP / Python, generated |
-| Tools & AI | `cubrid-cookbook-python` | Examples and Guides | Python | Cookbook / Python, generated |
-| Tools & AI | `cubrid-benchmark` | Performance Tools | Rust | Benchmark / **Neutral**, generated; study label conflicts |
-| Infrastructure | `cubrid-kubernetes-operator` | Kubernetes Operator | Go | Operator / Go, generated |
-| Infrastructure | `showcase` | Project Showcase | TypeScript | Showcase / **Neutral**, generated; [language statistics](https://api.github.com/repos/cubrid-lab/showcase/languages) do not show TypeScript (October 2026) |
-| Infrastructure | `docs` | Documentation | Markdown | Docs / Neutral concept surface, generated |
-| Infrastructure | `community` | Discussions & Support | Markdown | Community / Neutral concept surface, generated |
+| ORMs / Dialects | `sqlalchemy-cubrid` | SQLAlchemy Dialect | Python | ORM / Python, approved |
+| ORMs / Dialects | `gorm-cubrid` | GORM Dialect | Go | ORM / Go, approved |
+| ORMs / Dialects | `drizzle-cubrid` | Drizzle ORM | Rust | ORM / **TypeScript**, approved; study label conflicts |
+| ORMs / Dialects | `sea-orm-cubrid` | SeaORM Dialect | Rust | ORM / Rust, approved |
+| Tools & AI | `cubrid-mcp-server` | Model Context Protocol | Python | MCP / Python, approved |
+| Tools & AI | `cubrid-cookbook-python` | Examples and Guides | Python | Cookbook / Python, approved |
+| Tools & AI | `cubrid-benchmark` | Performance Tools | Rust | Benchmark / **Neutral**, pending-symbol study; study label conflicts |
+| Infrastructure | `cubrid-kubernetes-operator` | Kubernetes Operator | Go | Operator / Go, approved |
+| Infrastructure | `showcase` | Project Showcase | TypeScript | Showcase / **Neutral**, pending-symbol study; [language statistics](https://api.github.com/repos/cubrid-lab/showcase/languages) do not show TypeScript (October 2026) |
+| Infrastructure | `docs` | Documentation | Markdown | Docs / Neutral concept surface, pending-symbol study |
+| Infrastructure | `community` | Discussions & Support | Markdown | Community / Neutral concept surface, pending-symbol study |
 
-The study omits `cubrid-client`, whose **Driver / TypeScript** variant remains generated. `showcase` uses Neutral because its study label conflicts with its current mixed-content repository. `docs` and `community` are recorded as concept surfaces, not repository names.
+The study omits `cubrid-client`, whose **Driver / TypeScript** variant is also approved in `dist/icons/`. `showcase` uses Neutral because its study label conflicts with its current mixed-content repository. `docs` and `community` are recorded as concept surfaces, not repository names.
 
 ## Role meanings used in the generated symbols
 
@@ -88,11 +88,11 @@ The study depicts a separate cube-like **CUBRID Lab** emblem and wordmark, plus 
 
 It also uses **“Same geometry · Clear roles · Language colors · One CUBRID”**, **“Open source · Real world · Growing together”**, and **“Est. 2024.”** These are unapproved copy proposals. “One CUBRID” requires particular care because CUBRID Lab is independent of CUBRID Corporation and the official CUBRID project; keep the [independence notice](../BRAND_USAGE.md) prominent and review the wording before publication.
 
-The organization emblem and wordmark belong to [issue #3](https://github.com/cubrid-lab/brand/issues/3). The Driver role symbol is not the organization logo. No organization avatar, profile, or identity asset changes follow from this study.
+The organization emblem and wordmark belong to [issue #3](https://github.com/cubrid-lab/brand/issues/3). The Driver role symbol is not the organization logo. No organization avatar, profile, or identity asset changes followed directly from this initial study before the separate review in issue #3.
 
 ## Implementation decisions and remaining review
 
 1. The registry uses TypeScript for Drizzle and Neutral for Benchmark and Showcase. Docs and Community are concept surfaces. JavaScript and OCaml tokens are defined but currently unused.
-2. The maintainer selected the cube-based Driver direction, whose four variants replace the former assets in `dist/icons/`. Other individual role symbols are generated under `studies/icons/` for explicit approval; numerical geometry, tests, and the [gallery](ICON_GALLERY.md) document both sets.
-3. Review the organization emblem and copy under issue #3, including rights, similarity, and trademark work separately from repository-icon design selection. The organization avatar and profile remain unchanged.
+2. The maintainer selected the cube-based Driver direction, whose four variants replace the former assets in `dist/icons/`, and subsequently approved the four ORM variants, MCP, Cookbook, and Go Operator symbols in [issue #6](https://github.com/cubrid-lab/brand/issues/6). Remaining individual role candidates are generated under `studies/icons/` for explicit approval; numerical geometry, tests, and the [gallery](ICON_GALLERY.md) document both sets.
+3. The three-color organization emblem received scoped design and own-organization-use approval on 2026-10-15 under [issue #3](https://github.com/cubrid-lab/brand/issues/3); see [Organization mark usage](ORGANIZATION_MARK_USAGE.md). Wordmark lockups, copy proposals, similarity/trademark searches, and general redistribution licensing remain pending.
 4. Perform independent post-implementation review and complete visual-asset licensing and legal work before broad deployment.

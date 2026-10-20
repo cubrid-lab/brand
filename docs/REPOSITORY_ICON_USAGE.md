@@ -49,16 +49,21 @@ Python ORM, MCP, and Cookbook icons.
 | `cubrid-client` | Driver | TypeScript | `aa62d38b48d165e39f0c56ed706a9dadb090a2bb` | [#65](https://github.com/cubrid-lab/cubrid-client/issues/65) |
 | `cubrid-go` | Driver | Go | `aa62d38b48d165e39f0c56ed706a9dadb090a2bb` | [#33](https://github.com/cubrid-lab/cubrid-go/issues/33) |
 | `cubrid-rs` | Driver | Rust | `aa62d38b48d165e39f0c56ed706a9dadb090a2bb` | [#14](https://github.com/cubrid-lab/cubrid-rs/issues/14) |
-| `cubrid-kubernetes-operator` | Operator | Go | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | [#429](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/429) |
+| `cubrid-kubernetes-operator` | Operator | Go | `572addda0f5403a455c27ec742eacd315f9ff929` | [#429](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/429) |
+| `drizzle-cubrid` | ORM | TypeScript | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
+| `gorm-cubrid` | ORM | Go | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
+| `sea-orm-cubrid` | ORM | Rust | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
 
-The Operator icon was selected on 2026-10-15. Its README must pin the promotion
-commit containing `dist/icons/cubrid-kubernetes-operator.svg`; the older study
-URL is historical evidence rather than an approved integration source.
+The Operator icon was selected on 2026-10-15, and the TypeScript, Go, and Rust
+ORM icons were selected on 2026-10-20. Each repository README must pin the
+promotion commit containing its `dist/icons/<repository>.svg` asset; older study
+URLs are historical evidence rather than approved integration sources.
 
-The five repository icons still marked `pending-symbol` remain review candidates
-under `studies/icons/`; an absent icon in those repositories is not a broken
-integration. Record explicit maintainer approval before promoting or applying
-them. The registry remains authoritative as approvals change.
+The two repository icons (`cubrid-benchmark`, `showcase`) and two concept
+surfaces (`docs`, `community`) still marked `pending-symbol` remain review
+candidates under `studies/icons/`; an absent icon in those repositories is not a
+broken integration. Record explicit maintainer approval before promoting or
+applying them. The registry remains authoritative as approvals change.
 
 The organization emblem has separate scoped approval and
 [usage guidance](ORGANIZATION_MARK_USAGE.md). Wordmark and broader legal/license

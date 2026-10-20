@@ -7,9 +7,9 @@
     "cubrid-rs": {"role": "driver", "language": "rust", "status": "approved"},
 
     "sqlalchemy-cubrid": {"role": "orm", "language": "python", "status": "approved"},
-    "drizzle-cubrid": {"role": "orm", "language": "typescript", "status": "pending-symbol"},
-    "gorm-cubrid": {"role": "orm", "language": "go", "status": "pending-symbol"},
-    "sea-orm-cubrid": {"role": "orm", "language": "rust", "status": "pending-symbol"},
+    "drizzle-cubrid": {"role": "orm", "language": "typescript", "status": "approved"},
+    "gorm-cubrid": {"role": "orm", "language": "go", "status": "approved"},
+    "sea-orm-cubrid": {"role": "orm", "language": "rust", "status": "approved"},
 
     "cubrid-mcp-server": {"role": "mcp", "language": "python", "status": "approved"},
     "cubrid-cookbook-python": {"role": "cookbook", "language": "python", "status": "approved"},
