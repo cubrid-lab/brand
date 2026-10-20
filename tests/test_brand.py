@@ -27,14 +27,18 @@ from scripts.build import (
 
 SVG = "{http://www.w3.org/2000/svg}"
 # Role symbols the maintainer explicitly approved (AGENTS.md rule 6): the four
-# Driver variants, the Python ORM, MCP and Cookbook symbols (2026-10-14), and
-# the Go Operator symbol (2026-10-15), recorded in issue #6.
+# Driver variants, the Python ORM, MCP and Cookbook symbols (2026-10-14), the
+# Go Operator symbol (2026-10-15), and the TypeScript, Go and Rust ORM symbols
+# (2026-10-20), recorded in issue #6.
 APPROVED = {
     "pycubrid",
     "cubrid-client",
     "cubrid-go",
     "cubrid-rs",
     "sqlalchemy-cubrid",
+    "drizzle-cubrid",
+    "gorm-cubrid",
+    "sea-orm-cubrid",
     "cubrid-mcp-server",
     "cubrid-cookbook-python",
     "cubrid-kubernetes-operator",
