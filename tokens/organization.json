@@ -7,6 +7,20 @@
     "left": "#00A36F",
     "right": "#E60039"
   },
+  "candidates": {
+    "monochrome-cube": {
+      "status": "study",
+      "face_colors": {
+        "top": "#284679",
+        "left": "#071B43",
+        "right": "#6B7280"
+      }
+    },
+    "hex-frame": {
+      "status": "study",
+      "inset_scale": 0.52
+    }
+  },
   "emblem": {
     "design_status": "approved",
     "organization_use_rights_status": "approved",

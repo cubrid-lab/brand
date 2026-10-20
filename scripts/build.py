@@ -108,12 +108,48 @@ def render_icon(role: str, color: str, key: str, status: str = "pending-symbol")
     )
 
 
-def organization_faces() -> str:
+def organization_faces(face_colors: dict[str, str] | None = None) -> str:
     faces = cube_polygons()
-    colors = ORGANIZATION["face_colors"]
+    colors = ORGANIZATION["face_colors"] if face_colors is None else face_colors
     if any(not COLOR_RE.fullmatch(value) for value in colors.values()):
         raise ValueError("invalid organization color")
     return "\n".join(f'  <path d="{path_data(faces[face])}" fill="{colors[face]}"/>' for face in ("top", "left", "right"))
+
+
+def render_organization_candidate(candidate_id: str) -> str:
+    candidates = ORGANIZATION.get("candidates", {})
+    if candidate_id not in candidates or not KEY_RE.fullmatch(candidate_id):
+        raise ValueError("invalid organization candidate")
+    spec = candidates[candidate_id]
+    if spec.get("status") != "study":
+        raise ValueError("organization candidates must remain study-only")
+    if candidate_id == "monochrome-cube":
+        body = organization_faces(spec["face_colors"])
+        desc = "Monochrome slate cube candidate without role glyph; design and rights review pending."
+    elif candidate_id == "hex-frame":
+        scale = float(spec["inset_scale"])
+        if not (0.2 < scale < 0.85):
+            raise ValueError("invalid candidate inset scale")
+        cx = GEOMETRY["center"][0]
+        cy = GEOMETRY["top_y"] + 2 * GEOMETRY["roof_rise"]
+        faces = cube_polygons()
+        colors = ORGANIZATION["face_colors"]
+        lines = []
+        for face in ("top", "left", "right"):
+            outer = path_data(faces[face])
+            inner = path_data([(cx + (x - cx) * scale, cy + (y - cy) * scale) for x, y in reversed(faces[face])])
+            lines.append(f'  <path d="{outer} {inner}" fill="{colors[face]}" fill-rule="evenodd"/>')
+        body = "\n".join(lines)
+        desc = "Open hexagonal frame candidate without role glyph; design and rights review pending."
+    else:
+        raise ValueError(f"unsupported organization candidate: {candidate_id}")
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="candidate-{candidate_id}-title candidate-{candidate_id}-desc">\n'
+        f'  <title id="candidate-{candidate_id}-title">CUBRID Lab organization mark study — {candidate_id}</title>\n'
+        f'  <desc id="candidate-{candidate_id}-desc">{desc}</desc>\n'
+        f'{body}\n'
+        '</svg>\n'
+    )
 
 
 def organization_emblem_approved() -> bool:
@@ -178,6 +214,8 @@ def outputs() -> dict[Path, str]:
         )
     organization_directory = "dist/organization" if organization_emblem_approved() else "studies/organization"
     expected[ROOT / organization_directory / "mark.svg"] = render_organization_mark()
+    for candidate_id in sorted(ORGANIZATION.get("candidates", {})):
+        expected[ROOT / "studies/organization" / f"candidate-{candidate_id}.svg"] = render_organization_candidate(candidate_id)
     for layout in ("horizontal", "stacked"):
         expected[ROOT / "studies/organization" / f"lockup-{layout}.svg"] = render_organization_lockup(layout)
     return expected

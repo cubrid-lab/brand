@@ -12,7 +12,7 @@ The role glyphs were drawn with simple vector primitives. The Operator uses a ge
 
 ## Organization identity
 
-The infographic also depicts a separate three-color CUBRID Lab cube and wordmark. Numeric face colors and scoped emblem approvals are recorded in [`tokens/organization.json`](tokens/organization.json). The emblem is generated under `dist/organization/`; two wordmark lockups remain candidates under `studies/organization/`. They are separate from the Driver role symbol and tracked in [issue #3](https://github.com/cubrid-lab/brand/issues/3). System font fallbacks are used for the text; no font file is bundled. The original emblem study remains available at [the pre-approval revision](https://github.com/cubrid-lab/brand/blob/572addda0f5403a455c27ec742eacd315f9ff929/studies/organization/mark.svg).
+The infographic also depicts a separate three-color CUBRID Lab cube and wordmark. Numeric face colors, comparison candidates, and scoped emblem approvals are recorded in [`tokens/organization.json`](tokens/organization.json). The approved emblem is generated under `dist/organization/`; two alternative mark candidates (`candidate-monochrome-cube.svg`, `candidate-hex-frame.svg`) and two wordmark lockups remain candidates under `studies/organization/`. They are separate from the Driver and ORM role symbols and tracked in [issue #3](https://github.com/cubrid-lab/brand/issues/3). System font fallbacks are used for the text; no font file is bundled. The original emblem study remains available at [the pre-approval revision](https://github.com/cubrid-lab/brand/blob/572addda0f5403a455c27ec742eacd315f9ff929/studies/organization/mark.svg).
 
 ## Review state
 
