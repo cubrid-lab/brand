@@ -4,6 +4,35 @@ The three-color cube in [`dist/organization/mark.svg`](../dist/organization/mark
 is the CUBRID Lab organization emblem. It has no repository-role glyph and is
 distinct from the Driver, ORM, and Operator icons.
 
+## Candidate evaluation and role-symbol distinction
+
+Three distinct organization mark candidates share the 24×24, 60°/120° isometric
+construction grammar in [`tokens/geometry.json`](../tokens/geometry.json) and
+[`tokens/organization.json`](../tokens/organization.json):
+
+| Candidate | File | Construction and study palette | Status and rationale |
+| --- | --- | --- | --- |
+| Candidate A — Three-color solid cube | [`dist/organization/mark.svg`](../dist/organization/mark.svg) | Solid `top`, `left`, and `right` faces using `#006BDA`, `#00A36F`, and `#E60039` with open seams and no role glyph | **Approved for own-organization avatar/profile use (2026-10-15).** Multi-hue faces immediately distinguish the organization from single-token repository icons and stay legible at 16 px. |
+| Candidate B — Monochrome slate cube | [`studies/organization/candidate-monochrome-cube.svg`](../studies/organization/candidate-monochrome-cube.svg) | Solid `top`, `left`, and `right` faces in tonal slate/navy (`#284679`, `#071B43`, `#6B7280`) without a role glyph | **Study only.** Evaluates single-family tonal contrast, but at 16–24 px its silhouette reads too close to a Neutral-token repository cube. |
+| Candidate C — Open hexagonal frame | [`studies/organization/candidate-hex-frame.svg`](../studies/organization/candidate-hex-frame.svg) | Three-color isometric perimeter ring (`inset_scale = 0.52`) with a hollow center rhombus | **Study only.** Distinct open-center container silhouette, but thinner strokes lose visual weight at 16 px avatar size compared with Candidate A. |
+
+These colors are internal CUBRID Lab design/study tokens, not official CUBRID
+brand colors.
+
+Resemblance checks against the Driver and ORM role symbols (`AGENTS.md` rules 1
+and 11):
+
+- **Driver role (`src/driver.svg`)**: Uses a single implementation-language token
+  (`currentColor`), shading overlays, and a white right-face connector path plus
+  terminal node (`<circle cx="18.35" cy="16.15" r="1.7"/>`). All three
+  organization candidates omit the connector path, terminal circle, and every
+  other internal role glyph.
+- **ORM role (`src/orm.svg`)**: Replaces the left and right vertical cube faces
+  with two open horizontal chevron layers (`M 2 10.1 ...` and `M 2 14.3 ...`) in
+  a single language color. All three organization candidates retain the three
+  isometric cube face zones (`top`, `left`, `right`) and never use stacked
+  horizontal chevrons.
+
 ## Approval scope
 
 On 2026-10-15 the maintainer reviewed the prepared cube preview and explicitly

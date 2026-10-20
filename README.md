@@ -47,7 +47,7 @@ src/                 generated color-inheriting role templates
 dist/icons/           generated approved repository icons
 dist/organization/    generated organization emblem approved for own-organization use
 studies/icons/        generated individual symbol candidates (pending review)
-studies/organization/ generated wordmark candidates (pending review)
+studies/organization/ generated organization mark and wordmark candidates (pending review)
 docs/                construction, gallery, and visual-reference study
 provenance/          immutable superseded Connector Study / 02 reference
 ```

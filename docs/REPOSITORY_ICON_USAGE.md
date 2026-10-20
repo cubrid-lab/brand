@@ -50,9 +50,9 @@ Python ORM, MCP, and Cookbook icons.
 | `cubrid-go` | Driver | Go | `aa62d38b48d165e39f0c56ed706a9dadb090a2bb` | [#33](https://github.com/cubrid-lab/cubrid-go/issues/33) |
 | `cubrid-rs` | Driver | Rust | `aa62d38b48d165e39f0c56ed706a9dadb090a2bb` | [#14](https://github.com/cubrid-lab/cubrid-rs/issues/14) |
 | `cubrid-kubernetes-operator` | Operator | Go | `572addda0f5403a455c27ec742eacd315f9ff929` | [#429](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/429) |
-| `drizzle-cubrid` | ORM | TypeScript | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
-| `gorm-cubrid` | ORM | Go | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
-| `sea-orm-cubrid` | ORM | Rust | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
+| `drizzle-cubrid` | ORM | TypeScript | `cc9c7b2a50b1b93f96b18902dbf3f029ccdda026` | [#116](https://github.com/cubrid-lab/drizzle-cubrid/issues/116) |
+| `gorm-cubrid` | ORM | Go | `cc9c7b2a50b1b93f96b18902dbf3f029ccdda026` | [#22](https://github.com/cubrid-lab/gorm-cubrid/issues/22) |
+| `sea-orm-cubrid` | ORM | Rust | `cc9c7b2a50b1b93f96b18902dbf3f029ccdda026` | [#7](https://github.com/cubrid-lab/sea-orm-cubrid/issues/7) |
 
 The Operator icon was selected on 2026-10-15, and the TypeScript, Go, and Rust
 ORM icons were selected on 2026-10-20. Each repository README must pin the
