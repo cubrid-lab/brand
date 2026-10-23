@@ -20,14 +20,10 @@ This repository is the source of truth for CUBRID Lab brand geometry, tokens, ge
 
 ## Workflow
 
-Follow the cubrid-lab organization workflow:
-
-1. design review,
-2. implementation + tests,
-3. documentation,
-4. independent post-implementation review.
-
-Issue assignment is mandatory before implementation.
+Use the shared, tool-neutral PR process: scoped change, implementation
+with tests and documentation, applicable required CI, independent review
+of relevant design/rights risks, and final maintainer decision. Issue
+assignment and existing design/legal approval obligations remain.
 
 ## Validation
 
@@ -39,3 +35,19 @@ test -z "$(git ls-files --others --exclude-standard -- src dist studies/icons st
 ```
 
 Refs #1.
+
+## Unified PR Review and Merge Policy
+
+Use the **same criteria** for every contribution, whether human-written or
+implemented with OpenCode, Codex, Claude Code, ChatGPT, Copilot or another
+agent. No tool-specific AI review or Oracle pre/post review is required.
+Oracle, Copilot and other AI findings are optional advisory context.
+
+Keep the existing design, generated-asset, rights and trademark constraints
+in every review. Required GitHub CI checks (where configured) are the
+authoritative automated result at the final head; local validation commands
+above are recommended and do not replace CI. The responsible maintainer
+verifies reproducibility, intellectual-property and publication impact
+and makes the final merge decision. Visual/brand/legal sign-off, where
+required, remains an independent approval, **not** an AI-code-review stage.
+
