@@ -20,7 +20,7 @@ This example uses the approved TypeScript Driver icon at an immutable revision:
 ```html
 <!-- CUBRID-LAB-ICON:START -->
 <p align="center">
-  <a href="https://github.com/cubrid-lab/brand"><img src="https://raw.githubusercontent.com/cubrid-lab/brand/aa62d38b48d165e39f0c56ed706a9dadb090a2bb/dist/icons/cubrid-client.svg" alt="CUBRID Lab Driver icon (TypeScript)" width="120"></a>
+  <a href="https://github.com/cubrid-lab/brand"><img src="https://raw.githubusercontent.com/cubrid-lab/brand/8aa81b79f00ae936b03a9546f14f514c5e2554a7/dist/icons/cubrid-client.svg" alt="CUBRID Lab Driver icon (TypeScript)" width="120"></a>
 </p>
 <!-- CUBRID-LAB-ICON:END -->
 ```
@@ -44,25 +44,26 @@ need 48 px or more to separate.
 
 ## Rollout inventory
 
-The seven earlier repository integrations retain these revisions. Both revisions contain
-byte-identical Driver SVGs; the later revision also contains the newly approved
-Python ORM, MCP, and Cookbook icons.
+On 2026-10-25 every repository README (and, where present, translated READMEs and the
+documentation-site logo and favicon) was pinned to `8aa81b7`, the revision that contains
+the #37 Driver/ORM/MCP redesign and the #38 Python Yellow treatment. `showcase` pins
+`bfb1871`, whose `showcase.svg` is byte-identical to `8aa81b7`.
 
-| Repository | Role | Language | Asset revision | README alignment work |
+| Repository | Role | Language | Asset revision | Rollout PR |
 | --- | --- | --- | --- | --- |
-| `pycubrid` | Driver | Python | `94e2bf6b915d7ef6a1111e06376f693f70bf6c4e` | Existing standard header |
-| `sqlalchemy-cubrid` | ORM | Python | `94e2bf6b915d7ef6a1111e06376f693f70bf6c4e` | Existing standard header |
-| `cubrid-mcp-server` | MCP | Python | `94e2bf6b915d7ef6a1111e06376f693f70bf6c4e` | Existing standard header |
-| `cubrid-cookbook-python` | Cookbook | Python | `94e2bf6b915d7ef6a1111e06376f693f70bf6c4e` | Existing standard header |
-| `cubrid-client` | Driver | TypeScript | `aa62d38b48d165e39f0c56ed706a9dadb090a2bb` | [#65](https://github.com/cubrid-lab/cubrid-client/issues/65) |
-| `cubrid-go` | Driver | Go | `aa62d38b48d165e39f0c56ed706a9dadb090a2bb` | [#33](https://github.com/cubrid-lab/cubrid-go/issues/33) |
-| `cubrid-rs` | Driver | Rust | `aa62d38b48d165e39f0c56ed706a9dadb090a2bb` | [#14](https://github.com/cubrid-lab/cubrid-rs/issues/14) |
-| `cubrid-kubernetes-operator` | Operator | Go | `572addda0f5403a455c27ec742eacd315f9ff929` | [#429](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/429) |
-| `drizzle-cubrid` | ORM | TypeScript | `cc9c7b2a50b1b93f96b18902dbf3f029ccdda026` | [#116](https://github.com/cubrid-lab/drizzle-cubrid/issues/116) |
-| `gorm-cubrid` | ORM | Go | `cc9c7b2a50b1b93f96b18902dbf3f029ccdda026` | [#22](https://github.com/cubrid-lab/gorm-cubrid/issues/22) |
-| `sea-orm-cubrid` | ORM | Rust | `cc9c7b2a50b1b93f96b18902dbf3f029ccdda026` | [#7](https://github.com/cubrid-lab/sea-orm-cubrid/issues/7) |
-| `cubrid-benchmark` | Benchmark | Neutral | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
-| `showcase` | Showcase | Neutral | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
+| `pycubrid` | Driver | Python | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#1059](https://github.com/cubrid-lab/pycubrid/pull/1059) |
+| `sqlalchemy-cubrid` | ORM | Python | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#1051](https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/1051) |
+| `cubrid-mcp-server` | MCP | Python | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#457](https://github.com/cubrid-lab/cubrid-mcp-server/pull/457) |
+| `cubrid-cookbook-python` | Cookbook | Python | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#500](https://github.com/cubrid-lab/cubrid-cookbook-python/pull/500) |
+| `cubrid-client` | Driver | TypeScript | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#74](https://github.com/cubrid-lab/cubrid-client/pull/74) |
+| `cubrid-go` | Driver | Go | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#49](https://github.com/cubrid-lab/cubrid-go/pull/49) |
+| `cubrid-rs` | Driver | Rust | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#22](https://github.com/cubrid-lab/cubrid-rs/pull/22) |
+| `cubrid-kubernetes-operator` | Operator | Go | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#582](https://github.com/cubrid-lab/cubrid-kubernetes-operator/pull/582) |
+| `drizzle-cubrid` | ORM | TypeScript | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#137](https://github.com/cubrid-lab/drizzle-cubrid/pull/137) |
+| `gorm-cubrid` | ORM | Go | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#32](https://github.com/cubrid-lab/gorm-cubrid/pull/32) |
+| `sea-orm-cubrid` | ORM | Rust | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#15](https://github.com/cubrid-lab/sea-orm-cubrid/pull/15) |
+| `cubrid-benchmark` | Benchmark | Neutral | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#65](https://github.com/cubrid-lab/cubrid-benchmark/pull/65) |
+| `showcase` | Showcase | Neutral | `bfb1871c8856d59dd60eb6276328465a7ab03ac7` | [#49](https://github.com/cubrid-lab/showcase/pull/49) |
 
 Each repository README must pin a commit containing its approved
 `dist/icons/<repository>.svg` asset; older study URLs are historical evidence
