@@ -13,7 +13,7 @@ Let `c = 12`, `h = 10`, `r = 10 / √3` (stored as `5.773502692`), and `t = 1`. 
 
 Its internal corners are 60° and 120°. The left and right face vertices are computed from the inset center seam and face-height parameters in the token file. Their gap leaves visible negative space around the top and center seams. Each role uses the same cube grammar, with a distinct white geometric mark. ORM uses the shared rhombus plus two open chevron layers instead of the cube faces.
 
-The role marks are original vector primitives: Driver connector and node, ORM layers, MCP network, Cookbook book, Benchmark bars, Operator six-spoke control dial, Showcase play triangle, Docs lines, and Community people. The Operator dial is deliberately six-spoke and is not a Kubernetes logo.
+The role marks are original vector primitives: Driver connector and node, ORM layers, MCP network, Cookbook book, Benchmark bars, Operator six-spoke control dial, Showcase play triangle, Docs lines, and Community people. The Operator dial is deliberately six-spoke and is not a Kubernetes logo. The Cookbook mark is an open book drawn as one filled page per side face, with the transparent center seam serving as the spine; its text lines are stroked in `currentColor` so they fade out at small sizes. Keeping each page on a single face means the seam gap never cuts through the white mark on dark backgrounds.
 
 ## Color and identity
 
