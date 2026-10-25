@@ -14,6 +14,7 @@ GEOMETRY = json.loads((ROOT / "tokens/geometry.json").read_text(encoding="utf-8"
 COLORS = json.loads((ROOT / "tokens/colors.json").read_text(encoding="utf-8"))["languages"]
 ORGANIZATION = json.loads((ROOT / "tokens/organization.json").read_text(encoding="utf-8"))
 ROLE_CANDIDATES = json.loads((ROOT / "tokens/role-candidates.json").read_text(encoding="utf-8"))["candidates"]
+YELLOW_CANDIDATES = json.loads((ROOT / "tokens/python-yellow-candidates.json").read_text(encoding="utf-8"))
 REGISTRY_DATA = json.loads((ROOT / "registry/repositories.json").read_text(encoding="utf-8"))
 REGISTRY = REGISTRY_DATA["repositories"]
 SURFACES = REGISTRY_DATA["surfaces"]
@@ -280,6 +281,65 @@ def role_candidate_files() -> dict[Path, tuple[str, str]]:
     }
 
 
+# Contrast treatments for the Python Yellow decision (issue #38). Study-only:
+# they render the approved Python icons in the candidate color with a dark or
+# ochre mark and an optional outer keyline, into studies/python-yellow/.
+YELLOW_OUT = ROOT / "studies/python-yellow"
+FILL_D_RE = re.compile(r'<path d="([^"]+)" fill="currentColor"/>')
+
+
+def render_yellow_candidate(treatment: str, name: str) -> str:
+    spec = YELLOW_CANDIDATES["treatments"].get(treatment)
+    if spec is None or not KEY_RE.fullmatch(treatment) or spec.get("status") != "study":
+        raise ValueError("yellow candidates must be registered study-only entries")
+    if name not in YELLOW_CANDIDATES["repositories"] or REGISTRY[name]["language"] != "python":
+        raise ValueError("yellow candidates cover the Python repository icons only")
+    inks = {key: ink["value"] for key, ink in YELLOW_CANDIDATES["inks"].items()}
+    color = YELLOW_CANDIDATES["color"]
+    if any(not COLOR_RE.fullmatch(value) for value in [color, *inks.values()]):
+        raise ValueError("invalid yellow candidate color")
+    role, key = REGISTRY[name]["role"], f"{treatment}-{name}"
+    if role in {"driver", "orm"}:
+        shape = {"driver": vertical_stack, "orm": lateral_plates}[role]()
+    else:
+        shape = cube_faces(role, key)
+        if spec["mark"] != "white":
+            # Only the topmost group holds the visible mark; the backing stays in the cube color.
+            split = shape.rindex("<g clip-path")
+            shape = shape[:split] + shape[split:].replace('"#fff"', f'"{inks[spec["mark"]]}"')
+    if spec["keyline"] and role in spec["keyline_roles"]:
+        stroke = (
+            f'fill="none" stroke="{inks[spec["keyline"]]}" '
+            f'stroke-width="{number(2 * YELLOW_CANDIDATES["keyline_width"])}" stroke-linejoin="round"'
+        )
+        if role in {"driver", "orm"}:
+            # Drawn under each layer, so only its outer half shows around every piece.
+            keyline = "\n".join(f'  <path d="{d}" {stroke}/>' for d in FILL_D_RE.findall(shape))
+        else:
+            # Clipped to the outside of the cube, so the seams stay open.
+            clip = f"{key}-outside"
+            keyline = (
+                f'  <clipPath id="{clip}"><path d="M 0 0 H 24 V 24 H 0 Z {path_data(cube_outline())}" clip-rule="evenodd"/></clipPath>\n'
+                f'  <path d="{path_data(cube_outline())}" {stroke} clip-path="url(#{clip})"/>'
+            )
+        shape = keyline + "\n" + shape
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="{color}" role="img" aria-labelledby="{key}-title {key}-desc">\n'
+        f'  <title id="{key}-title">CUBRID Lab {role} icon color study — {name} ({treatment})</title>\n'
+        f'  <desc id="{key}-desc">{escape(spec["description"])} Study candidate for review; not approved.</desc>\n'
+        f'{shape}\n'
+        '</svg>\n'
+    )
+
+
+def yellow_candidate_files() -> dict[Path, tuple[str, str]]:
+    return {
+        YELLOW_OUT / f"{treatment}-{name}.svg": (treatment, name)
+        for treatment in sorted(YELLOW_CANDIDATES["treatments"])
+        for name in YELLOW_CANDIDATES["repositories"]
+    }
+
+
 def organization_faces(face_colors: dict[str, str] | None = None) -> str:
     faces = cube_polygons()
     colors = ORGANIZATION["face_colors"] if face_colors is None else face_colors
@@ -427,6 +487,8 @@ def outputs() -> dict[Path, str]:
             expected[ROOT / lockup_directory / lockup_name(layout, variant)] = render_organization_lockup(layout, variant)
     for path, (candidate_id, language) in role_candidate_files().items():
         expected[path] = render_role_candidate(candidate_id, language)
+    for path, (treatment, name) in yellow_candidate_files().items():
+        expected[path] = render_yellow_candidate(treatment, name)
     return expected
 
 
@@ -447,7 +509,7 @@ def owned_outputs() -> set[Path]:
         for variant in ORGANIZATION["wordmarks"]["variants"]:
             name = lockup_name(layout, variant)
             owned |= {ROOT / "dist/organization" / name, ROOT / "studies/organization" / name}
-    owned |= set(role_candidate_files())
+    owned |= set(role_candidate_files()) | set(yellow_candidate_files())
     return owned
 
 
@@ -461,7 +523,7 @@ def main() -> int:
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(content, encoding="utf-8")
     unmanaged = []
-    for directory in (OUT, STUDY_OUT, ROOT / "dist/organization", ROOT / "studies/organization", ROOT / "studies/roles"):
+    for directory in (OUT, STUDY_OUT, ROOT / "dist/organization", ROOT / "studies/organization", ROOT / "studies/roles", YELLOW_OUT):
         for path in sorted(directory.glob("*.svg")):
             if path in expected:
                 continue

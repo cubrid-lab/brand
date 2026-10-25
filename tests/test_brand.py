@@ -367,7 +367,7 @@ class BrandTests(unittest.TestCase):
         self.assertEqual(
             len(generated),
             len(ROLES) + len(REGISTRY) + len(SURFACES) + 1 + len(LOCKUPS) + len(ORGANIZATION["candidates"])
-            + len(build.role_candidate_files()),
+            + len(build.role_candidate_files()) + len(build.yellow_candidate_files()),
         )
         for path, content in generated.items():
             with self.subTest(path=path.name):
