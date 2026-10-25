@@ -106,8 +106,10 @@ GLYPHS = {
     "operator": '''  <circle cx="12" cy="13.7" r="4.25" fill="none" stroke="#fff" stroke-width="1.25"/>
   <circle cx="12" cy="13.7" r="1.2" fill="none" stroke="#fff" stroke-width="1.1"/>
   <path d="M 12 8.5 V 12.4 M 12 15 V 22 M 7.5 11.1 L 10.9 13.1 M 13.1 14.3 L 16.5 16.3 M 7.5 16.3 L 10.9 14.3 M 13.1 13.1 L 16.5 11.1" fill="none" stroke="#fff" stroke-width="1.25" stroke-linecap="round"/>''',
-    "showcase": '''  <path d="M 16.2 13.8 L 20 16.1 L 16.2 18.4 Z" fill="#fff"/>''',
-    "docs": '''  <path d="M 15 13.6 L 20 10.8 L 20 12.1 L 15 14.9 Z M 15 16 L 20 13.2 L 20 14.5 L 15 17.3 Z M 15 18.4 L 20 15.6 L 20 16.9 L 15 19.7 Z" fill="#fff"/>''',
+    # Showcase and Docs are enlarged about their own centers (x1.3 and x1.25) for
+    # small sizes, as reviewed in docs/studies/small-size-legibility.md (issue #21, P2).
+    "showcase": '''  <path d="M 15.63 13.11 L 20.57 16.1 L 15.63 19.09 Z" fill="#fff"/>''',
+    "docs": '''  <path d="M 14.375 13.188 L 20.625 9.688 L 20.625 11.312 L 14.375 14.812 Z M 14.375 16.188 L 20.625 12.688 L 20.625 14.312 L 14.375 17.812 Z M 14.375 19.188 L 20.625 15.688 L 20.625 17.312 L 14.375 20.812 Z" fill="#fff"/>''',
     "community": '''  <g fill="#fff"><circle cx="7" cy="14.2" r="1.2"/><circle cx="12" cy="12.8" r="1.25"/><circle cx="17" cy="14.2" r="1.2"/>
     <path d="M 4.6 17.5 Q 4.6 15.6 7 15.6 Q 9.4 15.6 9.4 17.5 V 19 L 4.6 18.2 Z M 9.5 16.2 Q 9.5 14.4 12 14.4 Q 14.5 14.4 14.5 16.2 V 19.8 L 12 21.2 L 9.5 19.8 Z M 14.6 17.5 Q 14.6 15.6 17 15.6 Q 19.4 15.6 19.4 17.5 V 18.2 L 14.6 19 Z"/></g>''',
 }
