@@ -47,6 +47,9 @@ places the emblem under `studies/organization/` and removes any stale approved
 copy. Those fields are the authoritative current status.
 
 This authorization covers the CUBRID Lab organization avatar and profile mark.
+On 2026-10-25 the maintainer extended it to the header logo and favicon of the
+organization website (`cubrid-lab/cubrid-lab.github.io`), linked by commit-pinned URL,
+not copied, because that site's coloured header has room only for a square mark.
 The wordmark lockups have their own, separate approval (below). No visual-asset
 license is offered, and independent legal/trademark clearance is pending; see
 [BRAND_USAGE.md](../BRAND_USAGE.md).
@@ -98,8 +101,9 @@ a lockup or a role icon as the avatar.
 - Where the page follows the viewer's color scheme, as on GitHub, serve both
   with `<picture>`.
 - Below the minimum display width the tagline is not legible, so leave the
-  lockup out. The emblem alone is approved only as the organization avatar and
-  profile mark; do not substitute it for an undersized lockup anywhere else.
+  lockup out. The emblem alone is approved only as the organization avatar,
+  the profile mark and the organization website's header logo and favicon; do not
+  substitute it for an undersized lockup anywhere else.
 - The text is drawn with the `Arial, Helvetica, sans-serif` system fonts, so
   letterforms vary slightly by platform. Do not convert the text to outlines or
   add a font; change the generator if a different treatment is needed.
