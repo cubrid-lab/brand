@@ -39,6 +39,10 @@ The same generated Driver SVG is shown at the study's requested sizes:
 | --- | --- | --- | --- | --- |
 | <img src="../dist/icons/pycubrid.svg" width="16" alt="Driver at 16 pixels"> | <img src="../dist/icons/pycubrid.svg" width="24" alt="Driver at 24 pixels"> | <img src="../dist/icons/pycubrid.svg" width="32" alt="Driver at 32 pixels"> | <img src="../dist/icons/pycubrid.svg" width="48" alt="Driver at 48 pixels"> | <img src="../dist/icons/pycubrid.svg" width="64" alt="Driver at 64 pixels"> |
 
+## Seam review sheet
+
+[`studies/glyph-seams-before-after.png`](studies/glyph-seams-before-after.png) compares every generated repository and surface icon before and after the issue #23 seam backing at 16, 24, 32, 48, 64 and 128 px on light and dark backgrounds. Regenerate it with `python scripts/render_previews.py BEFORE_DIR AFTER_DIR OUT.png` (optional; needs `rsvg-convert` and Pillow, not used by CI).
+
 ## Organization identity
 
 The organization emblem is separate from every repository role icon. Its design and CUBRID Lab avatar/profile use were approved on 2026-10-15 under [issue #3](https://github.com/cubrid-lab/brand/issues/3), and it is generated in `dist/organization/`. Two distinct alternative mark studies (`candidate-monochrome-cube.svg` and `candidate-hex-frame.svg`) and the wordmark lockups remain review candidates outside `dist/`. Wordmarks use system sans-serif fallbacks; no third-party font is bundled. General redistribution licensing and independent legal/trademark clearance remain pending.

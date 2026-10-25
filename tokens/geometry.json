@@ -12,6 +12,7 @@
   "face_outer_bottom_y": 17.25,
   "face_center_bottom_y": 22.5,
   "seam_half_width": 0.7,
+  "glyph_backing_pad": 0.55,
   "rhombus_corner_angles_degrees": [60, 120],
   "decimal_places": 3
 }
