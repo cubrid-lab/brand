@@ -49,7 +49,8 @@ A CUBRID Lab repository is one owned by the `cubrid-lab` GitHub organization.
 | Use | Status |
 | --- | --- |
 | Embed the repository's own mapped icon, by its commit-pinned `raw.githubusercontent.com` URL, in that repository's README and translated READMEs: the four Driver variants, `sqlalchemy-cubrid`, `cubrid-mcp-server`, `cubrid-cookbook-python`, `cubrid-kubernetes-operator`, `drizzle-cubrid`, `gorm-cubrid` and `sea-orm-cubrid` | **Permitted** (rollout scope agreed in [issue #8](https://github.com/cubrid-lab/brand/issues/8) and its per-repository rollout issues listed in [Applying repository icons](docs/REPOSITORY_ICON_USAGE.md#rollout-inventory); consumer pin instructions recorded in [issue #6](https://github.com/cubrid-lab/brand/issues/6)) |
-| Use the same pinned URL as that repository's documentation-site logo and favicon | **Permitted** for the same repositories (same basis) |
+| Use the same pinned URL as that repository's documentation-site logo and favicon: `pycubrid`, `sqlalchemy-cubrid`, `cubrid-mcp-server`, `cubrid-cookbook-python`, `drizzle-cubrid`, `gorm-cubrid` and `sea-orm-cubrid` | **Permitted** (the Python mappings were kept under issue #8; the 2026-10-20 pin instruction in issue #6 names documentation surfaces for the three ORM repositories) |
+| The same documentation-site use for `cubrid-client`, `cubrid-go`, `cubrid-rs` and `cubrid-kubernetes-operator` | **Pending maintainer confirmation.** Their recorded rollout covers the README only. |
 | Embed `cubrid-benchmark` or `showcase` in its repository, or `docs` or `community` on a CUBRID Lab documentation or community surface | **Pending maintainer confirmation.** The 2026-10-25 record in issue #6 approves these symbols only and leaves usage to issue #19. |
 | CUBRID Lab's own package pages (for example PyPI) rendering a permitted README with its pinned image link | **Permitted**; the image is still loaded from this repository |
 | Commit a copy of an SVG into another repository, package or build output | **Not authorized yet.** Link the pinned URL. Ask in this repository first if a copy is needed. |
@@ -95,7 +96,8 @@ sets its own attribution terms.
 The rules above are the maintainers' position while these items remain open:
 
 1. confirmation of first-party use for `cubrid-benchmark`, `showcase`, `docs`
-   and `community`,
+   and `community`, and of documentation-site use for `cubrid-client`,
+   `cubrid-go`, `cubrid-rs` and `cubrid-kubernetes-operator`,
 2. whether forks and mirrors may keep the pinned image link of an unmodified
    CUBRID Lab README,
 3. a visual-asset license (or a decision not to offer one) for third-party
