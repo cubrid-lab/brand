@@ -6,6 +6,7 @@ import re
 import sys
 from pathlib import Path
 from xml.etree import ElementTree
+from xml.sax.saxutils import escape
 
 ROOT = Path(__file__).resolve().parents[1]
 GEOMETRY = json.loads((ROOT / "tokens/geometry.json").read_text(encoding="utf-8"))
@@ -106,8 +107,10 @@ GLYPHS = {
     "operator": '''  <circle cx="12" cy="13.7" r="4.25" fill="none" stroke="#fff" stroke-width="1.25"/>
   <circle cx="12" cy="13.7" r="1.2" fill="none" stroke="#fff" stroke-width="1.1"/>
   <path d="M 12 8.5 V 12.4 M 12 15 V 22 M 7.5 11.1 L 10.9 13.1 M 13.1 14.3 L 16.5 16.3 M 7.5 16.3 L 10.9 14.3 M 13.1 13.1 L 16.5 11.1" fill="none" stroke="#fff" stroke-width="1.25" stroke-linecap="round"/>''',
-    "showcase": '''  <path d="M 16.2 13.8 L 20 16.1 L 16.2 18.4 Z" fill="#fff"/>''',
-    "docs": '''  <path d="M 15 13.6 L 20 10.8 L 20 12.1 L 15 14.9 Z M 15 16 L 20 13.2 L 20 14.5 L 15 17.3 Z M 15 18.4 L 20 15.6 L 20 16.9 L 15 19.7 Z" fill="#fff"/>''',
+    # Showcase and Docs are enlarged about their own centers (x1.3 and x1.25) for
+    # small sizes, as reviewed in docs/studies/small-size-legibility.md (issue #21, P2).
+    "showcase": '''  <path d="M 15.63 13.11 L 20.57 16.1 L 15.63 19.09 Z" fill="#fff"/>''',
+    "docs": '''  <path d="M 14.375 13.188 L 20.625 9.688 L 20.625 11.312 L 14.375 14.812 Z M 14.375 16.188 L 20.625 12.688 L 20.625 14.312 L 14.375 17.812 Z M 14.375 19.188 L 20.625 15.688 L 20.625 17.312 L 14.375 20.812 Z" fill="#fff"/>''',
     "community": '''  <g fill="#fff"><circle cx="7" cy="14.2" r="1.2"/><circle cx="12" cy="12.8" r="1.25"/><circle cx="17" cy="14.2" r="1.2"/>
     <path d="M 4.6 17.5 Q 4.6 15.6 7 15.6 Q 9.4 15.6 9.4 17.5 V 19 L 4.6 18.2 Z M 9.5 16.2 Q 9.5 14.4 12 14.4 Q 14.5 14.4 14.5 16.2 V 19.8 L 12 21.2 L 9.5 19.8 Z M 14.6 17.5 Q 14.6 15.6 17 15.6 Q 19.4 15.6 19.4 17.5 V 18.2 L 14.6 19 Z"/></g>''',
 }
@@ -215,21 +218,54 @@ def render_organization_mark() -> str:
     )
 
 
-def render_organization_lockup(layout: str) -> str:
+LOCKUP_LAYOUTS = ("horizontal", "stacked")
+
+
+def organization_wordmarks_approved() -> bool:
+    approval = ORGANIZATION["wordmarks"]
+    statuses = (approval["design_status"], approval["organization_use_rights_status"])
+    if any(status not in {"approved", "pending"} for status in statuses):
+        raise ValueError("invalid organization wordmark approval status")
+    return all(status == "approved" for status in statuses)
+
+
+def lockup_name(layout: str, variant: str) -> str:
+    """``lockup-<layout>.svg`` for light backgrounds, ``lockup-<layout>-<variant>.svg`` otherwise."""
+    return f"lockup-{layout}.svg" if variant == "light" else f"lockup-{layout}-{variant}.svg"
+
+
+def render_organization_lockup(layout: str, variant: str = "light") -> str:
+    wordmarks = ORGANIZATION["wordmarks"]
+    if variant not in wordmarks["variants"] or not KEY_RE.fullmatch(variant):
+        raise ValueError("invalid lockup variant")
+    colors = wordmarks["variants"][variant]
+    if any(not COLOR_RE.fullmatch(colors[part]) for part in ("title", "tagline")):
+        raise ValueError("invalid lockup text color")
+    tagline_text = escape(wordmarks["tagline"])
     if layout == "horizontal":
         view_box, transform = "0 0 300 64", "translate(4 4) scale(2.25)"
-        title = '<text x="68" y="38" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700" fill="#071B43">CUBRID Lab</text>'
-        tagline = '<text x="69" y="54" font-family="Arial, Helvetica, sans-serif" font-size="8.4" letter-spacing="1" fill="#284679">Open Source for a More Connected World</text>'
+        title = f'<text x="68" y="38" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700" fill="{colors["title"]}">CUBRID Lab</text>'
+        tagline = f'<text x="69" y="54" font-family="Arial, Helvetica, sans-serif" font-size="8.4" letter-spacing="1" fill="{colors["tagline"]}">{tagline_text}</text>'
     elif layout == "stacked":
         view_box, transform = "0 0 200 154", "translate(64 5) scale(3)"
-        title = '<text x="100" y="117" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" fill="#071B43">CUBRID Lab</text>'
-        tagline = '<text x="100" y="135" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="7.3" letter-spacing="0.55" fill="#284679">Open Source for a More Connected World</text>'
+        title = f'<text x="100" y="117" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" fill="{colors["title"]}">CUBRID Lab</text>'
+        tagline = f'<text x="100" y="135" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="7.3" letter-spacing="0.55" fill="{colors["tagline"]}">{tagline_text}</text>'
     else:
         raise ValueError("invalid lockup layout")
+    background = "" if variant == "light" else f" for {variant} backgrounds"
+    if organization_wordmarks_approved():
+        label = f"CUBRID Lab {layout} organization lockup{background}"
+        description = (
+            "Three-color emblem with the CUBRID Lab wordmark and tagline. Design and CUBRID Lab "
+            "own-organization use approved; general redistribution license and legal clearance pending."
+        )
+    else:
+        label = f"CUBRID Lab {layout} organization lockup study{background}"
+        description = "Organization identity candidate; design and rights review pending."
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{view_box}" role="img" aria-labelledby="lockup-title lockup-desc">\n'
-        f'  <title id="lockup-title">CUBRID Lab {layout} organization lockup study</title>\n'
-        '  <desc id="lockup-desc">Organization identity candidate; design and rights review pending.</desc>\n'
+        f'  <title id="lockup-title">{label}</title>\n'
+        f'  <desc id="lockup-desc">{description}</desc>\n'
         f'  <g transform="{transform}">\n{organization_faces()}\n  </g>\n'
         f'  {title}\n  {tagline}\n'
         '</svg>\n'
@@ -253,8 +289,10 @@ def outputs() -> dict[Path, str]:
     expected[ROOT / organization_directory / "mark.svg"] = render_organization_mark()
     for candidate_id in sorted(ORGANIZATION.get("candidates", {})):
         expected[ROOT / "studies/organization" / f"candidate-{candidate_id}.svg"] = render_organization_candidate(candidate_id)
-    for layout in ("horizontal", "stacked"):
-        expected[ROOT / "studies/organization" / f"lockup-{layout}.svg"] = render_organization_lockup(layout)
+    lockup_directory = "dist/organization" if organization_wordmarks_approved() else "studies/organization"
+    for layout in LOCKUP_LAYOUTS:
+        for variant in ORGANIZATION["wordmarks"]["variants"]:
+            expected[ROOT / lockup_directory / lockup_name(layout, variant)] = render_organization_lockup(layout, variant)
     return expected
 
 
@@ -271,8 +309,10 @@ def owned_outputs() -> set[Path]:
     owned |= {ROOT / "dist/organization/mark.svg", ROOT / "studies/organization/mark.svg"}
     for candidate_id in sorted(ORGANIZATION.get("candidates", {})):
         owned.add(ROOT / "studies/organization" / f"candidate-{candidate_id}.svg")
-    for layout in ("horizontal", "stacked"):
-        owned.add(ROOT / "studies/organization" / f"lockup-{layout}.svg")
+    for layout in LOCKUP_LAYOUTS:
+        for variant in ORGANIZATION["wordmarks"]["variants"]:
+            name = lockup_name(layout, variant)
+            owned |= {ROOT / "dist/organization" / name, ROOT / "studies/organization" / name}
     return owned
 
 

@@ -50,6 +50,29 @@ APPROVED = {
     "docs",
     "community",
 }
+# Wordmark lockups approved on 2026-10-25 (issue #3), each with a dark-background variant.
+LOCKUPS = (
+    "lockup-horizontal.svg",
+    "lockup-horizontal-dark.svg",
+    "lockup-stacked.svg",
+    "lockup-stacked-dark.svg",
+)
+WORDMARK_TEXT_CONTRAST = 4.5
+
+
+def contrast(a: str, b: str) -> float:
+    """WCAG 2 contrast ratio of two ``#RRGGBB`` colors."""
+
+    def luminance(color: str) -> float:
+        def linear(channel: int) -> float:
+            c = channel / 255
+            return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+
+        r, g, b = (linear(int(color[i : i + 2], 16)) for i in (1, 3, 5))
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b
+
+    high, low = sorted((luminance(a), luminance(b)), reverse=True)
+    return (high + 0.05) / (low + 0.05)
 
 
 class BrandTests(unittest.TestCase):
@@ -63,13 +86,12 @@ class BrandTests(unittest.TestCase):
         self.assertIn("legal clearance pending", svg.find(SVG + "desc").text)
         self.assertEqual(ORGANIZATION["legal_clearance_status"], "pending")
         self.assertEqual(ORGANIZATION["redistribution_license_status"], "pending")
-        self.assertEqual(ORGANIZATION["wordmarks_status"], "pending-review")
         with patch.dict(ORGANIZATION, {"emblem": {"design_status": "pending", "organization_use_rights_status": "pending"}}):
             pending = outputs()
-        for layout in ("horizontal", "stacked"):
-            path = ROOT / f"studies/organization/lockup-{layout}.svg"
+        # The emblem and wordmark approvals are independent.
+        for name in LOCKUPS:
+            path = ROOT / "dist/organization" / name
             self.assertEqual(generated[path], pending[path])
-            self.assertNotIn(ROOT / f"dist/organization/lockup-{layout}.svg", generated)
 
     def test_organization_emblem_requires_both_approvals(self):
         for design, rights in (("pending", "pending"), ("approved", "pending"), ("pending", "approved")):
@@ -169,6 +191,95 @@ class BrandTests(unittest.TestCase):
                 self.assertTrue(approved.exists())
                 self.assertFalse(study.exists())
 
+    def test_wordmark_lockups_have_scoped_approval(self):
+        generated = outputs()
+        wordmarks = ORGANIZATION["wordmarks"]
+        self.assertEqual((wordmarks["design_status"], wordmarks["organization_use_rights_status"]), ("approved", "approved"))
+        self.assertEqual(wordmarks["approved_on"], "2026-10-25")
+        self.assertIn("Not a license and not legal or trademark clearance", wordmarks["scope"])
+        self.assertEqual(ORGANIZATION["legal_clearance_status"], "pending")
+        self.assertEqual(ORGANIZATION["redistribution_license_status"], "pending")
+        for name in LOCKUPS:
+            with self.subTest(name=name):
+                self.assertNotIn(ROOT / "studies/organization" / name, generated)
+                svg = ElementTree.fromstring(generated[ROOT / "dist/organization" / name])
+                self.assertNotIn("study", svg.find(SVG + "title").text)
+                self.assertIn("own-organization use approved", svg.find(SVG + "desc").text)
+                self.assertIn("legal clearance pending", svg.find(SVG + "desc").text)
+
+    def test_wordmark_lockups_require_both_approvals(self):
+        for design, rights in (("pending", "pending"), ("approved", "pending"), ("pending", "approved")):
+            wordmarks = {**ORGANIZATION["wordmarks"], "design_status": design, "organization_use_rights_status": rights}
+            with self.subTest(design=design, rights=rights), patch.dict(ORGANIZATION, {"wordmarks": wordmarks}):
+                generated = outputs()
+                self.assertIn(ROOT / "dist/organization/mark.svg", generated)
+                for name in LOCKUPS:
+                    self.assertNotIn(ROOT / "dist/organization" / name, generated)
+                    svg = ElementTree.fromstring(generated[ROOT / "studies/organization" / name])
+                    self.assertIn("study", svg.find(SVG + "title").text)
+                    self.assertIn("review pending", svg.find(SVG + "desc").text)
+
+    def test_wordmark_lockups_reject_unknown_approval(self):
+        for field in ("design_status", "organization_use_rights_status"):
+            wordmarks = {**ORGANIZATION["wordmarks"], field: "unknown"}
+            with (
+                self.subTest(field=field),
+                patch.dict(ORGANIZATION, {"wordmarks": wordmarks}),
+                self.assertRaisesRegex(ValueError, "wordmark approval"),
+            ):
+                outputs()
+
+    def test_wordmark_lockup_cleanup_follows_approval(self):
+        pending = {**ORGANIZATION["wordmarks"], "design_status": "pending"}
+        with TemporaryDirectory() as folder:
+            root = Path(folder)
+            with patch.multiple(build, ROOT=root, OUT=root / "dist/icons", STUDY_OUT=root / "studies/icons"):
+                # Start from the pre-approval layout: light lockups only, under studies/.
+                study = root / "studies/organization"
+                study.mkdir(parents=True)
+                for layout in ("horizontal", "stacked"):
+                    (study / f"lockup-{layout}.svg").write_text("<svg/>", encoding="utf-8")
+                self.assertEqual(build.main(), 0)
+                for name in LOCKUPS:
+                    self.assertTrue((root / "dist/organization" / name).exists())
+                    self.assertFalse((study / name).exists())
+                with patch.dict(ORGANIZATION, {"wordmarks": pending}):
+                    self.assertEqual(build.main(), 0)
+                    for name in LOCKUPS:
+                        self.assertFalse((root / "dist/organization" / name).exists())
+                        self.assertTrue((study / name).exists())
+                self.assertEqual(build.main(), 0)
+                for name in LOCKUPS:
+                    self.assertTrue((root / "dist/organization" / name).exists())
+                    self.assertFalse((study / name).exists())
+
+    def test_dark_lockups_change_only_the_text_color(self):
+        generated = outputs()
+        variants = ORGANIZATION["wordmarks"]["variants"]
+        for layout in ("horizontal", "stacked"):
+            with self.subTest(layout=layout):
+                light = ElementTree.fromstring(generated[ROOT / f"dist/organization/lockup-{layout}.svg"])
+                dark = ElementTree.fromstring(generated[ROOT / f"dist/organization/lockup-{layout}-dark.svg"])
+                self.assertIn("dark backgrounds", dark.find(SVG + "title").text)
+                self.assertEqual(ElementTree.tostring(light.find(SVG + "g")), ElementTree.tostring(dark.find(SVG + "g")))
+                light_text, dark_text = light.findall(SVG + "text"), dark.findall(SVG + "text")
+                self.assertEqual([t.text for t in light_text], ["CUBRID Lab", ORGANIZATION["wordmarks"]["tagline"]])
+                self.assertEqual([t.text for t in light_text], [t.text for t in dark_text])
+                self.assertEqual([t.get("fill") for t in light_text], [variants["light"]["title"], variants["light"]["tagline"]])
+                self.assertEqual([t.get("fill") for t in dark_text], [variants["dark"]["title"], variants["dark"]["tagline"]])
+                for a, b in zip(light_text, dark_text):
+                    self.assertEqual({k: v for k, v in a.attrib.items() if k != "fill"}, {k: v for k, v in b.attrib.items() if k != "fill"})
+
+    def test_wordmark_text_contrast(self):
+        variants = ORGANIZATION["wordmarks"]["variants"]
+        self.assertEqual(set(variants), {"light", "dark"})
+        for name, colors in variants.items():
+            for part in ("title", "tagline"):
+                with self.subTest(variant=name, part=part):
+                    self.assertGreaterEqual(contrast(colors[part], colors["background"]), WORDMARK_TEXT_CONTRAST)
+        # The reason for the dark variant: the light text nearly vanishes on a dark background.
+        self.assertLess(contrast(variants["light"]["title"], variants["dark"]["background"]), 1.5)
+
     def test_selected_geometry(self):
         self.assertEqual(GEOMETRY["design_id"], "repository-icon-cube-01")
         self.assertEqual(GEOMETRY["view_box"], [0, 0, 24, 24])
@@ -254,7 +365,7 @@ class BrandTests(unittest.TestCase):
         generated = outputs()
         self.assertEqual(
             len(generated),
-            len(ROLES) + len(REGISTRY) + len(SURFACES) + 3 + len(ORGANIZATION["candidates"]),
+            len(ROLES) + len(REGISTRY) + len(SURFACES) + 1 + len(LOCKUPS) + len(ORGANIZATION["candidates"]),
         )
         for path, content in generated.items():
             with self.subTest(path=path.name):
@@ -262,7 +373,9 @@ class BrandTests(unittest.TestCase):
                 self.assertEqual(svg.tag, SVG + "svg")
                 expected_view_box = {
                     "lockup-horizontal.svg": "0 0 300 64",
+                    "lockup-horizontal-dark.svg": "0 0 300 64",
                     "lockup-stacked.svg": "0 0 200 154",
+                    "lockup-stacked-dark.svg": "0 0 200 154",
                 }.get(path.name, "0 0 24 24")
                 self.assertEqual(svg.attrib["viewBox"], expected_view_box)
                 self.assertIsNotNone(svg.find(SVG + "title"))

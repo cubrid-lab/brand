@@ -36,19 +36,23 @@ For **CUBRID Lab-owned repositories**, use only the mapped SVGs and placements a
 ```html
 <p align="center">
   <a href="https://github.com/cubrid-lab/brand">
-    <img src="https://raw.githubusercontent.com/cubrid-lab/brand/2de5d2323186a36ec16755b428b3ed2c88a5642e/dist/icons/pycubrid.svg" alt="pycubrid icon" width="120">
+    <img src="https://raw.githubusercontent.com/cubrid-lab/brand/bfb1871c8856d59dd60eb6276328465a7ab03ac7/dist/icons/pycubrid.svg" alt="pycubrid icon" width="120">
   </a>
 </p>
 ```
 
 This example pins an existing published revision; when integrating newly approved artwork, select its reviewed commit. **Design approval does not grant general rights to reuse, modify, or redistribute icons.** Read [brand usage and rights](BRAND_USAGE.md) before embedding assets on a new surface, especially outside CUBRID Lab. The [organization emblem](dist/organization/mark.svg) has separate approval and usage rules.
 
+## Organization identity
+
+The [three-color organization emblem](dist/organization/mark.svg) is separate from role icons. On 2026-10-15 the maintainer approved its design and use as the CUBRID Lab organization avatar and profile mark, recorded in [issue #3](https://github.com/cubrid-lab/brand/issues/3). On 2026-10-25 the maintainer approved the design and own-organization use of the [horizontal](dist/organization/lockup-horizontal.svg) and [stacked](dist/organization/lockup-stacked.svg) wordmark lockups, which also have [dark-background variants](dist/organization/lockup-horizontal-dark.svg) ([stacked](dist/organization/lockup-stacked-dark.svg)). General redistribution licensing and independent legal/trademark clearance remain pending. See [Organization mark usage](docs/ORGANIZATION_MARK_USAGE.md) for the scoped approval and rollout. The GitHub handle remains `cubrid-lab`.
+
 ## Find the source files
 
 | Path | Purpose |
 | --- | --- |
 | [`dist/icons/`](dist/icons/) | Currently approved repository and concept-surface icons |
-| [`dist/organization/`](dist/organization/) | Approved organization emblem |
+| [`dist/organization/`](dist/organization/) | Approved organization emblem and wordmark lockups (light and dark) |
 | [`studies/`](studies/) | Candidate artwork and visual review references (not approved for distribution) |
 | [`registry/repositories.json`](registry/repositories.json) | Authoritative repository, language, and role mapping |
 | [`tokens/`](tokens/) | Geometry, language colors, and organization construction |
@@ -71,8 +75,10 @@ The generator reports unmanaged SVGs rather than silently deleting them. Details
 
 ## Licensing and review status
 
-Code in `scripts/` and `tests/` is MIT-licensed. Visual marks and generated brand assets are **not yet licensed for redistribution** while asset licensing and trademark review are pending. See [LICENSE](LICENSE), [BRAND_USAGE.md](BRAND_USAGE.md), and [PROVENANCE.md](PROVENANCE.md).
+Code in `scripts/` and `tests/` is MIT-licensed. Visual marks and generated brand assets are **not licensed for redistribution**: on 2026-10-25 the maintainer decided not to offer a visual-asset license for now, and all rights are reserved. Trademark review is still pending. See [LICENSE](LICENSE), [BRAND_USAGE.md](BRAND_USAGE.md), and [PROVENANCE.md](PROVENANCE.md).
 
-Design selection for repository icons does **not** mean trademark, non-infringement, or formal legal review is complete. The organization emblem's scoped design and own-organization-use approval does not broaden the visual-asset redistribution license or approve the wordmark candidates.
+CUBRID Lab's own repositories may show their approved icons in the README and on their documentation sites by commit-pinned URL, without copying or modifying them. Forks and mirrors may keep that link in an unmodified README. No other embedding, copying, modification or redistribution is permitted. [Repository icon use](BRAND_USAGE.md#repository-icon-use) lists each case and the reviews still pending.
+
+Design selection for repository icons does **not** mean trademark, non-infringement, or formal legal review is complete. The organization emblem's scoped design and own-organization-use approval and the wordmark lockups' design and own-organization-use approval do not broaden the visual-asset redistribution license.
 
 Related: [organization mark and wordmark #3](https://github.com/cubrid-lab/brand/issues/3), [symbol approvals #6](https://github.com/cubrid-lab/brand/issues/6), [README usability #20](https://github.com/cubrid-lab/brand/issues/20).
