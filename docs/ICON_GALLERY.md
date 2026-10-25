@@ -39,6 +39,10 @@ The same generated Driver SVG is shown at the study's requested sizes:
 | --- | --- | --- | --- | --- |
 | <img src="../dist/icons/pycubrid.svg" width="16" alt="Driver at 16 pixels"> | <img src="../dist/icons/pycubrid.svg" width="24" alt="Driver at 24 pixels"> | <img src="../dist/icons/pycubrid.svg" width="32" alt="Driver at 32 pixels"> | <img src="../dist/icons/pycubrid.svg" width="48" alt="Driver at 48 pixels"> | <img src="../dist/icons/pycubrid.svg" width="64" alt="Driver at 64 pixels"> |
 
+## Driver, ORM and MCP redesign
+
+On 2026-10-25 the Driver role became a vertical stack, the ORM role became lateral plates, and the MCP role became a three-way router ([issue #30](https://github.com/cubrid-lab/brand/issues/30), [issue #23](https://github.com/cubrid-lab/brand/issues/23)). [`studies/role-redesign-30.md`](studies/role-redesign-30.md) has the candidates, the decision, and a before/after sheet of every icon.
+
 ## Seam review sheet
 
 [`studies/glyph-seams-before-after.png`](studies/glyph-seams-before-after.png) compares every generated repository and surface icon before and after the issue #23 seam backing at 16, 24, 32, 48, 64 and 128 px on light and dark backgrounds. Regenerate it with `python scripts/render_previews.py BEFORE_DIR AFTER_DIR OUT.png` (optional; needs `rsvg-convert` and Pillow, not used by CI).

@@ -98,7 +98,7 @@ def contrast_table() -> str:
     white = (255, 255, 255)
     used: dict[str, list[str]] = {}
     for name, meta in sorted({**build.REGISTRY, **build.SURFACES}.items()):
-        used.setdefault(meta["language"], []).append(f"`{name}`" + (" (no white mark)" if meta["role"] == "orm" else ""))
+        used.setdefault(meta["language"], []).append(f"`{name}`" + (" (no white mark)" if meta["role"] in {"driver", "orm"} else ""))
     lines = [
         "| Token | Color | White on top face | White on left face | White on right face | Keyline proposal | Used by |",
         "| --- | --- | --- | --- | --- | --- | --- |",
@@ -185,7 +185,7 @@ def proposed_icon(name: str) -> str:
     finally:
         build.GLYPHS = original
     keyline = keyline_color(color)
-    if keyline and meta["role"] != "orm":
+    if keyline and meta["role"] not in {"driver", "orm"}:
         start = svg.index("<g clip-path")
         end = svg.index("</g>", start)
         svg = svg[:start] + svg[start:end].replace("currentColor", keyline) + svg[end:]
@@ -195,7 +195,7 @@ def proposed_icon(name: str) -> str:
 def proposal_targets() -> list[str]:
     names = []
     for name, meta in sorted({**build.REGISTRY, **build.SURFACES}.items()):
-        if meta["role"] == "orm":
+        if meta["role"] in {"driver", "orm"}:
             continue
         if meta["role"] in SCALES or keyline_color(build.COLORS[meta["language"]]):
             names.append(name)

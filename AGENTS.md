@@ -48,8 +48,8 @@ assignment and existing design/legal approval obligations remain.
 ```bash
 python scripts/build.py
 python -m unittest discover -s tests -v
-git diff --exit-code -- src dist studies/icons studies/organization
-test -z "$(git ls-files --others --exclude-standard -- src dist studies/icons studies/organization)"
+git diff --exit-code -- src dist studies/icons studies/organization studies/roles
+test -z "$(git ls-files --others --exclude-standard -- src dist studies/icons studies/organization studies/roles)"
 ```
 
 The build deletes only stale generator-owned outputs. Any other SVG in an

@@ -51,7 +51,7 @@ The study omits `cubrid-client`, which the registry maps to **Driver / TypeScrip
 | Docs | Document | `docs` — document lines |
 | Community | People | `community` — people |
 
-These descriptions guided original vector reconstructions in the generator. The maintainer's newer direction superseded Connector Study / 02 for Driver. The previous SVG remains historical evidence; no third-party logo is incorporated in the new drawings.
+These descriptions guided original vector reconstructions in the generator. On 2026-10-25 the maintainer replaced the Driver, ORM and MCP constructions with a vertical stack, lateral plates and a three-way router. The infographic's labels above are kept as recorded; see [the role redesign study](studies/role-redesign-30.md) ([issue #30](https://github.com/cubrid-lab/brand/issues/30), [issue #23](https://github.com/cubrid-lab/brand/issues/23)). The maintainer's newer direction superseded Connector Study / 02 for Driver. The previous SVG remains historical evidence; no third-party logo is incorporated in the new drawings.
 
 ## Language palette in the study
 

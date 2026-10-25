@@ -32,7 +32,8 @@ SVG = "{http://www.w3.org/2000/svg}"
 # Driver variants, the Python ORM, MCP and Cookbook symbols (2026-10-14), the
 # Go Operator symbol (2026-10-15), the TypeScript, Go and Rust ORM symbols
 # (2026-10-20), and the Benchmark and Showcase symbols plus the Docs and
-# Community surfaces (2026-10-25), recorded in issue #6.
+# Community surfaces (2026-10-25), recorded in issue #6. The Driver, ORM and
+# MCP geometry was redrawn on 2026-10-25 (issues #30 and #23) with statuses kept.
 APPROVED = {
     "pycubrid",
     "cubrid-client",
@@ -365,7 +366,8 @@ class BrandTests(unittest.TestCase):
         generated = outputs()
         self.assertEqual(
             len(generated),
-            len(ROLES) + len(REGISTRY) + len(SURFACES) + 1 + len(LOCKUPS) + len(ORGANIZATION["candidates"]),
+            len(ROLES) + len(REGISTRY) + len(SURFACES) + 1 + len(LOCKUPS) + len(ORGANIZATION["candidates"])
+            + len(build.role_candidate_files()),
         )
         for path, content in generated.items():
             with self.subTest(path=path.name):
