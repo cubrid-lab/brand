@@ -23,7 +23,7 @@ The MIT license in this repository covers only `scripts/` and `tests/`. The name
 
 Publication in this public repository should not be interpreted as a grant of trademark rights or a general license to reuse the visual marks. A public URL, a merged pull request or a symbol approval does not grant one either.
 
-CUBRID Lab's own repositories may embed their approved repository icons by commit-pinned URL, as described in [Repository icon use](#repository-icon-use). That is an internal authorization, not a license, and it does not extend to anyone else.
+CUBRID Lab's own repositories may embed their approved repository icons by commit-pinned URL, within the limits described in [Repository icon use](#repository-icon-use). That is an internal authorization, not a license, and it does not extend to anyone else.
 
 The emblem's recorded own-organization-use authorization is separate from this pending general redistribution license. It is not a statement that independent legal or trademark clearance has been completed.
 
@@ -48,10 +48,10 @@ A CUBRID Lab repository is one owned by the `cubrid-lab` GitHub organization.
 
 | Use | Status |
 | --- | --- |
-| Embed the repository's own mapped icon, by its commit-pinned `raw.githubusercontent.com` URL, in that repository's README and translated READMEs | **Permitted** (rollout scope agreed in [issue #8](https://github.com/cubrid-lab/brand/issues/8); pinned URLs recorded with each approval in [issue #6](https://github.com/cubrid-lab/brand/issues/6)) |
-| Use the same pinned URL as that repository's documentation-site logo and favicon | **Permitted** (same basis) |
-| Embed the `docs` or `community` icon on a CUBRID Lab documentation or community surface | **Permitted** by the same pinned-URL rule |
-| Show a repository's README, including its pinned image link, where GitHub or a package registry renders that README | **Permitted**; the image is still loaded from this repository |
+| Embed the repository's own mapped icon, by its commit-pinned `raw.githubusercontent.com` URL, in that repository's README and translated READMEs: the four Driver variants, `sqlalchemy-cubrid`, `cubrid-mcp-server`, `cubrid-cookbook-python`, `cubrid-kubernetes-operator`, `drizzle-cubrid`, `gorm-cubrid` and `sea-orm-cubrid` | **Permitted** (rollout scope agreed in [issue #8](https://github.com/cubrid-lab/brand/issues/8) and its per-repository rollout issues listed in [Applying repository icons](docs/REPOSITORY_ICON_USAGE.md#rollout-inventory); consumer pin instructions recorded in [issue #6](https://github.com/cubrid-lab/brand/issues/6)) |
+| Use the same pinned URL as that repository's documentation-site logo and favicon | **Permitted** for the same repositories (same basis) |
+| Embed `cubrid-benchmark` or `showcase` in its repository, or `docs` or `community` on a CUBRID Lab documentation or community surface | **Pending maintainer confirmation.** The 2026-10-25 record in issue #6 approves these symbols only and leaves usage to issue #19. |
+| CUBRID Lab's own package pages (for example PyPI) rendering a permitted README with its pinned image link | **Permitted**; the image is still loaded from this repository |
 | Commit a copy of an SVG into another repository, package or build output | **Not authorized yet.** Link the pinned URL. Ask in this repository first if a copy is needed. |
 | Modify, recolor, crop, combine with text, or rasterize a role icon | **Not authorized.** Change the generator here so the result goes through design review. |
 | Use another repository's icon, or a role icon as the organization avatar or site logo | **Not permitted** |
@@ -73,10 +73,7 @@ projects and other organizations.
 | Embed (hotlink) an icon in your own page, README or slides | **No permission granted.** Pending the review below. |
 | Copy or redistribute an SVG, alone or in a package, theme or icon set | **Not licensed** |
 | Modify an icon or make derivative artwork | **Not licensed** |
-
-A fork or mirror that carries an unmodified CUBRID Lab README still shows the
-icon through that README's pinned link. That does not grant the fork's
-operator any right to use the icon separately.
+| Keep the pinned image link of an unmodified CUBRID Lab README in a fork or mirror | **Undecided.** No permission is recorded; this is a pending decision below. |
 
 This policy grants nothing beyond the table above, and it does not decide what
 the law allows without permission in any jurisdiction. To ask for a use, open
@@ -86,10 +83,10 @@ sets its own attribution terms.
 
 ### Never permitted
 
-- Implying that CUBRID Corporation, the official CUBRID project, or CUBRID Lab
-  endorses or maintains a product that uses an icon.
-- Presenting a project that CUBRID Lab does not maintain with a CUBRID Lab role
-  icon.
+- Implying that CUBRID Corporation or the official CUBRID project endorses,
+  sponsors or is affiliated with anything that uses an icon.
+- Implying that CUBRID Lab maintains or endorses a project it does not
+  maintain, for example by showing a role icon on that project.
 - Combining a role icon with an official CUBRID logo or wordmark.
 - Using a role icon as the CUBRID Lab organization logo or avatar.
 
@@ -97,11 +94,15 @@ sets its own attribution terms.
 
 The rules above are the maintainers' position while these items remain open:
 
-1. a visual-asset license (or a decision not to offer one) for third-party
+1. confirmation of first-party use for `cubrid-benchmark`, `showcase`, `docs`
+   and `community`,
+2. whether forks and mirrors may keep the pinned image link of an unmodified
+   CUBRID Lab README,
+3. a visual-asset license (or a decision not to offer one) for third-party
    embedding, copying, modification and redistribution,
-2. creator-rights confirmation for the AI-assisted reconstruction recorded in
+4. creator-rights confirmation for the AI-assisted reconstruction recorded in
    [PROVENANCE.md](PROVENANCE.md),
-3. the confusing-similarity and trademark items listed below.
+5. the confusing-similarity and trademark items listed below.
 
 Until those are recorded, third-party uses stay unlicensed and first-party
 use stays limited to the permitted rows above.

@@ -57,8 +57,8 @@ Python ORM, MCP, and Cookbook icons.
 | `drizzle-cubrid` | ORM | TypeScript | `cc9c7b2a50b1b93f96b18902dbf3f029ccdda026` | [#116](https://github.com/cubrid-lab/drizzle-cubrid/issues/116) |
 | `gorm-cubrid` | ORM | Go | `cc9c7b2a50b1b93f96b18902dbf3f029ccdda026` | [#22](https://github.com/cubrid-lab/gorm-cubrid/issues/22) |
 | `sea-orm-cubrid` | ORM | Rust | `cc9c7b2a50b1b93f96b18902dbf3f029ccdda026` | [#7](https://github.com/cubrid-lab/sea-orm-cubrid/issues/7) |
-| `cubrid-benchmark` | Benchmark | Neutral | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
-| `showcase` | Showcase | Neutral | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
+| `cubrid-benchmark` | Benchmark | Neutral | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending use confirmation ([#19](https://github.com/cubrid-lab/brand/issues/19)) |
+| `showcase` | Showcase | Neutral | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending use confirmation ([#19](https://github.com/cubrid-lab/brand/issues/19)) |
 
 The Operator icon was selected on 2026-10-15, the TypeScript, Go, and Rust
 ORM icons were selected on 2026-10-20, and the Benchmark and Showcase icons were
@@ -69,7 +69,11 @@ historical evidence rather than approved integration sources.
 The `docs` and `community` concept-surface icons were also approved on
 2026-10-25 and are generated as `dist/icons/docs.svg` and
 `dist/icons/community.svg`. They are not repository names; a documentation or
-community surface that adopts one pins the same promotion commit.
+community surface that adopts one pins the same promotion commit. As with
+`cubrid-benchmark` and `showcase`, their 2026-10-25 approval covers the symbol
+only: rollout waits until the maintainer confirms that use in
+[issue #19](https://github.com/cubrid-lab/brand/issues/19) (see
+[Repository icon use](../BRAND_USAGE.md#repository-icon-use)).
 
 No registry entry is currently marked `pending-symbol`. Record explicit
 maintainer approval before promoting or applying any future candidate. The

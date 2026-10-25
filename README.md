@@ -71,7 +71,7 @@ The build removes only stale copies of its own outputs: the SVG names derived fr
 
 Code in `scripts/` and `tests/` is MIT-licensed. Visual marks and generated brand assets are **not yet licensed for redistribution** while asset licensing and trademark review are pending. See [LICENSE](LICENSE), [BRAND_USAGE.md](BRAND_USAGE.md), and [PROVENANCE.md](PROVENANCE.md).
 
-CUBRID Lab's own repositories may embed their approved repository icons by commit-pinned URL, without copying or modifying them. Nobody else has been granted permission to embed, copy, modify or redistribute them yet. [Repository icon use](BRAND_USAGE.md#repository-icon-use) lists each case and the decisions still pending.
+CUBRID Lab's own repositories may embed their approved repository icons by commit-pinned URL, without copying or modifying them; use of the Benchmark, Showcase, Docs and Community icons still awaits maintainer confirmation. Nobody else has been granted permission to embed, copy, modify or redistribute them yet. [Repository icon use](BRAND_USAGE.md#repository-icon-use) lists each case and the decisions still pending.
 
 Design selection for repository icons does **not** mean trademark, non-infringement, or formal legal review is complete. The organization emblem's scoped design and own-organization-use approval does not broaden the visual-asset redistribution license or approve the wordmark candidates.
 
