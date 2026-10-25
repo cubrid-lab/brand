@@ -41,8 +41,10 @@ HEADER = 28
 # The face shading drawn by build.cube_faces(): (overlay color, opacity) per face.
 SHADES = {"top": ((255, 255, 255), 0.08), "left": ((0, 0, 0), 0.10), "right": (None, 0.0)}
 THRESHOLD = 3.0
-# Proposed glyph enlargements about the mark's own bounding-box center.
-SCALES = {"showcase": 1.3, "docs": 1.25}
+# Proposed glyph enlargements about the mark's own bounding-box center. P2
+# (Showcase x1.3, Docs x1.25) was approved and applied to scripts/build.py on
+# 2026-10-25, so it is no longer a proposal (issue #21).
+SCALES: dict[str, float] = {}
 KEYLINE_STEP = 0.05
 NUMBER_RE = re.compile(r"-?\d+(?:\.\d+)?")
 
