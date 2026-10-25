@@ -15,7 +15,7 @@ The repository role icons in this repository are original CUBRID Lab geometric r
 - permission to imply endorsement,
 - permission to modify or redistribute any official CUBRID trademark asset.
 
-On 2026-10-15 the maintainer explicitly approved the three-color organization emblem's design and rights for use as the CUBRID Lab organization avatar and profile mark, recorded in [issue #3](https://github.com/cubrid-lab/brand/issues/3). This authorization covers that emblem and those organization surfaces only.
+On 2026-10-15 the maintainer explicitly approved the three-color organization emblem's design and rights for use as the CUBRID Lab organization avatar and profile mark, recorded in [issue #3](https://github.com/cubrid-lab/brand/issues/3). This authorization covers that emblem and those organization surfaces only; on 2026-10-25 the maintainer extended it to the organization website's header logo and favicon, by commit-pinned URL (see [Organization mark usage](docs/ORGANIZATION_MARK_USAGE.md)).
 
 On 2026-10-25 the maintainer approved the design and CUBRID Lab's own organization use of the horizontal and stacked wordmark lockups, with light- and dark-background variants, recorded in [issue #3](https://github.com/cubrid-lab/brand/issues/3). Own organization use means showing an unmodified lockup by commit-pinned URL on CUBRID Lab surfaces, as described in [Organization mark usage](docs/ORGANIZATION_MARK_USAGE.md#wordmark-lockups). It is not a license, and it is not a legal or trademark clearance.
 
