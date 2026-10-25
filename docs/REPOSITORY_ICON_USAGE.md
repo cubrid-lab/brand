@@ -38,6 +38,10 @@ commit-pinned SVG used in the README. Preserve the rest of the site's theme and
 navigation. This convention is already applied to `pycubrid`, `sqlalchemy-cubrid`,
 `cubrid-mcp-server`, and `cubrid-cookbook-python`.
 
+Mind the [known small-size limits](ICON_GALLERY.md#known-small-size-limits): favicons
+render at 16 px, where the Operator dial does not resolve, and the Community figures
+need 48 px or more to separate.
+
 ## Rollout inventory
 
 The seven earlier repository integrations retain these revisions. Both revisions contain
