@@ -5,6 +5,7 @@ import re
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,6 +37,14 @@ class PythonYellowCandidateTests(unittest.TestCase):
         self.assertEqual(COLORS["python"], "#3776AB")
         self.assertEqual(YELLOW_CANDIDATES["color"], "#FFD43B")
         self.assertEqual(sorted(YELLOW_CANDIDATES["repositories"]), sorted(n for n, m in REGISTRY.items() if m["language"] == "python"))
+
+    def test_outputs_follow_a_redirected_root(self):
+        # The temporary-root fixtures in tests/test_brand.py patch only ROOT, OUT and STUDY_OUT.
+        root = Path("/nonexistent-root")
+        with patch.object(build, "ROOT", root):
+            files = set(yellow_candidate_files())
+            self.assertTrue(all(path.parent == root / "studies/python-yellow" for path in files))
+            self.assertLessEqual(files, build.owned_outputs())
 
     def test_inks_follow_their_recorded_derivation(self):
         yellow = rgb(YELLOW_CANDIDATES["color"])

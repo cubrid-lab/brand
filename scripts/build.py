@@ -284,7 +284,6 @@ def role_candidate_files() -> dict[Path, tuple[str, str]]:
 # Contrast treatments for the Python Yellow decision (issue #38). Study-only:
 # they render the approved Python icons in the candidate color with a dark or
 # ochre mark and an optional outer keyline, into studies/python-yellow/.
-YELLOW_OUT = ROOT / "studies/python-yellow"
 FILL_D_RE = re.compile(r'<path d="([^"]+)" fill="currentColor"/>')
 
 
@@ -334,7 +333,7 @@ def render_yellow_candidate(treatment: str, name: str) -> str:
 
 def yellow_candidate_files() -> dict[Path, tuple[str, str]]:
     return {
-        YELLOW_OUT / f"{treatment}-{name}.svg": (treatment, name)
+        ROOT / "studies/python-yellow" / f"{treatment}-{name}.svg": (treatment, name)
         for treatment in sorted(YELLOW_CANDIDATES["treatments"])
         for name in YELLOW_CANDIDATES["repositories"]
     }
@@ -523,7 +522,7 @@ def main() -> int:
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(content, encoding="utf-8")
     unmanaged = []
-    for directory in (OUT, STUDY_OUT, ROOT / "dist/organization", ROOT / "studies/organization", ROOT / "studies/roles", YELLOW_OUT):
+    for directory in (OUT, STUDY_OUT, ROOT / "dist/organization", ROOT / "studies/organization", ROOT / "studies/roles", ROOT / "studies/python-yellow"):
         for path in sorted(directory.glob("*.svg")):
             if path in expected:
                 continue
