@@ -27,7 +27,7 @@ These are **CUBRID Lab design tokens**, not official CUBRID brand colors or clai
 
 ## Repository and surface mapping
 
-Machine-readable mappings live in [`registry/repositories.json`](registry/repositories.json). `dist/icons/` contains eleven approved repository icons: the four Driver variants; the Python ORM (`sqlalchemy-cubrid`), MCP (`cubrid-mcp-server`), and Cookbook (`cubrid-cookbook-python`) icons selected on 2026-10-14; the Go Operator (`cubrid-kubernetes-operator`) icon selected on 2026-10-15; and the TypeScript, Go, and Rust ORM (`drizzle-cubrid`, `gorm-cubrid`, `sea-orm-cubrid`) icons selected on 2026-10-20. The maintainer selections are recorded in [issue #6](https://github.com/cubrid-lab/brand/issues/6). The other two repository icons and two concept surfaces are generated under `studies/icons/` pending symbol approval. `docs` and `community` are not asserted to be repository names.
+Machine-readable mappings live in [`registry/repositories.json`](registry/repositories.json). `dist/icons/` contains all fifteen approved icons: the four Driver variants; the Python ORM (`sqlalchemy-cubrid`), MCP (`cubrid-mcp-server`), and Cookbook (`cubrid-cookbook-python`) icons selected on 2026-10-14; the Go Operator (`cubrid-kubernetes-operator`) icon selected on 2026-10-15; the TypeScript, Go, and Rust ORM (`drizzle-cubrid`, `gorm-cubrid`, `sea-orm-cubrid`) icons selected on 2026-10-20; and the Benchmark (`cubrid-benchmark`) and Showcase (`showcase`) repository icons and the Docs (`docs`) and Community (`community`) concept-surface icons approved on 2026-10-25. The maintainer selections are recorded in [issue #6](https://github.com/cubrid-lab/brand/issues/6). No repository or surface icon is currently pending symbol approval, so `studies/icons/` is empty. `docs` and `community` are not asserted to be repository names.
 
 Role geometry is common across repositories with the same role. The six-spoke Operator control dial is an original generic mark and does not copy the Kubernetes logo or any other third-party logo.
 
@@ -46,7 +46,7 @@ scripts/             deterministic SVG generation
 src/                 generated color-inheriting role templates
 dist/icons/           generated approved repository icons
 dist/organization/    generated organization emblem approved for own-organization use
-studies/icons/        generated individual symbol candidates (pending review)
+studies/icons/        generated individual symbol candidates (pending review; currently none)
 studies/organization/ generated organization mark and wordmark candidates (pending review)
 docs/                construction, gallery, and visual-reference study
 provenance/          immutable superseded Connector Study / 02 reference

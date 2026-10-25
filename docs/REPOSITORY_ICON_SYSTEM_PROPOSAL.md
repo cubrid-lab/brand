@@ -29,11 +29,11 @@ The study describes the system as “a consistent and meaningful icon system for
 | ORMs / Dialects | `sea-orm-cubrid` | SeaORM Dialect | Rust | ORM / Rust, approved |
 | Tools & AI | `cubrid-mcp-server` | Model Context Protocol | Python | MCP / Python, approved |
 | Tools & AI | `cubrid-cookbook-python` | Examples and Guides | Python | Cookbook / Python, approved |
-| Tools & AI | `cubrid-benchmark` | Performance Tools | Rust | Benchmark / **Neutral**, pending-symbol study; study label conflicts |
+| Tools & AI | `cubrid-benchmark` | Performance Tools | Rust | Benchmark / **Neutral**, approved; study label conflicts |
 | Infrastructure | `cubrid-kubernetes-operator` | Kubernetes Operator | Go | Operator / Go, approved |
-| Infrastructure | `showcase` | Project Showcase | TypeScript | Showcase / **Neutral**, pending-symbol study; [language statistics](https://api.github.com/repos/cubrid-lab/showcase/languages) do not show TypeScript (October 2026) |
-| Infrastructure | `docs` | Documentation | Markdown | Docs / Neutral concept surface, pending-symbol study |
-| Infrastructure | `community` | Discussions & Support | Markdown | Community / Neutral concept surface, pending-symbol study |
+| Infrastructure | `showcase` | Project Showcase | TypeScript | Showcase / **Neutral**, approved; [language statistics](https://api.github.com/repos/cubrid-lab/showcase/languages) do not show TypeScript (October 2026) |
+| Infrastructure | `docs` | Documentation | Markdown | Docs / Neutral concept surface, approved |
+| Infrastructure | `community` | Discussions & Support | Markdown | Community / Neutral concept surface, approved |
 
 The study omits `cubrid-client`, whose **Driver / TypeScript** variant is also approved in `dist/icons/`. `showcase` uses Neutral because its study label conflicts with its current mixed-content repository. `docs` and `community` are recorded as concept surfaces, not repository names.
 
@@ -93,6 +93,6 @@ The organization emblem and wordmark belong to [issue #3](https://github.com/cub
 ## Implementation decisions and remaining review
 
 1. The registry uses TypeScript for Drizzle and Neutral for Benchmark and Showcase. Docs and Community are concept surfaces. JavaScript and OCaml tokens are defined but currently unused.
-2. The maintainer selected the cube-based Driver direction, whose four variants replace the former assets in `dist/icons/`, and subsequently approved the four ORM variants, MCP, Cookbook, and Go Operator symbols in [issue #6](https://github.com/cubrid-lab/brand/issues/6). Remaining individual role candidates are generated under `studies/icons/` for explicit approval; numerical geometry, tests, and the [gallery](ICON_GALLERY.md) document both sets.
+2. The maintainer selected the cube-based Driver direction, whose four variants replace the former assets in `dist/icons/`, and subsequently approved the four ORM variants, MCP, Cookbook, Go Operator, Benchmark, and Showcase symbols and the Docs and Community surface symbols in [issue #6](https://github.com/cubrid-lab/brand/issues/6). All fifteen generated icons are now in `dist/icons/`; numerical geometry, tests, and the [gallery](ICON_GALLERY.md) document them.
 3. The three-color organization emblem received scoped design and own-organization-use approval on 2026-10-15 under [issue #3](https://github.com/cubrid-lab/brand/issues/3); see [Organization mark usage](ORGANIZATION_MARK_USAGE.md). Wordmark lockups, copy proposals, similarity/trademark searches, and general redistribution licensing remain pending.
 4. Perform independent post-implementation review and complete visual-asset licensing and legal work before broad deployment.

@@ -53,17 +53,23 @@ Python ORM, MCP, and Cookbook icons.
 | `drizzle-cubrid` | ORM | TypeScript | `cc9c7b2a50b1b93f96b18902dbf3f029ccdda026` | [#116](https://github.com/cubrid-lab/drizzle-cubrid/issues/116) |
 | `gorm-cubrid` | ORM | Go | `cc9c7b2a50b1b93f96b18902dbf3f029ccdda026` | [#22](https://github.com/cubrid-lab/gorm-cubrid/issues/22) |
 | `sea-orm-cubrid` | ORM | Rust | `cc9c7b2a50b1b93f96b18902dbf3f029ccdda026` | [#7](https://github.com/cubrid-lab/sea-orm-cubrid/issues/7) |
+| `cubrid-benchmark` | Benchmark | Neutral | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
+| `showcase` | Showcase | Neutral | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
 
-The Operator icon was selected on 2026-10-15, and the TypeScript, Go, and Rust
-ORM icons were selected on 2026-10-20. Each repository README must pin the
-promotion commit containing its `dist/icons/<repository>.svg` asset; older study
-URLs are historical evidence rather than approved integration sources.
+The Operator icon was selected on 2026-10-15, the TypeScript, Go, and Rust
+ORM icons were selected on 2026-10-20, and the Benchmark and Showcase icons were
+approved on 2026-10-25. Each repository README must pin the promotion commit
+containing its `dist/icons/<repository>.svg` asset; older study URLs are
+historical evidence rather than approved integration sources.
 
-The two repository icons (`cubrid-benchmark`, `showcase`) and two concept
-surfaces (`docs`, `community`) still marked `pending-symbol` remain review
-candidates under `studies/icons/`; an absent icon in those repositories is not a
-broken integration. Record explicit maintainer approval before promoting or
-applying them. The registry remains authoritative as approvals change.
+The `docs` and `community` concept-surface icons were also approved on
+2026-10-25 and are generated as `dist/icons/docs.svg` and
+`dist/icons/community.svg`. They are not repository names; a documentation or
+community surface that adopts one pins the same promotion commit.
+
+No registry entry is currently marked `pending-symbol`. Record explicit
+maintainer approval before promoting or applying any future candidate. The
+registry remains authoritative as approvals change.
 
 The organization emblem has separate scoped approval and
 [usage guidance](ORGANIZATION_MARK_USAGE.md). Wordmark and broader legal/license
