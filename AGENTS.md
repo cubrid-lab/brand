@@ -54,9 +54,10 @@ required, remains an independent approval, **not** an AI-code-review stage.
 ## Issue triage lifecycle
 
 Every new issue in this repository starts with `status: needs triage`.
-The issue-opened GitHub Actions workflow applies it to external submissions.
-Automation created with `GITHUB_TOKEN` must attach that label when filing,
-since its own issue events may not trigger another workflow.
+The `issues: opened` workflow (`.github/workflows/issue-triage.yml`) adds it
+to every opened issue; this repository has no issue forms. Automation that
+files issues with `GITHUB_TOKEN` must attach the label at creation, since
+`GITHUB_TOKEN` issue events do not trigger another workflow.
 
 1. Check evidence and impact, unknowns, duplicate/open-PR overlap, repository
    scope, issue type, non-goals, acceptance and dependencies. Close duplicate
