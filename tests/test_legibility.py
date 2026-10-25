@@ -75,13 +75,22 @@ def low_contrast_languages(entries: dict[str, dict[str, str]]) -> set[str]:
 
 
 def thin_white_marks(glyph: str) -> list[float]:
-    """Widths, in viewBox units, of white strokes and dots below ``MIN_WHITE_UNITS``."""
-    widths = []
-    for node in ElementTree.fromstring(f"<g>{glyph}</g>").iter():
-        if node.get("stroke") == "#fff":
-            widths.append(float(node.get("stroke-width", "1")))
-        elif node.tag == "circle" and node.get("fill") == "#fff":
+    """Widths, in viewBox units, of white strokes and dots below ``MIN_WHITE_UNITS``.
+
+    Fill, stroke and stroke width are inherited from enclosing groups, as in SVG.
+    """
+    widths: list[float] = []
+
+    def walk(node: ElementTree.Element, style: dict[str, str]) -> None:
+        style = {**style, **{key: node.get(key) for key in ("fill", "stroke", "stroke-width") if node.get(key)}}
+        if node.tag in ("path", "circle") and style.get("stroke") == "#fff":
+            widths.append(float(style.get("stroke-width", "1")))
+        elif node.tag == "circle" and style.get("fill") == "#fff":
             widths.append(2 * float(node.get("r")))
+        for child in node:
+            walk(child, style)
+
+    walk(ElementTree.fromstring(f"<g>{glyph}</g>"), {})
     return [width for width in widths if width < MIN_WHITE_UNITS]
 
 
@@ -115,6 +124,10 @@ class StrokeWeightTests(unittest.TestCase):
     def test_a_thin_white_stroke_is_flagged(self):
         glyph = '<path d="M 1 1 L 2 2" stroke="#fff" stroke-width="0.6"/><circle cx="1" cy="1" r="0.4" fill="#fff"/>'
         self.assertEqual(thin_white_marks(glyph), [0.6, 0.8])
+
+    def test_inherited_white_is_checked(self):
+        glyph = '<g fill="#fff"><circle cx="1" cy="1" r="0.4"/></g><g stroke="#fff" stroke-width="0.7"><path d="M 1 1 L 2 2"/></g>'
+        self.assertEqual(thin_white_marks(glyph), [0.8, 0.7])
 
 
 if __name__ == "__main__":

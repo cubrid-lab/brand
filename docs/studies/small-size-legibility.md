@@ -109,7 +109,7 @@ Light and dark pages give the same grades except where noted. P = pass, M = marg
 | Operator: `cubrid-kubernetes-operator` | F (C1, C2, C4: a ring) | F (C1; C4 marginal, spokes merge) | F (C1) | F (C1) | F (C1) |
 | Showcase: `showcase` | M (C4: the triangle reads as a dot) | M (C4) | P | P | P |
 | Docs: `docs` | F (C2, C3: bars merge into a block) | M (C3, 0.96 px) | P | P | P |
-| Community: `community` | F (C3, C4: one blob) | F (C3) | F (C3; the group reads) | M (C3; the group reads) | M (C3; the group reads) |
+| Community: `community` | F (C3, C4: one blob) | F (C3) | F (C3; the group reads) | F (C3; the group reads) | F (C3; the group reads) |
 | Organization mark | P | P | P | P | P |
 
 The C1 failures for Go and Rust are measurements against a guideline threshold. In the renders the Go and Rust marks are still visible at 24 px and up; they are less crisp than the Python and TypeScript variants, most visibly on the Rust cube.
@@ -138,7 +138,8 @@ Scale each mark about its own bounding-box center: Docs by 1.25, Showcase by 1.3
 
 ## Usage guidance from the measurements
 
-- Role icons read reliably from 32 px. At 24 px all pass except Go and Rust contrast and the marginal Driver, Showcase, Docs and Community cases.
+- From 32 px every role mark is recognizable (C4), but not every icon passes all four criteria: Go and Rust stay below 3:1 (C1) and Community's figures do not separate (C3) at any size up to 64 px.
+- At 24 px, besides those failures, Driver, Showcase and Docs are marginal and the Operator spokes merge.
 - At 16 px only the ORM, Cookbook, Benchmark and organization mark keep their role shape. Elsewhere the cube silhouette and language color carry the identity, and the role mark should not be relied on.
 
 ## Automated checks
@@ -146,4 +147,4 @@ Scale each mark about its own bounding-box center: Docs by 1.25, Showcase by 1.3
 `tests/test_legibility.py` (no extra dependencies, part of `python -m unittest discover -s tests`):
 
 - Computes the white-mark contrast on each face shade parsed from the generated SVG for every repository and surface icon with a white mark, and fails if the set of tokens below 3:1 differs from the reviewed set `{go, rust}`. A self-test shows a JavaScript Driver would be flagged and a JavaScript ORM would not.
-- Fails if any white stroke or white dot in a role mark is thinner than 1 viewBox unit (1 px at 24 px). A self-test shows a 0.6-unit stroke and a 0.8-unit dot are flagged. Filled shapes such as the Docs bars are not measured by this check; the table above covers them.
+- Fails if any white stroke or white dot in a role mark is thinner than 1 viewBox unit (1 px at 24 px), with fill, stroke and stroke width inherited from enclosing groups (the MCP and Community dots inherit their white fill). Self-tests show a 0.6-unit stroke and 0.8-unit dots are flagged, directly set or inherited. Filled shapes such as the Docs bars are not measured by this check; the table above covers them.
