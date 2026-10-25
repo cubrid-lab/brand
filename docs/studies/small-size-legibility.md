@@ -4,7 +4,14 @@ Date: 2026-10-25, against `main` at [`2de5d23`](https://github.com/cubrid-lab/br
 
 This study measures how the approved role icons and the organization mark hold up at 16, 24, 32, 48 and 64 px on a light (`#FFFFFF`) and a dark (`#0D1117`) page. It is design guidance. It is not an accessibility audit or a claim of WCAG conformance: WCAG 1.4.11 exempts logotypes, and its 3:1 non-text threshold is used here only as a yardstick.
 
-**No generated asset changes.** Proposed adjustments are rendered from an in-memory copy of the generator for review. Any of them needs the maintainer's design approval before it reaches `dist/`.
+The measurements and review sheets below describe `main` at `2de5d23`, before any change. The proposals were rendered from an in-memory copy of the generator for review.
+
+## Decision (2026-10-25)
+
+After reviewing [`small-size-legibility/proposal-before-after.png`](small-size-legibility/proposal-before-after.png), the maintainer decided in issue #21:
+
+- **P2 approved.** The Docs mark is enlarged ×1.25 and the Showcase mark ×1.3 about their own centers, exactly as rendered in the study. `scripts/build.py` now draws them that way, and the regenerated `dist/icons/docs.svg` and `dist/icons/showcase.svg` are byte-identical to the study's P2 "after" renders. The grades below for Docs and Showcase are the pre-change grades; the P2 section gives the new measurements.
+- **P1 declined.** The darker keyline darkens the whole Operator dial for a small gain (it does not fix 16 or 24 px on the Driver marks). Go and Rust keep their current treatment, and `tests/test_legibility.py` keeps `{go, rust}` as the reviewed set below 3:1.
 
 ## Review sheets
 
@@ -12,7 +19,7 @@ This study measures how the approved role icons and the organization mark hold u
 - [`small-size-legibility/pixels.png`](small-size-legibility/pixels.png): the 16 and 24 px renderings enlarged 6x without smoothing, one block per device pixel.
 - [`small-size-legibility/proposal-before-after.png`](small-size-legibility/proposal-before-after.png): the five icons the proposals below would change, current and proposed, at 16 to 128 px, light and dark.
 
-Regenerate them, and the contrast tables below, with `python scripts/legibility_study.py OUT_DIR` (optional; needs `rsvg-convert` and Pillow; not used by the build or CI).
+Regenerate them, and the contrast tables below, with `python scripts/legibility_study.py OUT_DIR` (optional; needs `rsvg-convert` and Pillow; not used by the build or CI). Since P2 is now part of the generator, the script no longer applies it, and running it on a later revision renders the then-current icons.
 
 ## Criteria
 
@@ -116,7 +123,7 @@ The C1 failures for Go and Rust are measurements against a guideline threshold. 
 
 ## Proposals
 
-### P1. Darker keyline under the mark for low-contrast tokens (Go, Rust)
+### P1. Darker keyline under the mark for low-contrast tokens (Go, Rust) — declined
 
 Affected approved assets: `cubrid-go`, `cubrid-rs`, `cubrid-kubernetes-operator`.
 
@@ -124,7 +131,7 @@ The seam backing from issue #23 already draws the mark widened by 0.55 units und
 
 Limits: on the Driver marks the keyline is 0.55 units wide, which is 0.37 px at 16 px, 0.55 px at 24 px and 1.47 px at 64 px. It sharpens the mark's edge from about 48 px up, but it does not fix 16 or 24 px. It also introduces a derived shade of the language color, which the maintainer should judge against the "color = implementation language" rule. Leaving Go and Rust as they are is a reasonable alternative, since the marks remain recognizable by shape at 24 px and up.
 
-### P2. Enlarge the Docs and Showcase marks
+### P2. Enlarge the Docs and Showcase marks — approved and applied
 
 Affected approved assets: `docs`, `showcase`.
 
@@ -148,3 +155,4 @@ Scale each mark about its own bounding-box center: Docs by 1.25, Showcase by 1.3
 
 - Computes the white-mark contrast on each face shade parsed from the generated SVG for every repository and surface icon with a white mark, and fails if the set of tokens below 3:1 differs from the reviewed set `{go, rust}`. A self-test shows a JavaScript Driver would be flagged and a JavaScript ORM would not.
 - Fails if any white stroke or white dot in a role mark is thinner than 1 viewBox unit (1 px at 24 px), with fill, stroke and stroke width inherited from enclosing groups (the MCP and Community dots inherit their white fill). Self-tests show a 0.6-unit stroke and 0.8-unit dots are flagged, directly set or inherited. Filled shapes such as the Docs bars are not measured by this check; the table above covers them.
+- Checks the approved P2 sizes: the Docs bars and the gaps between them are 1.25 times their former perpendicular widths (about 1.41 and 1.2 units, so at least 1 px at 24 px), and the Showcase triangle is 1.3 times its former 3.8 × 4.6 units.

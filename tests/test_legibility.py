@@ -13,6 +13,7 @@ Two objective checks, with no extra dependencies:
 """
 from __future__ import annotations
 
+import math
 import sys
 import unittest
 from pathlib import Path
@@ -128,6 +129,37 @@ class StrokeWeightTests(unittest.TestCase):
     def test_inherited_white_is_checked(self):
         glyph = '<g fill="#fff"><circle cx="1" cy="1" r="0.4"/></g><g stroke="#fff" stroke-width="0.7"><path d="M 1 1 L 2 2"/></g>'
         self.assertEqual(thin_white_marks(glyph), [0.8, 0.7])
+
+
+def glyph_points(role: str) -> list[list[tuple[float, float]]]:
+    """The absolute x y vertices of each subpath of a single-path role mark."""
+    d = ElementTree.fromstring(GLYPHS[role]).get("d")
+    shapes = []
+    for subpath in d.split("Z"):
+        values = [float(n) for n in subpath.replace("M", " ").replace("L", " ").split()]
+        if values:
+            shapes.append(list(zip(values[0::2], values[1::2])))
+    return shapes
+
+
+class EnlargedMarkTests(unittest.TestCase):
+    """The approved P2 enlargement (issue #21): Docs x1.25, Showcase x1.3."""
+
+    def test_docs_bars_and_gaps_are_at_least_one_pixel_at_24_px(self):
+        bars = glyph_points("docs")
+        (x0, y0), (x1, y1) = bars[0][0], bars[0][1]
+        cosine = abs(x1 - x0) / math.hypot(x1 - x0, y1 - y0)
+        thickness = (bars[0][3][1] - bars[0][0][1]) * cosine
+        gap = (bars[1][0][1] - bars[0][3][1]) * cosine
+        self.assertAlmostEqual(thickness, 1.13 * 1.25, places=2)
+        self.assertAlmostEqual(gap, 0.96 * 1.25, places=2)
+        self.assertGreaterEqual(min(thickness, gap), MIN_WHITE_UNITS)
+
+    def test_showcase_triangle_is_scaled_by_1_3(self):
+        (triangle,) = glyph_points("showcase")
+        xs, ys = [x for x, _ in triangle], [y for _, y in triangle]
+        self.assertAlmostEqual(max(xs) - min(xs), 3.8 * 1.3, places=2)
+        self.assertAlmostEqual(max(ys) - min(ys), 4.6 * 1.3, places=2)
 
 
 if __name__ == "__main__":
