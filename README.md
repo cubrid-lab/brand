@@ -45,7 +45,7 @@ This example pins an existing published revision; when integrating newly approve
 
 ## Organization identity
 
-The [three-color organization emblem](dist/organization/mark.svg) is separate from role icons. On 2026-10-15 the maintainer approved its design and use as the CUBRID Lab organization avatar and profile mark, recorded in [issue #3](https://github.com/cubrid-lab/brand/issues/3). On 2026-10-25 the maintainer approved the design and own-organization use of the [horizontal](dist/organization/lockup-horizontal.svg) and [stacked](dist/organization/lockup-stacked.svg) wordmark lockups, which also have [dark-background variants](dist/organization/lockup-horizontal-dark.svg) ([stacked](dist/organization/lockup-stacked-dark.svg)). General redistribution licensing and independent legal/trademark clearance remain pending. See [Organization mark usage](docs/ORGANIZATION_MARK_USAGE.md) for the scoped approval and rollout. The GitHub handle remains `cubrid-lab`.
+The [three-color organization emblem](dist/organization/mark.svg) is separate from role icons and is approved only as the CUBRID Lab organization avatar and profile mark. The [horizontal](dist/organization/lockup-horizontal.svg) and [stacked](dist/organization/lockup-stacked.svg) wordmark lockups, with [dark-background variants](dist/organization/lockup-horizontal-dark.svg) ([stacked](dist/organization/lockup-stacked-dark.svg)), are approved for CUBRID Lab's own organization use. Their current approval status is in [`tokens/organization.json`](tokens/organization.json), and the decisions are recorded in [PROVENANCE.md](PROVENANCE.md#review-state) and [issue #3](https://github.com/cubrid-lab/brand/issues/3). No visual-asset license is offered, and independent legal/trademark clearance is pending. See [Organization mark usage](docs/ORGANIZATION_MARK_USAGE.md) for the scoped approval and rollout. The GitHub handle remains `cubrid-lab`.
 
 ## Find the source files
 
@@ -54,7 +54,9 @@ The [three-color organization emblem](dist/organization/mark.svg) is separate fr
 | [`dist/icons/`](dist/icons/) | Currently approved repository and concept-surface icons |
 | [`dist/organization/`](dist/organization/) | Approved organization emblem and wordmark lockups (light and dark) |
 | [`studies/`](studies/) | Candidate artwork and visual review references (not approved for distribution) |
-| [`registry/repositories.json`](registry/repositories.json) | Authoritative repository, language, and role mapping |
+| [`registry/repositories.json`](registry/repositories.json) | Authoritative repository and surface role, language, and approval status |
+| [`tokens/organization.json`](tokens/organization.json) | Authoritative organization emblem and wordmark approval status |
+| [`PROVENANCE.md`](PROVENANCE.md) | History of design decisions and approvals |
 | [`tokens/`](tokens/) | Geometry, language colors, and organization construction |
 | [`scripts/build.py`](scripts/build.py) | Deterministic SVG generation |
 | [`docs/ICON_GALLERY.md`](docs/ICON_GALLERY.md) | Complete visual inventory and size previews |
@@ -73,12 +75,27 @@ test -z "$(git ls-files --others --exclude-standard -- src dist studies/icons st
 
 The generator reports unmanaged SVGs rather than silently deleting them. Details, contribution expectations, and approval boundaries are in [AGENTS.md](AGENTS.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Where approval status lives
+
+Current approval status has one source per asset class: [`registry/repositories.json`](registry/repositories.json) for repository and concept-surface icons, and [`tokens/organization.json`](tokens/organization.json) for the organization emblem and wordmark lockups. The generator routes assets to `dist/` or `studies/` from those fields. [PROVENANCE.md](PROVENANCE.md#review-state) records when and how each decision was made; the guides link to these files instead of repeating status lists. `tests/test_brand.py` keeps its own explicit list of approved icons, so an accidental status change in the registry fails the tests.
+
+## Repository settings
+
+As configured on 2026-10-25 ([issue #18](https://github.com/cubrid-lab/brand/issues/18)), `main` has classic branch protection:
+
+- A pull request is required to change `main`; it needs 0 approving reviews.
+- The `validate` check (the `CI / validate` job) must pass, and the branch must be up to date with `main` before merging.
+- Force pushes and deletion of `main` are blocked.
+- Administrators are not included (`enforce_admins` off): a repository administrator can bypass these rules in an emergency. This is a documented exception.
+
+Only a repository administrator can view or change these settings.
+
 ## Licensing and review status
 
 Code in `scripts/` and `tests/` is MIT-licensed. Visual marks and generated brand assets are **not licensed for redistribution**: on 2026-10-25 the maintainer decided not to offer a visual-asset license for now, and all rights are reserved. Trademark review is still pending. See [LICENSE](LICENSE), [BRAND_USAGE.md](BRAND_USAGE.md), and [PROVENANCE.md](PROVENANCE.md).
 
 CUBRID Lab's own repositories may show their approved icons in the README and on their documentation sites by commit-pinned URL, without copying or modifying them. Forks and mirrors may keep that link in an unmodified README. No other embedding, copying, modification or redistribution is permitted. [Repository icon use](BRAND_USAGE.md#repository-icon-use) lists each case and the reviews still pending.
 
-Design selection for repository icons does **not** mean trademark, non-infringement, or formal legal review is complete. The organization emblem's scoped design and own-organization-use approval and the wordmark lockups' design and own-organization-use approval do not broaden the visual-asset redistribution license.
+Design selection for repository icons does **not** mean trademark, non-infringement, or formal legal review is complete. The organization emblem's scoped design and own-organization-use approval and the wordmark lockups' design and own-organization-use approval do not grant a visual-asset license.
 
 Related: [organization mark and wordmark #3](https://github.com/cubrid-lab/brand/issues/3), [symbol approvals #6](https://github.com/cubrid-lab/brand/issues/6), [README usability #20](https://github.com/cubrid-lab/brand/issues/20).
