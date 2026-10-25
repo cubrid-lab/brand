@@ -1,4 +1,4 @@
-"""Study-only Driver, ORM and MCP role candidates (issue #30, MCP direction from issue #23)."""
+"""Driver, ORM and MCP role candidates (issue #30, MCP direction from issue #23) and their promotion."""
 from __future__ import annotations
 
 import sys
@@ -68,13 +68,23 @@ class RoleCandidateTests(unittest.TestCase):
                         [strip(n.decode(), language) for n in body(render_role_candidate(candidate_id, language))],
                     )
 
-    def test_driver_stack_is_the_current_orm_geometry(self):
-        current = body(build.render_icon("orm", "currentColor", "orm"))
-        self.assertEqual(body(render_role_candidate("driver-vertical-stack", "python")), current)
+    def test_one_selected_candidate_per_role_is_the_promoted_geometry(self):
+        selected = {spec["role"]: cid for cid, spec in ROLE_CANDIDATES.items() if spec["selection"] == "selected"}
+        self.assertEqual(selected, {"driver": "driver-vertical-stack", "orm": "orm-lateral-plates", "mcp": "mcp-router-hub"})
+        self.assertEqual(sum(spec["selection"] == "selected" for spec in ROLE_CANDIDATES.values()), 3)
+        self.assertTrue(all(spec["selection"] in {"selected", "not-selected"} for spec in ROLE_CANDIDATES.values()))
+        for role, candidate_id in selected.items():
+            for language in ROLE_CANDIDATES[candidate_id]["languages"]:
+                with self.subTest(role=role, language=language):
+                    promoted = build.render_icon(role, COLORS[language], "x", "approved")
+                    study = render_role_candidate(candidate_id, language).replace(f"{candidate_id}-{language}", "x")
+                    self.assertEqual(body(promoted), body(study))
 
-    def test_candidates_are_distinct_from_each_other_and_current_roles(self):
-        shapes = {tuple(body(build.render_icon(role, "currentColor", "x"))) for role in ROLES if role != "orm"}
-        for candidate_id in ROLE_CANDIDATES:
+    def test_unselected_candidates_are_distinct_from_each_other_and_current_roles(self):
+        shapes = {tuple(body(build.render_icon(role, "currentColor", "x"))) for role in ROLES}
+        for candidate_id, spec in ROLE_CANDIDATES.items():
+            if spec["selection"] == "selected":
+                continue
             drawing = tuple(n.replace(candidate_id.encode() + b"-python", b"x") for n in body(render_role_candidate(candidate_id, "python")))
             with self.subTest(candidate=candidate_id):
                 self.assertNotIn(drawing, shapes)

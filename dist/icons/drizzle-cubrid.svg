@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="#3178C6" role="img" aria-labelledby="drizzle-cubrid-title drizzle-cubrid-desc">
   <title id="drizzle-cubrid-title">CUBRID Lab orm icon — drizzle-cubrid</title>
   <desc id="drizzle-cubrid-desc">Cube-based orm role symbol. Design selected; legal clearance pending.</desc>
-  <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="currentColor"/>
-  <path d="M 2 10.1 L 12 15.6 L 22 10.1 L 22 12.15 L 12 17.65 L 2 12.15 Z" fill="currentColor"/>
-  <path d="M 2 14.3 L 12 19.8 L 22 14.3 L 22 16.35 L 12 21.85 L 2 16.35 Z" fill="currentColor"/>
+  <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="currentColor"/>
+  <path d="M 4 5.619 L 14 11.392 L 14 21.766 L 17 20.073 L 17 9.66 L 7 3.887 Z" fill="currentColor"/>
+  <path d="M 9 2.732 L 19 8.506 L 19 18.944 L 22 17.25 L 22 6.774 L 12 1 Z" fill="currentColor"/>
 </svg>

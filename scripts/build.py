@@ -97,13 +97,10 @@ def cube_faces(role: str, key: str, glyph: str | None = None) -> str:
 # White marks are original geometric drawings. In particular, Operator is a
 # generic six-spoke control dial, not a Kubernetes or other third-party logo.
 GLYPHS = {
-    "driver": '''  <path d="M 12.6 18.1 L 15.7 16.15 L 17.45 16.15" fill="none" stroke="#fff" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="18.35" cy="16.15" r="1.7" fill="#fff"/>''',
-    "mcp": '''  <g fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round">
-    <path d="M 12 9.2 L 7.8 15.1 L 12 20.0 L 16.2 15.1 Z"/>
-    <path d="M 7.8 15.1 L 16.2 15.1"/>
-  </g>
-  <g fill="#fff"><circle cx="12" cy="9.2" r="1.65"/><circle cx="7.8" cy="15.1" r="1.55"/><circle cx="16.2" cy="15.1" r="1.55"/><circle cx="12" cy="20" r="1.55"/></g>''',
+    # MCP "3-Way Router" (issue #23): a hub at the cube's center vertex sends one
+    # link into each face. Selected on 2026-10-25 from studies/roles/.
+    "mcp": '''  <path d="M 12 12.95 L 12 7.1 M 12 12.95 L 6.7 15.45 M 12 12.95 L 17.3 15.45" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/>
+  <g fill="#fff"><circle cx="12" cy="12.95" r="1.75"/><circle cx="12" cy="6.9" r="1.45"/><circle cx="6.5" cy="15.55" r="1.45"/><circle cx="17.5" cy="15.55" r="1.45"/></g>''',
     "cookbook": '''  <path d="M 5.6 13.3 Q 8.6 12.8 10.7 14.5 L 10.7 20.0 Q 8.6 18.3 5.6 18.8 Z M 18.4 13.3 Q 15.4 12.8 13.3 14.5 L 13.3 20.0 Q 15.4 18.3 18.4 18.8 Z" fill="#fff"/>
   <path d="M 6.9 15.5 Q 8.6 15.4 9.6 16.1 M 6.9 17.0 Q 8.6 16.9 9.6 17.6 M 17.1 15.5 Q 15.4 15.4 14.4 16.1 M 17.1 17.0 Q 15.4 16.9 14.4 17.6" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>''',
     "benchmark": '''  <path d="M 5.5 15.2 H 8.4 V 19.1 H 5.5 Z M 10.5 12.7 H 13.4 V 19.1 H 10.5 Z M 15.5 9.9 H 18.4 V 19.1 H 15.5 Z" fill="#fff"/>''',
@@ -119,7 +116,8 @@ GLYPHS = {
 }
 
 
-def orm_faces() -> str:
+def vertical_stack() -> str:
+    """Driver: a top plate over two layers stacked top to bottom (issue #30; the former ORM geometry)."""
     top = path_data(cube_polygons()["top"])
     layers = (
         "M 2 10.1 L 12 15.6 L 22 10.1 L 22 12.15 L 12 17.65 L 2 12.15 Z",
@@ -136,7 +134,7 @@ def render_icon(role: str, color: str, key: str, status: str = "pending-symbol")
     if color != "currentColor" and not COLOR_RE.fullmatch(color):
         raise ValueError("invalid color")
     color_attr = "" if color == "currentColor" else f' color="{color}"'
-    shape = orm_faces() if role == "orm" else cube_faces(role, key)
+    shape = {"driver": vertical_stack, "orm": lateral_plates}.get(role, lambda: cube_faces(role, key))()
     review_note = (
         "Design selected; legal clearance pending."
         if status == "approved"
@@ -151,9 +149,10 @@ def render_icon(role: str, color: str, key: str, status: str = "pending-symbol")
     )
 
 
-# Study-only role candidates for issue #30 (Driver vertical stack, ORM lateral
-# stacks) and the MCP "3-Way Router" direction selected in issue #23. They are
-# rendered to studies/roles/ for review and are never inputs to src/ or dist/.
+# Role candidates reviewed for issue #30 (Driver vertical stack, ORM lateral
+# stacks) and the MCP "3-Way Router" direction from issue #23. They stay in
+# studies/roles/ as the review record; the selected ones (see
+# tokens/role-candidates.json) share their drawing functions with src/ and dist/.
 TOP_SHADE = '  <path d="{d}" fill="#fff" opacity="0.08"/>'
 LEFT_SHADE = '  <path d="{d}" fill="#000" opacity="0.10"/>'
 
@@ -227,9 +226,8 @@ def lateral_plates() -> str:
 
 
 ROUTER_HUB = (12.0, 12.95)
-# 3-Way Router, white rendition: one link from the center hub into each face.
-ROUTER_GLYPH = '''  <path d="M 12 12.95 L 12 7.1 M 12 12.95 L 6.7 15.45 M 12 12.95 L 17.3 15.45" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/>
-  <g fill="#fff"><circle cx="12" cy="12.95" r="1.75"/><circle cx="12" cy="6.9" r="1.45"/><circle cx="6.5" cy="15.55" r="1.45"/><circle cx="17.5" cy="15.55" r="1.45"/></g>'''
+# The selected 3-Way Router rendition is the promoted MCP mark.
+ROUTER_GLYPH = GLYPHS["mcp"]
 
 
 def router_channels(key: str) -> str:
@@ -256,7 +254,7 @@ def render_role_candidate(candidate_id: str, language: str) -> str:
         raise ValueError("invalid role candidate role or language")
     key = f"{candidate_id}-{language}"
     shapes = {
-        "driver-vertical-stack": orm_faces,
+        "driver-vertical-stack": vertical_stack,
         "orm-lateral-slabs": lateral_slabs,
         "orm-mirrored-rows": mirrored_rows,
         "orm-lateral-plates": lateral_plates,

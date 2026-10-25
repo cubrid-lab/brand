@@ -27,8 +27,11 @@ SVG = "{http://www.w3.org/2000/svg}"
 WHITE = (255, 255, 255)
 THRESHOLD = 3.0
 # Reviewed in docs/studies/small-size-legibility.md; changing a token or the
-# treatment needs maintainer design approval (issue #21).
-BELOW_THREE_TO_ONE = {"go", "rust"}
+# treatment needs maintainer design approval (issue #21). Rust dropped out on
+# 2026-10-25 when the Driver became a layered stack without a white mark (#30).
+BELOW_THREE_TO_ONE = {"go"}
+# Roles drawn as solid layers in the cube color, with no white mark (issue #30).
+UNMARKED_ROLES = {"driver", "orm"}
 MIN_WHITE_UNITS = 1.0
 
 
@@ -67,8 +70,8 @@ def face_shades(svg_text: str) -> dict[str, tuple[int, int, int]]:
 def low_contrast_languages(entries: dict[str, dict[str, str]]) -> set[str]:
     low = set()
     for name, meta in entries.items():
-        if meta["role"] == "orm":
-            continue  # The ORM layers have no white mark.
+        if meta["role"] in UNMARKED_ROLES:
+            continue  # Layered roles have no white mark.
         svg = render_icon(meta["role"], COLORS[meta["language"]], name, meta["status"])
         if min(contrast(WHITE, shade) for shade in face_shades(svg).values()) < THRESHOLD:
             low.add(meta["language"])
@@ -101,7 +104,7 @@ class ContrastTests(unittest.TestCase):
         self.assertAlmostEqual(contrast(WHITE, rgb("#767676")), 4.54, places=2)
 
     def test_face_shades_follow_the_generator_overlays(self):
-        shades = face_shades(render_icon("driver", "#00ADD8", "check", "approved"))
+        shades = face_shades(render_icon("mcp", "#00ADD8", "check", "approved"))
         self.assertEqual(shades["right"], rgb("#00ADD8"))
         self.assertEqual(shades["top"], (20, 180, 219))  # 8% white
         self.assertEqual(shades["left"], (0, 156, 194))  # 10% black
@@ -110,10 +113,11 @@ class ContrastTests(unittest.TestCase):
         self.assertEqual(low_contrast_languages({**REGISTRY, **SURFACES}), BELOW_THREE_TO_ONE)
 
     def test_a_new_low_contrast_token_is_flagged(self):
-        entry = {"example": {"role": "driver", "language": "javascript", "status": "approved"}}
+        entry = {"example": {"role": "mcp", "language": "javascript", "status": "approved"}}
         self.assertEqual(low_contrast_languages(entry), {"javascript"})
-        orm = {"example": {"role": "orm", "language": "javascript", "status": "approved"}}
-        self.assertEqual(low_contrast_languages(orm), set())
+        for role in UNMARKED_ROLES:
+            layered = {"example": {"role": role, "language": "javascript", "status": "approved"}}
+            self.assertEqual(low_contrast_languages(layered), set())
 
 
 class StrokeWeightTests(unittest.TestCase):

@@ -4,7 +4,7 @@ Date: 2026-10-25, against `main` at [`2de5d23`](https://github.com/cubrid-lab/br
 
 This study measures how the approved role icons and the organization mark hold up at 16, 24, 32, 48 and 64 px on a light (`#FFFFFF`) and a dark (`#0D1117`) page. It is design guidance. It is not an accessibility audit or a claim of WCAG conformance: WCAG 1.4.11 exempts logotypes, and its 3:1 non-text threshold is used here only as a yardstick.
 
-The measurements and review sheets below describe `main` at `2de5d23`, before any change. The proposals were rendered from an in-memory copy of the generator for review.
+The measurements and review sheets below describe `main` at `2de5d23`, before any change. Since then, the Driver, ORM and MCP marks have been redrawn ([issue #30](https://github.com/cubrid-lab/brand/issues/30), [`role-redesign-30.md`](role-redesign-30.md)). The Driver no longer has a white mark, so Rust no longer falls below 3:1 for any white mark. The Driver and MCP rows below describe the earlier marks. The proposals were rendered from an in-memory copy of the generator for review.
 
 ## Decision (2026-10-25)
 

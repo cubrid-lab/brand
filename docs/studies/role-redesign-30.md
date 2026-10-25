@@ -1,8 +1,20 @@
-# Driver, ORM and MCP role candidates (issues #30 and #23)
+# Driver, ORM and MCP role redesign (issues #30 and #23)
 
 Date: 2026-10-25, against `main` at [`4e1281c`](https://github.com/cubrid-lab/brand/commit/4e1281c). Renderer: librsvg (`rsvg-convert`), composited with Pillow.
 
-These are **study candidates for maintainer review**. Nothing here is approved, and no file in `src/`, `dist/` or `registry/` changes: `pycubrid` still uses the current Driver icon and `sqlalchemy-cubrid` the current ORM icon until a candidate is chosen and promoted in a separate change.
+## Decision (2026-10-25)
+
+The maintainer (@yeongseon) reviewed [`family.png`](role-redesign-30/family.png) and [`contact-sheet.png`](role-redesign-30/contact-sheet.png), generated at [`1c344fb`](https://github.com/cubrid-lab/brand/commit/1c344fb283fc29284fb543a4e8f1109c620c1b17) on [PR #37](https://github.com/cubrid-lab/brand/pull/37), and selected:
+
+- **Driver:** `driver-vertical-stack`
+- **ORM:** `orm-lateral-plates`
+- **MCP:** `mcp-router-hub`
+
+`scripts/build.py` now draws these roles for `src/` and `dist/icons/`, with language colors unchanged. The decision, its scope and the list of changed assets are in [PROVENANCE.md](../../PROVENANCE.md#driver-orm-and-mcp-role-redesign-issues-30-and-23). It covers symbol design only.
+
+[`role-redesign-30/promoted-before-after.png`](role-redesign-30/promoted-before-after.png) shows every generated icon and the organization emblem before and after the change, at 16, 24, 32, 48, 64 and 128 px on light and dark backgrounds. Only the nine Driver, ORM and MCP icons change. The promoted SVGs draw exactly what the reviewed candidates drew. `tests/test_role_candidates.py` checks this, and the Python, TypeScript and Go renders were compared at every size and match pixel for pixel.
+
+The sheets below are kept as they were reviewed. Their "current" rows show the icons as they were before the decision. Rerunning the study script on a later revision shows the then-current icons instead.
 
 ## Directions being implemented
 
@@ -63,11 +75,9 @@ The seam check does catch a broken router. With the backing pad set to 0, `mcp-r
 - **`mcp-router-hub`** reads as a three-way junction from 16 px on light and dark. It is the more literal router.
 - **`mcp-router-channels`** is the most integrated with the cube's negative space and has no white mark. At 16 px the ring and seams merge into a small Y. On dark backgrounds the channels show the page color, so the router is quieter there.
 
-## Not in this change
+## Not changed
 
-- No promotion. `src/`, `dist/`, `registry/repositories.json` and every approved asset are byte-identical.
 - No Cookbook change; Cookbook is under separate review.
-- No organization emblem change.
-- Downstream revision pins are untouched.
-
-After the maintainer picks the Driver, ORM and MCP geometries, a separate change will update the role generator and regenerate `src/` and `dist/` (issue #30, scope item 3).
+- No organization emblem or lockup change.
+- No registry role mapping or review status change.
+- Downstream revision pins are unchanged. Each consuming repository repins in its own change.

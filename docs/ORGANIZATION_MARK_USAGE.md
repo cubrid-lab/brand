@@ -22,16 +22,17 @@ brand colors.
 Resemblance checks against the Driver and ORM role symbols (`AGENTS.md` rules 1
 and 11):
 
-- **Driver role (`src/driver.svg`)**: Uses a single implementation-language token
-  (`currentColor`), shading overlays, and a white right-face connector path plus
-  terminal node (`<circle cx="18.35" cy="16.15" r="1.7"/>`). All three
-  organization candidates omit the connector path, terminal circle, and every
-  other internal role glyph.
-- **ORM role (`src/orm.svg`)**: Replaces the left and right vertical cube faces
-  with two open horizontal chevron layers (`M 2 10.1 ...` and `M 2 14.3 ...`) in
-  a single language color. All three organization candidates retain the three
+- **Driver role (`src/driver.svg`)**: Replaces the left and right vertical cube
+  faces with two open horizontal chevron layers (`M 2 10.1 ...` and
+  `M 2 14.3 ...`) under the top rhombus, in a single language color
+  (`currentColor`). All three organization candidates retain the three
   isometric cube face zones (`top`, `left`, `right`) and never use stacked
   horizontal chevrons.
+- **ORM role (`src/orm.svg`)**: A single language color with the left face as a
+  front plate and two bent layers (top strip plus right-face strip) beside it,
+  with no full top or right face. All three organization candidates keep the
+  complete top and right faces, use no internal role glyph, and never split a
+  face into lateral layers.
 
 ## Approval scope
 
