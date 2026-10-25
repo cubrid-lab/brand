@@ -36,7 +36,16 @@ The candidates that were reviewed, including the unselected ones, remain generat
 
 ## Color and identity
 
-One role keeps the same geometry across languages. The root SVG color is taken only from [`tokens/colors.json`](../tokens/colors.json). Mixed-language repositories and non-repository surfaces use the Neutral token. The infographic's mismatched labels do not override actual repository languages: Drizzle is TypeScript, Benchmark is mixed-language/Neutral, and Showcase is Neutral until its identity is refined.
+One role keeps the same geometry across languages. The root SVG color is taken only from [`tokens/colors.json`](../tokens/colors.json). Mixed-language repositories and non-repository surfaces use the Neutral token. ### Light-token treatment (issue #38)
+
+Python Yellow `#FFD43B` is too light for white marks (1.39:1 on its faces) or a bare silhouette on white (1.43:1). [`tokens/colors.json`](../tokens/colors.json) therefore gives the Python token a `treatments` entry, which `light_treatment()` in `scripts/build.py` applies to every icon in that color:
+
+- **Dark marks.** The visible role mark is drawn in the dark ink `#40350F` (the token mixed 75% toward black) instead of white: at least 6.84:1 on every face shade. The seam backing stays in the cube color.
+- **Ochre keyline.** A 0.6-unit keyline in `#8C7520` (the token mixed 45% toward black) runs outside the shape: 4.49:1 on `#FFFFFF` and 4.22:1 on `#0D1117`. For the cube roles it is the outline stroke clipped to the outside of the cube, so the seams stay open; for the Driver and ORM layers it is drawn under each layer, so only its outer half shows and each gap narrows by 1.2 units.
+
+Geometry, face shading and every other language are unchanged. The treatment was selected as `t3-ochre-keyline` from [the Python Yellow study](studies/python-yellow-38.md).
+
+The infographic's mismatched labels do not override actual repository languages: Drizzle is TypeScript, Benchmark is mixed-language/Neutral, and Showcase is Neutral until its identity is refined.
 
 The [organization emblem](../dist/organization/mark.svg) uses the same construction grammar but a separate three-color face treatment and no role glyph. Its colors and scoped approvals come from [`tokens/organization.json`](../tokens/organization.json). The maintainer approved this distinct identity for CUBRID Lab's own avatar and profile use on 2026-10-15. Deployment and remaining wordmark/legal review are tracked separately in [issue #3](https://github.com/cubrid-lab/brand/issues/3).
 

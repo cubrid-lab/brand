@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="#FFD43B" role="img" aria-labelledby="t2-dark-keyline-pycubrid-title t2-dark-keyline-pycubrid-desc">
+  <title id="t2-dark-keyline-pycubrid-title">CUBRID Lab driver icon color study — pycubrid (t2-dark-keyline)</title>
+  <desc id="t2-dark-keyline-pycubrid-desc">A thin dark ink keyline outside every Python silhouette, with dark ink marks. Study candidate for review; not approved.</desc>
+  <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="none" stroke="#40350F" stroke-width="1.2" stroke-linejoin="round"/>
+  <path d="M 2 10.1 L 12 15.6 L 22 10.1 L 22 12.15 L 12 17.65 L 2 12.15 Z" fill="none" stroke="#40350F" stroke-width="1.2" stroke-linejoin="round"/>
+  <path d="M 2 14.3 L 12 19.8 L 22 14.3 L 22 16.35 L 12 21.85 L 2 16.35 Z" fill="none" stroke="#40350F" stroke-width="1.2" stroke-linejoin="round"/>
+  <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="currentColor"/>
+  <path d="M 2 10.1 L 12 15.6 L 22 10.1 L 22 12.15 L 12 17.65 L 2 12.15 Z" fill="currentColor"/>
+  <path d="M 2 14.3 L 12 19.8 L 22 14.3 L 22 16.35 L 12 21.85 L 2 16.35 Z" fill="currentColor"/>
+</svg>

@@ -307,7 +307,9 @@ class BrandTests(unittest.TestCase):
                 self.assertEqual(hashlib.sha256((ROOT / name).read_bytes()).hexdigest(), digest)
 
     def test_color_tokens_and_mappings(self):
-        self.assertEqual(COLORS["python"], "#3776AB")
+        self.assertEqual(COLORS["python"], "#FFD43B")
+        self.assertEqual(COLORS["typescript"], "#3178C6")
+        self.assertEqual(COLORS["javascript"], "#F7DF1E")
         self.assertEqual(COLORS["go"], "#00ADD8")
         self.assertEqual(COLORS["rust"], "#DEA384")
         self.assertEqual(COLORS["neutral"], "#6B7280")
@@ -326,9 +328,10 @@ class BrandTests(unittest.TestCase):
         shapes = set()
         for role in ROLES:
             with self.subTest(role=role):
-                python = ElementTree.fromstring(render_icon(role, COLORS["python"], "sample"))
+                # Python's contrast treatment (issue #38) is covered in test_python_yellow_candidates.py.
+                python = ElementTree.fromstring(render_icon(role, COLORS["typescript"], "sample"))
                 rust = ElementTree.fromstring(render_icon(role, COLORS["rust"], "sample"))
-                self.assertEqual(python.attrib["color"], COLORS["python"])
+                self.assertEqual(python.attrib["color"], COLORS["typescript"])
                 self.assertEqual(rust.attrib["color"], COLORS["rust"])
                 self.assertEqual(
                     [ElementTree.tostring(node) for node in list(python)[2:]],
@@ -367,7 +370,7 @@ class BrandTests(unittest.TestCase):
         self.assertEqual(
             len(generated),
             len(ROLES) + len(REGISTRY) + len(SURFACES) + 1 + len(LOCKUPS) + len(ORGANIZATION["candidates"])
-            + len(build.role_candidate_files()),
+            + len(build.role_candidate_files()) + len(build.yellow_candidate_files()),
         )
         for path, content in generated.items():
             with self.subTest(path=path.name):

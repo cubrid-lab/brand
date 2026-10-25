@@ -50,7 +50,17 @@ def current(name: str) -> str:
 
 
 def monochrome(svg: str) -> str:
-    """The same icon in the Neutral token; the organization emblem has no color attribute and is unchanged."""
+    """The same icon in the Neutral token; the organization emblem has no color attribute and is unchanged.
+
+    A light-token treatment (issue #38) belongs to its color, so it is removed too:
+    the keyline is dropped and the dark mark goes back to white, as Neutral draws it.
+    """
+    match = COLOR_RE.search(svg)
+    spec = build.TREATMENTS.get(match.group()[7:-1]) if match else None
+    if spec:
+        svg = re.sub(rf'  <clipPath id="[^"]+-outside">.*?</clipPath>\n|  <path [^>]*stroke="{spec["keyline"]}"[^>]*/>\n', "", svg)
+        split = svg.rindex("<g clip-path") if "<g clip-path" in svg else len(svg)
+        svg = svg[:split] + svg[split:].replace(f'"{spec["mark"]}"', '"#fff"')
     return COLOR_RE.sub(f'color="{build.COLORS["neutral"]}"', svg, count=1)
 
 

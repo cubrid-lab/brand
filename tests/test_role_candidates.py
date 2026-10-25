@@ -9,9 +9,10 @@ from xml.etree import ElementTree
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts import build
-from scripts.build import COLORS, REGISTRY, ROLE_CANDIDATES, ROLES, outputs, render_role_candidate, role_candidate_files
+from scripts.build import COLORS, REGISTRY, ROLE_CANDIDATES, TREATMENTS, ROLES, outputs, render_role_candidate, role_candidate_files
 from tests.test_glyph_seams import seam_contacts
-from tests.test_legibility import THRESHOLD, WHITE, contrast, face_shades, thin_white_marks
+from tests.test_legibility import THRESHOLD, WHITE, contrast, face_shades, rgb, thin_white_marks
+from tests.test_python_yellow_candidates import untreated
 
 SVG = "{http://www.w3.org/2000/svg}"
 
@@ -19,6 +20,10 @@ SVG = "{http://www.w3.org/2000/svg}"
 def body(svg_text: str) -> list[bytes]:
     """The drawing below the title and description, without the language color."""
     return [ElementTree.tostring(node) for node in list(ElementTree.fromstring(svg_text))[2:]]
+
+
+def spec_selected(candidate_id: str) -> bool:
+    return ROLE_CANDIDATES[candidate_id]["selection"] == "selected"
 
 
 class RoleCandidateTests(unittest.TestCase):
@@ -63,9 +68,11 @@ class RoleCandidateTests(unittest.TestCase):
                     self.assertEqual(a.get("color"), COLORS[first])
                     self.assertEqual(b.get("color"), COLORS[language])
                     strip = lambda text, key: text.replace(f"{candidate_id}-{key}", "id")
+                    # A selected candidate in a treated light token (issue #38) also gets its treatment.
+                    plain = lambda key: untreated(render_role_candidate(candidate_id, key), TREATMENTS.get(COLORS[key], {}).get("mark", "#fff"))
                     self.assertEqual(
-                        [strip(n.decode(), first) for n in body(render_role_candidate(candidate_id, first))],
-                        [strip(n.decode(), language) for n in body(render_role_candidate(candidate_id, language))],
+                        [strip(n.decode(), first) for n in body(plain(first))],
+                        [strip(n.decode(), language) for n in body(plain(language))],
                     )
 
     def test_one_selected_candidate_per_role_is_the_promoted_geometry(self):
@@ -94,10 +101,12 @@ class RoleCandidateTests(unittest.TestCase):
         for path, (candidate_id, language) in role_candidate_files().items():
             svg = render_role_candidate(candidate_id, language)
             with self.subTest(candidate=candidate_id, language=language):
-                self.assertEqual(seam_contacts(svg)[:5], [])
+                mark = TREATMENTS[COLORS[language]]["mark"] if spec_selected(candidate_id) and COLORS[language] in TREATMENTS else None
+                self.assertEqual(seam_contacts(untreated(svg, mark) if mark else svg)[:5], [])
                 if candidate_id == "mcp-router-hub":
                     shades = face_shades(svg)
-                    self.assertGreaterEqual(min(contrast(WHITE, shade) for shade in shades.values()), THRESHOLD)
+                    ink = rgb(mark) if mark else WHITE
+                    self.assertGreaterEqual(min(contrast(ink, shade) for shade in shades.values()), THRESHOLD)
         self.assertEqual(thin_white_marks(build.ROUTER_GLYPH), [])
 
 

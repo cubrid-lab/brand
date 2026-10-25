@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "note": "Contrast treatments for the Python Yellow token decision (issue #38), rendered to studies/python-yellow/ for review only. tokens/colors.json and dist/ are unchanged until the maintainer picks a treatment. Shapes are the approved role geometry (PR #37); only the cube color, the mark color and an optional keyline differ.",
+  "review_issue": "https://github.com/cubrid-lab/brand/issues/38",
+  "color": "#FFD43B",
+  "inks": {
+    "dark": {"value": "#40350F", "derivation": "color mixed 75% toward black"},
+    "ochre": {"value": "#8C7520", "derivation": "color mixed 45% toward black"}
+  },
+  "keyline_width": 0.6,
+  "repositories": ["pycubrid", "sqlalchemy-cubrid", "cubrid-mcp-server", "cubrid-cookbook-python"],
+  "treatments": {
+    "t0-naive": {
+      "status": "study",
+      "description": "Reference only: the yellow token substituted with no other change; white marks.",
+      "mark": "white",
+      "keyline": null,
+      "keyline_roles": []
+    },
+    "t1-dark-marks": {
+      "status": "study",
+      "description": "Dark ink marks on MCP and Cookbook; a thin ochre outer edge on the Driver and ORM layers only.",
+      "mark": "dark",
+      "keyline": "ochre",
+      "keyline_roles": ["driver", "orm"]
+    },
+    "t2-dark-keyline": {
+      "status": "study",
+      "description": "A thin dark ink keyline outside every Python silhouette, with dark ink marks.",
+      "mark": "dark",
+      "keyline": "dark",
+      "keyline_roles": ["driver", "orm", "mcp", "cookbook"]
+    },
+    "t3-ochre-keyline": {
+      "status": "study",
+      "description": "T1 made uniform: the thin ochre outer edge on all four Python icons, with dark ink marks.",
+      "mark": "dark",
+      "keyline": "ochre",
+      "keyline_roles": ["driver", "orm", "mcp", "cookbook"]
+    }
+  }
+}

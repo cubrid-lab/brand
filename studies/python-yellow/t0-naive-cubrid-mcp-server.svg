@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="#FFD43B" role="img" aria-labelledby="t0-naive-cubrid-mcp-server-title t0-naive-cubrid-mcp-server-desc">
+  <title id="t0-naive-cubrid-mcp-server-title">CUBRID Lab mcp icon color study — cubrid-mcp-server (t0-naive)</title>
+  <desc id="t0-naive-cubrid-mcp-server-desc">Reference only: the yellow token substituted with no other change; white marks. Study candidate for review; not approved.</desc>
+  <clipPath id="t0-naive-cubrid-mcp-server-cube"><path d="M 12 1 L 22 6.774 L 22 17.25 L 12.7 22.5 L 11.3 22.5 L 2 17.25 L 2 6.774 Z"/></clipPath>
+  <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="currentColor"/>
+  <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="currentColor"/>
+  <path d="M 12.7 13.25 L 22 8 L 22 17.25 L 12.7 22.5 Z" fill="currentColor"/>
+  <g clip-path="url(#t0-naive-cubrid-mcp-server-cube)">
+    <path d="M 12 12.95 L 12 7.1 M 12 12.95 L 6.7 15.45 M 12 12.95 L 17.3 15.45" fill="currentColor" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="currentColor" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"><circle cx="12" cy="12.95" r="1.75"/><circle cx="12" cy="6.9" r="1.45"/><circle cx="6.5" cy="15.55" r="1.45"/><circle cx="17.5" cy="15.55" r="1.45"/></g>
+  </g>
+  <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="#fff" opacity="0.08"/>
+  <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="#000" opacity="0.10"/>
+  <g clip-path="url(#t0-naive-cubrid-mcp-server-cube)">
+  <path d="M 12 12.95 L 12 7.1 M 12 12.95 L 6.7 15.45 M 12 12.95 L 17.3 15.45" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/>
+  <g fill="#fff"><circle cx="12" cy="12.95" r="1.75"/><circle cx="12" cy="6.9" r="1.45"/><circle cx="6.5" cy="15.55" r="1.45"/><circle cx="17.5" cy="15.55" r="1.45"/></g>
+  </g>
+</svg>

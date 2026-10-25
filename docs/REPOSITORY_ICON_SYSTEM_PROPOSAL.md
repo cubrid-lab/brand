@@ -57,7 +57,7 @@ These descriptions guided original vector reconstructions in the generator. On 2
 
 | Language or use | Study swatch | Current token |
 | --- | --- | --- |
-| Python | `#3776AB` | `#3776AB` |
+| Python | `#3776AB` | `#FFD43B` since 2026-10-25 ([issue #38](https://github.com/cubrid-lab/brand/issues/38)) |
 | Go | `#00ADD8` | `#00ADD8` |
 | Rust | `#DEA384` | `#DEA384` |
 | JavaScript | `#F7DF1E` | `#F7DF1E`; no repository mapped |

@@ -2,9 +2,10 @@
 
 Two objective checks, with no extra dependencies:
 
-- Contrast: the WCAG 2 contrast ratio of the white role mark on every face shade
+- Contrast: the WCAG 2 contrast ratio of the role mark (white, or the dark ink of a
+  treated light token, issue #38) on every face shade
   the generator draws, for every language token used by a repository or surface
-  icon that has a white mark. 3:1 is the WCAG 1.4.11 non-text threshold, used
+  icon that has a role mark. 3:1 is the WCAG 1.4.11 non-text threshold, used
   here as review guidance, not as a compliance claim. Tokens below it are listed
   in ``BELOW_THREE_TO_ONE`` and documented in
   ``docs/studies/small-size-legibility.md``; any new one fails until reviewed.
@@ -21,7 +22,7 @@ from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from scripts.build import COLORS, GLYPHS, REGISTRY, SURFACES, cube_polygons, path_data, render_icon
+from scripts.build import COLORS, GLYPHS, REGISTRY, SURFACES, TREATMENTS, cube_polygons, path_data, render_icon
 
 SVG = "{http://www.w3.org/2000/svg}"
 WHITE = (255, 255, 255)
@@ -72,8 +73,10 @@ def low_contrast_languages(entries: dict[str, dict[str, str]]) -> set[str]:
     for name, meta in entries.items():
         if meta["role"] in UNMARKED_ROLES:
             continue  # Layered roles have no white mark.
-        svg = render_icon(meta["role"], COLORS[meta["language"]], name, meta["status"])
-        if min(contrast(WHITE, shade) for shade in face_shades(svg).values()) < THRESHOLD:
+        color = COLORS[meta["language"]]
+        svg = render_icon(meta["role"], color, name, meta["status"])
+        mark = rgb(TREATMENTS[color]["mark"]) if color in TREATMENTS else WHITE  # Dark marks (issue #38).
+        if min(contrast(mark, shade) for shade in face_shades(svg).values()) < THRESHOLD:
             low.add(meta["language"])
     return low
 
