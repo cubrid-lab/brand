@@ -31,7 +31,7 @@ See the [construction specification](docs/GEOMETRY.md), [original visual-study r
 
 ## Use an approved icon
 
-For **CUBRID Lab-owned repositories**, use the repository's mapped, approved SVG with a **commit-pinned URL** as documented in the [icon usage guide](docs/REPOSITORY_ICON_USAGE.md). For example, an approved `pycubrid` README header may use:
+For **CUBRID Lab-owned repositories**, use only the mapped SVGs and placements authorized under [brand usage and rights](BRAND_USAGE.md), with a **commit-pinned URL** as described in the [icon usage guide](docs/REPOSITORY_ICON_USAGE.md). Icon design approval alone does not authorize every use. For example, a first-party `pycubrid` README header may use:
 
 ```html
 <p align="center">
