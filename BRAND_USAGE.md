@@ -57,6 +57,7 @@ On 2026-10-25 the maintainer (@yeongseon) decided the following for issue #19:
    The MIT grant in [LICENSE](LICENSE) still covers only code.
 4. The maintainer confirmed that the AI-assisted icon reconstruction is the
    maintainer's original work; see [PROVENANCE.md](PROVENANCE.md#creator-rights).
+5. **Videos.** For CUBRID Lab's own promotional and introduction videos, the approved icons, emblem and lockups may be rendered, animated and shown together, under the conditions in the table below. This does not extend to third parties.
 
 These are permissions recorded by the maintainer, not a license, and not a
 legal or trademark clearance.
@@ -75,6 +76,7 @@ A CUBRID Lab repository is one owned by the `cubrid-lab` GitHub organization.
 | Modify, recolor, crop, combine with text, or rasterize an icon | **Not permitted** (decision 1). Change the generator here so the result goes through design review. |
 | Use another repository's icon, or a role icon as the organization avatar or site logo | **Not permitted** |
 | Link a `main` branch, study or candidate URL | **Not permitted** |
+| CUBRID Lab promotional and introduction videos published by the organization (for example the `showcase` introduction video): render approved repository icons, the organization emblem and the approved wordmark lockups to video, animate them (including cube-assembly motion that resolves into the icon), and show several repositories' icons together | **Permitted** (decision 5). Assets are loaded from a commit-pinned URL at render time, never committed as copies; every held frame of a finished icon, emblem or lockup matches the approved SVG exactly (no recolouring, reshaping or added text inside the mark); intermediate animation frames may show partial cube faces. |
 
 Follow [Applying repository icons](docs/REPOSITORY_ICON_USAGE.md) for layout,
 alt text and pinning. The README image links to
