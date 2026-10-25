@@ -27,12 +27,11 @@ from scripts.build import COLORS, GLYPHS, REGISTRY, SURFACES, TREATMENTS, cube_p
 SVG = "{http://www.w3.org/2000/svg}"
 WHITE = (255, 255, 255)
 THRESHOLD = 3.0
-# Reviewed in docs/studies/small-size-legibility.md; changing a token or the
-# treatment needs maintainer design approval (issue #21). Rust dropped out on
-# 2026-10-25 when the Driver became a layered stack without a white mark (#30).
-BELOW_THREE_TO_ONE = {"go"}
-# Roles drawn as solid layers in the cube color, with no white mark (issue #30).
-UNMARKED_ROLES = {"driver", "orm"}
+# Go's existing low contrast and Rust's reintroduced white cube grooves are
+# recorded as visual review limitations (issues #21, #41 and #43).
+BELOW_THREE_TO_ONE = {"go", "rust"}
+# Driver/ORM now use white grooves too; Python Yellow recolors them dark.
+UNMARKED_ROLES: set[str] = set()
 MIN_WHITE_UNITS = 1.0
 
 
@@ -118,9 +117,10 @@ class ContrastTests(unittest.TestCase):
     def test_a_new_low_contrast_token_is_flagged(self):
         entry = {"example": {"role": "mcp", "language": "javascript", "status": "approved"}}
         self.assertEqual(low_contrast_languages(entry), {"javascript"})
-        for role in UNMARKED_ROLES:
+        # Cube layer grooves are visible marks, not unmarked silhouettes.
+        for role in ("driver", "orm"):
             layered = {"example": {"role": role, "language": "javascript", "status": "approved"}}
-            self.assertEqual(low_contrast_languages(layered), set())
+            self.assertEqual(low_contrast_languages(layered), {"javascript"})
 
 
 class StrokeWeightTests(unittest.TestCase):

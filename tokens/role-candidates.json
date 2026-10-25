@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "note": "Role candidates reviewed for issue #30 (Driver, ORM) and issue #23 (MCP). Rendered to studies/roles/ as the review record. The maintainer selected one per role on 2026-10-25; the selected geometry is drawn by scripts/build.py for src/ and dist/, and the registry role mapping is unchanged.",
+  "note": "Role candidates reviewed for issue #30 (Driver, ORM) and issue #23 (MCP). Rendered to studies/roles/ as the review record. The maintainer selected one per role on 2026-10-25; the selected #30 geometry is preserved as a historical review; Driver and ORM production shapes were subsequently revised in issues #41/#43 to restore the cube. The registry role mapping is unchanged.",
   "review_issue": "https://github.com/cubrid-lab/brand/issues/30",
   "candidates": {
     "driver-vertical-stack": {

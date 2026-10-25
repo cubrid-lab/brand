@@ -85,7 +85,11 @@ class RoleCandidateTests(unittest.TestCase):
                 with self.subTest(role=role, language=language):
                     promoted = build.render_icon(role, COLORS[language], "x", "approved")
                     study = render_role_candidate(candidate_id, language).replace(f"{candidate_id}-{language}", "x")
-                    self.assertEqual(body(promoted), body(study))
+                    if role in {"driver", "orm"}:
+                        # #30 stays a historical study; #41/#43 restore the cube.
+                        self.assertNotEqual(body(promoted), body(study))
+                    else:
+                        self.assertEqual(body(promoted), body(study))
 
     def test_unselected_candidates_are_distinct_from_each_other_and_current_roles(self):
         shapes = {tuple(body(build.render_icon(role, "currentColor", "x"))) for role in ROLES}
