@@ -27,7 +27,32 @@
     "approved_on": "2026-10-15",
     "approval_issue": "https://github.com/cubrid-lab/brand/issues/3"
   },
-  "wordmarks_status": "pending-review",
+  "wordmarks": {
+    "design_status": "approved",
+    "organization_use_rights_status": "approved",
+    "approved_on": "2026-10-25",
+    "approved_by": "yeongseon",
+    "approval_issue": "https://github.com/cubrid-lab/brand/issues/3",
+    "reviewed_revision": "5229cf4387218f640636e8ba3ac208067bdc7fe6",
+    "reviewed_renders": [
+      "studies/organization/lockup-horizontal.svg on a light background",
+      "studies/organization/lockup-stacked.svg on a dark background"
+    ],
+    "scope": "Design and CUBRID Lab own-organization use of the horizontal and stacked lockups with the tagline, plus the requested dark-background text variants. Not a license and not legal or trademark clearance.",
+    "tagline": "Open Source for a More Connected World",
+    "variants": {
+      "light": {
+        "background": "#FFFFFF",
+        "title": "#071B43",
+        "tagline": "#284679"
+      },
+      "dark": {
+        "background": "#0D1117",
+        "title": "#F0F6FC",
+        "tagline": "#A8C1E8"
+      }
+    }
+  },
   "legal_clearance_status": "pending",
   "redistribution_license_status": "pending"
 }

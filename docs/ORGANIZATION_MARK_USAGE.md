@@ -45,9 +45,79 @@ places the emblem under `studies/organization/` and removes any stale approved
 copy.
 
 This authorization covers the CUBRID Lab organization avatar and profile mark.
-The horizontal and stacked wordmarks remain study candidates. General asset
+The wordmark lockups have their own, separate approval (below). General asset
 redistribution licensing and independent legal/trademark clearance remain
 pending; see [BRAND_USAGE.md](../BRAND_USAGE.md).
+
+## Wordmark lockups
+
+The lockups combine the unchanged emblem with the `CUBRID Lab` wordmark and the
+tagline “Open Source for a More Connected World”. Each layout has a variant for
+light backgrounds and one for dark backgrounds:
+
+| Layout | Light backgrounds | Dark backgrounds | View box | Minimum display width |
+| --- | --- | --- | --- | --- |
+| Horizontal | [`lockup-horizontal.svg`](../dist/organization/lockup-horizontal.svg) | [`lockup-horizontal-dark.svg`](../dist/organization/lockup-horizontal-dark.svg) | 300 × 64 | 240 px |
+| Stacked | [`lockup-stacked.svg`](../dist/organization/lockup-stacked.svg) | [`lockup-stacked-dark.svg`](../dist/organization/lockup-stacked-dark.svg) | 200 × 154 | 200 px |
+
+### Approval scope
+
+On 2026-10-25 the maintainer (@yeongseon) reviewed renders of
+`lockup-horizontal.svg` on a light background and `lockup-stacked.svg` on a
+dark background (revision
+[`5229cf4`](https://github.com/cubrid-lab/brand/commit/5229cf4387218f640636e8ba3ac208067bdc7fe6))
+and approved the horizontal and stacked lockup design, with the tagline, as-is
+on light backgrounds. Because the fixed navy text nearly vanished on the dark
+render, the same decision asked for dark-background variants with light text
+and an unchanged emblem. The decision is recorded in
+[issue #3](https://github.com/cubrid-lab/brand/issues/3) and in `wordmarks` in
+[`tokens/organization.json`](../tokens/organization.json).
+
+The approval covers the design and CUBRID Lab's own organization use. Its
+`design_status` and `organization_use_rights_status` fields route the lockups:
+with both approved the generator writes all four to `dist/organization/`; with
+either pending it writes them to `studies/organization/` as studies and removes
+the stale copies. It is not a license and not a legal or trademark clearance,
+and it does not change the emblem approval or the repository icon decisions.
+
+Own organization use means showing an unmodified lockup, by a commit-pinned
+`raw.githubusercontent.com` URL, on surfaces CUBRID Lab controls: the
+organization profile, READMEs of repositories owned by the `cubrid-lab`
+organization, and CUBRID Lab documentation and community sites. As with the
+repository icons in [BRAND_USAGE.md](../BRAND_USAGE.md#repository-icon-use),
+copying the SVG into another repository or package, modifying, recoloring,
+cropping or rasterizing it, and any use outside CUBRID Lab are not permitted.
+Never place a lockup next to an official CUBRID logo or wordmark, and never use
+a lockup or a role icon as the avatar.
+
+### Choosing a variant
+
+- Use the light variant (navy text) on white or light backgrounds and the dark
+  variant (light text) on dark backgrounds such as GitHub's dark theme
+  (`#0D1117`). Never place a variant on the other background: its text drops
+  to about 1.1:1 contrast (see the
+  [review sheet](studies/wordmark-lockups.md)).
+- Where the page follows the viewer's color scheme, as on GitHub, serve both
+  with `<picture>`.
+- Below the minimum display width the tagline is not legible; use the emblem
+  alone instead.
+- The text is drawn with the `Arial, Helvetica, sans-serif` system fonts, so
+  letterforms vary slightly by platform. Do not convert the text to outlines or
+  add a font; change the generator if a different treatment is needed.
+
+GitHub README example (replace `<commit>` with the merged revision that holds
+the files):
+
+```html
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cubrid-lab/brand/<commit>/dist/organization/lockup-horizontal-dark.svg">
+  <img src="https://raw.githubusercontent.com/cubrid-lab/brand/<commit>/dist/organization/lockup-horizontal.svg" width="300" alt="CUBRID Lab: Open Source for a More Connected World">
+</picture>
+```
+
+The `<img>` fallback is the light variant; a viewer without a color-scheme
+preference sees it. Text contrast for both variants is recorded in the
+[wordmark lockup review](studies/wordmark-lockups.md).
 
 ## GitHub organization profile
 
@@ -92,8 +162,12 @@ Changing the profile README or preparing a PNG does not update the avatar.
 
 - Run the brand build and tests, including withheld/revoked approval routing and
   stale-output cleanup.
-- Check that emblem geometry and colors are unchanged and wordmark studies stay
-  outside `dist/`.
+- Check that emblem geometry and colors are unchanged, that the lockups follow
+  their own approval statuses, and that each dark lockup differs from its light
+  one only in the text colors, with at least 4.5:1 text contrast on its
+  background.
+- Inspect the lockups at their display widths on light and dark backgrounds
+  with `scripts/lockup_previews.py`.
 - Inspect the 16, 32, 48, and 120 px emblem on light/dark backgrounds and the
   512 px avatar export with circular cropping.
 - Verify the merged profile in the live organization page and check the actual

@@ -15,7 +15,9 @@ The repository role icons in this repository are original CUBRID Lab geometric r
 - permission to imply endorsement,
 - permission to modify or redistribute any official CUBRID trademark asset.
 
-On 2026-10-15 the maintainer explicitly approved the three-color organization emblem's design and rights for use as the CUBRID Lab organization avatar and profile mark, recorded in [issue #3](https://github.com/cubrid-lab/brand/issues/3). This authorization covers that emblem and those organization surfaces only. The horizontal and stacked wordmark lockups remain review candidates.
+On 2026-10-15 the maintainer explicitly approved the three-color organization emblem's design and rights for use as the CUBRID Lab organization avatar and profile mark, recorded in [issue #3](https://github.com/cubrid-lab/brand/issues/3). This authorization covers that emblem and those organization surfaces only.
+
+On 2026-10-25 the maintainer approved the design and CUBRID Lab's own organization use of the horizontal and stacked wordmark lockups, with light- and dark-background variants, recorded in [issue #3](https://github.com/cubrid-lab/brand/issues/3). Own organization use means showing an unmodified lockup by commit-pinned URL on CUBRID Lab surfaces, as described in [Organization mark usage](docs/ORGANIZATION_MARK_USAGE.md#wordmark-lockups). It is not a license, and it is not a legal or trademark clearance.
 
 ## Visual-asset license status
 
@@ -25,7 +27,7 @@ Publication in this public repository should not be interpreted as a grant of tr
 
 CUBRID Lab's own repositories may show their approved repository icons by commit-pinned URL, and forks and mirrors may keep that link in an unmodified README, within the limits described in [Repository icon use](#repository-icon-use). These are recorded permissions, not a license.
 
-The emblem's recorded own-organization-use authorization is separate from the repository icon decisions and does not create a redistribution license. It is not a statement that independent legal or trademark clearance has been completed.
+The emblem's and the wordmark lockups' recorded own-organization-use authorizations are separate from the repository icon decisions and do not create a redistribution license. They are not a statement that independent legal or trademark clearance has been completed.
 
 ## Repository icon use
 
@@ -128,7 +130,7 @@ The scoped emblem authorization above does not claim that independent similarity
 1. confusing-similarity review,
 2. relevant trademark searches,
 3. confirmation of the intended use of the CUBRID name,
-4. asset-license and creator-rights approval (decided for the repository icons on 2026-10-25: no license is offered and the maintainer confirmed creator rights; still open for the wordmark lockups under issue #3),
-5. final human design review of any additional identity assets, including the pending wordmark lockups.
+4. asset-license and creator-rights approval (decided for the repository icons on 2026-10-25: no license is offered and the maintainer confirmed creator rights; the wordmark lockups' design and own-organization use were approved on 2026-10-25, but their creator rights and any license remain open under issue #3),
+5. final human design review of any additional identity assets.
 
 This document is project governance, not legal advice.
