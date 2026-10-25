@@ -65,6 +65,8 @@ test -z "$(git ls-files --others --exclude-standard -- src dist studies/icons st
 
 CI uses `python` on its Python 3.12 runner.
 
+The build removes only stale copies of its own outputs: the SVG names derived from `registry/repositories.json` (repositories and surfaces, in both `dist/icons/` and `studies/icons/`) and from the organization emblem, candidates, and lockups. When an asset changes review status, its copy in the previous location is removed. Any other SVG in `dist/icons/`, `studies/icons/`, `dist/organization/`, or `studies/organization/` is never deleted: the build reports it as unmanaged and exits with status 1, so CI fails until it is removed or moved elsewhere. A repository dropped from the registry leaves an unmanaged SVG to delete by hand.
+
 ## Licensing and review status
 
 Code in `scripts/` and `tests/` is MIT-licensed. Visual marks and generated brand assets are **not yet licensed for redistribution** while asset licensing and trademark review are pending. See [LICENSE](LICENSE), [BRAND_USAGE.md](BRAND_USAGE.md), and [PROVENANCE.md](PROVENANCE.md).

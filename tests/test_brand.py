@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import contextlib
 import hashlib
+import io
 import math
 import subprocess
 import sys
@@ -98,6 +100,63 @@ class BrandTests(unittest.TestCase):
                     self.assertFalse(approved.exists())
                     self.assertTrue(study.exists())
                 build.main()
+                self.assertTrue(approved.exists())
+                self.assertFalse(study.exists())
+
+    def test_cleanup_preserves_and_reports_unmanaged_svgs(self):
+        with TemporaryDirectory() as folder:
+            root = Path(folder)
+            with patch.multiple(build, ROOT=root, OUT=root / "dist/icons", STUDY_OUT=root / "studies/icons"):
+                self.assertEqual(build.main(), 0)
+                unmanaged = [
+                    root / directory / "unrelated.svg"
+                    for directory in ("dist/icons", "studies/icons", "dist/organization", "studies/organization")
+                ]
+                for path in unmanaged:
+                    path.write_text("<svg/>", encoding="utf-8")
+                stderr = io.StringIO()
+                with contextlib.redirect_stderr(stderr):
+                    status = build.main()
+                self.assertEqual(status, 1)
+                for path in unmanaged:
+                    with self.subTest(path=str(path.relative_to(root))):
+                        self.assertEqual(path.read_text(encoding="utf-8"), "<svg/>")
+                        self.assertIn(path.relative_to(root).as_posix(), stderr.getvalue())
+
+    def test_cleanup_removes_stale_owned_outputs(self):
+        with TemporaryDirectory() as folder:
+            root = Path(folder)
+            with patch.multiple(build, ROOT=root, OUT=root / "dist/icons", STUDY_OUT=root / "studies/icons"):
+                build.main()
+                stale = (
+                    root / "studies/icons/pycubrid.svg",
+                    root / "dist/icons/cubrid-benchmark.svg",
+                    root / "studies/organization/mark.svg",
+                )
+                for path in stale:
+                    path.write_text("<svg/>", encoding="utf-8")
+                stderr = io.StringIO()
+                with contextlib.redirect_stderr(stderr):
+                    self.assertEqual(build.main(), 0)
+                self.assertEqual(stderr.getvalue(), "")
+                for path in stale:
+                    with self.subTest(path=str(path.relative_to(root))):
+                        self.assertFalse(path.exists())
+
+    def test_cleanup_follows_repository_status_moves(self):
+        pending = {**REGISTRY["pycubrid"], "status": "pending-symbol"}
+        with TemporaryDirectory() as folder:
+            root = Path(folder)
+            approved = root / "dist/icons/pycubrid.svg"
+            study = root / "studies/icons/pycubrid.svg"
+            with patch.multiple(build, ROOT=root, OUT=root / "dist/icons", STUDY_OUT=root / "studies/icons"):
+                build.main()
+                self.assertTrue(approved.exists())
+                with patch.dict(REGISTRY, {"pycubrid": pending}):
+                    self.assertEqual(build.main(), 0)
+                    self.assertFalse(approved.exists())
+                    self.assertTrue(study.exists())
+                self.assertEqual(build.main(), 0)
                 self.assertTrue(approved.exists())
                 self.assertFalse(study.exists())
 

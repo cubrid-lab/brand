@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -221,19 +222,50 @@ def outputs() -> dict[Path, str]:
     return expected
 
 
-def main() -> None:
+def owned_outputs() -> set[Path]:
+    """Every path the generator may write, in either review location.
+
+    Only these paths are eligible for stale-output cleanup, so an asset that
+    moves between ``studies/`` and ``dist/`` loses its previous copy while any
+    other SVG in an output directory is left alone.
+    """
+    owned = set()
+    for name in sorted({**REGISTRY, **SURFACES}):
+        owned |= {OUT / f"{name}.svg", STUDY_OUT / f"{name}.svg"}
+    owned |= {ROOT / "dist/organization/mark.svg", ROOT / "studies/organization/mark.svg"}
+    for candidate_id in sorted(ORGANIZATION.get("candidates", {})):
+        owned.add(ROOT / "studies/organization" / f"candidate-{candidate_id}.svg")
+    for layout in ("horizontal", "stacked"):
+        owned.add(ROOT / "studies/organization" / f"lockup-{layout}.svg")
+    return owned
+
+
+def main() -> int:
     if GEOMETRY["design_id"] != "repository-icon-cube-01" or GEOMETRY["view_box"] != [0, 0, 24, 24]:
         raise ValueError("unexpected geometry token")
     expected = outputs()
+    owned = owned_outputs() | set(expected)
     OUT.mkdir(parents=True, exist_ok=True)
     for target, content in expected.items():
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(content, encoding="utf-8")
+    unmanaged = []
     for directory in (OUT, STUDY_OUT, ROOT / "dist/organization", ROOT / "studies/organization"):
-        for stale in directory.glob("*.svg"):
-            if stale not in expected:
-                stale.unlink()
+        for path in sorted(directory.glob("*.svg")):
+            if path in expected:
+                continue
+            if path in owned:
+                path.unlink()
+            else:
+                unmanaged.append(path)
+    for path in unmanaged:
+        print(
+            f"error: unmanaged SVG {path.relative_to(ROOT).as_posix()} is not generated from "
+            "registry/ or tokens/; it was left in place. Remove it or move it out of the output directories.",
+            file=sys.stderr,
+        )
+    return 1 if unmanaged else 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

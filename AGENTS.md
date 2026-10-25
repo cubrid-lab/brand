@@ -34,6 +34,9 @@ git diff --exit-code -- src dist studies/icons studies/organization
 test -z "$(git ls-files --others --exclude-standard -- src dist studies/icons studies/organization)"
 ```
 
+The build deletes only stale generator-owned outputs and exits with status 1,
+without deleting anything, when another SVG sits in an output directory.
+
 Refs #1.
 
 ## Unified PR Review and Merge Policy
