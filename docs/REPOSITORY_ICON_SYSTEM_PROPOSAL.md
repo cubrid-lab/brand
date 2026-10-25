@@ -18,24 +18,24 @@ The study describes the system as “a consistent and meaningful icon system for
 
 ## Repository examples shown in the study
 
-| Group | Repository or surface | Proposed meaning | Language label in study | Current canonical state |
+| Group | Repository or surface | Proposed meaning | Language label in study | Registry role / language |
 | --- | --- | --- | --- | --- |
-| Drivers | `pycubrid` | Python Driver | Python | Driver / Python, approved |
-| Drivers | `cubrid-go` | Go Driver | Go | Driver / Go, approved |
-| Drivers | `cubrid-rs` | Rust Driver | Rust | Driver / Rust, approved |
-| ORMs / Dialects | `sqlalchemy-cubrid` | SQLAlchemy Dialect | Python | ORM / Python, approved |
-| ORMs / Dialects | `gorm-cubrid` | GORM Dialect | Go | ORM / Go, approved |
-| ORMs / Dialects | `drizzle-cubrid` | Drizzle ORM | Rust | ORM / **TypeScript**, approved; study label conflicts |
-| ORMs / Dialects | `sea-orm-cubrid` | SeaORM Dialect | Rust | ORM / Rust, approved |
-| Tools & AI | `cubrid-mcp-server` | Model Context Protocol | Python | MCP / Python, approved |
-| Tools & AI | `cubrid-cookbook-python` | Examples and Guides | Python | Cookbook / Python, approved |
-| Tools & AI | `cubrid-benchmark` | Performance Tools | Rust | Benchmark / **Neutral**, approved; study label conflicts |
-| Infrastructure | `cubrid-kubernetes-operator` | Kubernetes Operator | Go | Operator / Go, approved |
-| Infrastructure | `showcase` | Project Showcase | TypeScript | Showcase / **Neutral**, approved; [language statistics](https://api.github.com/repos/cubrid-lab/showcase/languages) do not show TypeScript (October 2026) |
-| Infrastructure | `docs` | Documentation | Markdown | Docs / Neutral concept surface, approved |
-| Infrastructure | `community` | Discussions & Support | Markdown | Community / Neutral concept surface, approved |
+| Drivers | `pycubrid` | Python Driver | Python | Driver / Python |
+| Drivers | `cubrid-go` | Go Driver | Go | Driver / Go |
+| Drivers | `cubrid-rs` | Rust Driver | Rust | Driver / Rust |
+| ORMs / Dialects | `sqlalchemy-cubrid` | SQLAlchemy Dialect | Python | ORM / Python |
+| ORMs / Dialects | `gorm-cubrid` | GORM Dialect | Go | ORM / Go |
+| ORMs / Dialects | `drizzle-cubrid` | Drizzle ORM | Rust | ORM / **TypeScript**; study label conflicts |
+| ORMs / Dialects | `sea-orm-cubrid` | SeaORM Dialect | Rust | ORM / Rust |
+| Tools & AI | `cubrid-mcp-server` | Model Context Protocol | Python | MCP / Python |
+| Tools & AI | `cubrid-cookbook-python` | Examples and Guides | Python | Cookbook / Python |
+| Tools & AI | `cubrid-benchmark` | Performance Tools | Rust | Benchmark / **Neutral**; study label conflicts |
+| Infrastructure | `cubrid-kubernetes-operator` | Kubernetes Operator | Go | Operator / Go |
+| Infrastructure | `showcase` | Project Showcase | TypeScript | Showcase / **Neutral**; [language statistics](https://api.github.com/repos/cubrid-lab/showcase/languages) do not show TypeScript (October 2026) |
+| Infrastructure | `docs` | Documentation | Markdown | Docs / Neutral concept surface |
+| Infrastructure | `community` | Discussions & Support | Markdown | Community / Neutral concept surface |
 
-The study omits `cubrid-client`, whose **Driver / TypeScript** variant is also approved in `dist/icons/`. `showcase` uses Neutral because its study label conflicts with its current mixed-content repository. `docs` and `community` are recorded as concept surfaces, not repository names.
+The study omits `cubrid-client`, which the registry maps to **Driver / TypeScript**. Current approval status for every entry is in the [registry](../registry/repositories.json). `showcase` uses Neutral because its study label conflicts with its current mixed-content repository. `docs` and `community` are recorded as concept surfaces, not repository names.
 
 ## Role meanings used in the generated symbols
 
@@ -93,6 +93,6 @@ The organization emblem and wordmark belong to [issue #3](https://github.com/cub
 ## Implementation decisions and remaining review
 
 1. The registry uses TypeScript for Drizzle and Neutral for Benchmark and Showcase. Docs and Community are concept surfaces. JavaScript and OCaml tokens are defined but currently unused.
-2. The maintainer selected the cube-based Driver direction, whose four variants replace the former assets in `dist/icons/`, and subsequently approved the four ORM variants, MCP, Cookbook, Go Operator, Benchmark, and Showcase symbols and the Docs and Community surface symbols in [issue #6](https://github.com/cubrid-lab/brand/issues/6). All fifteen generated icons are now in `dist/icons/`; numerical geometry, tests, and the [gallery](ICON_GALLERY.md) document them.
-3. The three-color organization emblem received scoped design and own-organization-use approval on 2026-10-15 under [issue #3](https://github.com/cubrid-lab/brand/issues/3); see [Organization mark usage](ORGANIZATION_MARK_USAGE.md). The wordmark lockups received design and own-organization-use approval on 2026-10-25 under the same issue. Copy proposals, similarity/trademark searches, and general redistribution licensing remain pending.
-4. Perform independent post-implementation review and complete visual-asset licensing and legal work before broad deployment.
+2. The maintainer selected the cube-based Driver direction, whose variants replaced the former assets in `dist/icons/`, and later approved further role and surface symbols in [issue #6](https://github.com/cubrid-lab/brand/issues/6). The [registry](../registry/repositories.json) holds the current approval status, [PROVENANCE.md](../PROVENANCE.md#review-state) the decision history, and the [gallery](ICON_GALLERY.md) the generated icons.
+3. The three-color organization emblem and the wordmark lockups later received scoped design and own-organization-use approvals under [issue #3](https://github.com/cubrid-lab/brand/issues/3); their current status is in [`tokens/organization.json`](../tokens/organization.json) and their scope in [Organization mark usage](ORGANIZATION_MARK_USAGE.md). The other copy proposals and similarity/trademark searches remain pending.
+4. Perform independent post-implementation review and complete legal work before broad deployment. No visual-asset license is offered; see [Brand usage and legal status](../BRAND_USAGE.md).

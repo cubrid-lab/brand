@@ -46,4 +46,6 @@ logotypes; 4.5:1 is used as a review yardstick, not a conformance claim.
   stacked width. At 150 px (horizontal) and 100 or 120 px (stacked) it is
   under 5 px and not legible; at 240 px horizontal and 200 px stacked it is
   about 7 px. The usage guide therefore sets those minimum display widths for
-  the full lockup and recommends the emblem alone below them.
+  the full lockup and says to omit a lockup that would be smaller. The emblem
+  alone is approved only as the organization avatar and profile mark, so it is
+  not a general substitute for an undersized lockup.

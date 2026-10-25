@@ -54,7 +54,7 @@ On 2026-10-25 the maintainer (@yeongseon) decided the following for issue #19:
    README. Modification and redistribution remain unlicensed.
 3. No visual-asset license is offered for now. All rights in the icons are
    reserved; the pinned-link uses in this section are the only permitted uses.
-   [LICENSE](LICENSE) is unchanged.
+   The MIT grant in [LICENSE](LICENSE) still covers only code.
 4. The maintainer confirmed that the AI-assisted icon reconstruction is the
    maintainer's original work; see [PROVENANCE.md](PROVENANCE.md#creator-rights).
 
@@ -67,7 +67,7 @@ A CUBRID Lab repository is one owned by the `cubrid-lab` GitHub organization.
 
 | Use | Status |
 | --- | --- |
-| Show the repository's own approved icon, by its commit-pinned `raw.githubusercontent.com` URL, in that repository's README and translated READMEs (all 13 repository icons) | **Permitted** (decision 1) |
+| Show the repository's own approved icon, by its commit-pinned `raw.githubusercontent.com` URL, in that repository's README and translated READMEs (every repository icon marked approved in the [registry](registry/repositories.json)) | **Permitted** (decision 1) |
 | Use the same pinned URL as that repository's documentation-site logo and favicon | **Permitted** (decision 1) |
 | Show the `docs` or `community` icon by its pinned URL on a CUBRID Lab documentation or community surface | **Permitted** (decision 1) |
 | CUBRID Lab's own package pages (for example PyPI) rendering a README with its pinned image link | **Permitted**; the image is still loaded from this repository |

@@ -3,10 +3,9 @@
 This guide is for repositories owned by the `cubrid-lab` GitHub organization.
 Each one embeds its approved role icon from `dist/icons/` by a commit-pinned URL;
 it does not copy or modify the SVG. The
-[registry](../registry/repositories.json) defines the icon's role, language, and
-approval status. On 2026-10-25 the maintainer permitted this pinned-URL use
-for every approved icon, in the README and as the documentation-site logo and
-favicon. See [Repository icon use](../BRAND_USAGE.md#repository-icon-use) for
+[registry](../registry/repositories.json) is the authoritative record of the
+icon's role, language, and approval status. Every approved icon may be used this
+way, in the README and as the documentation-site logo and favicon. See [Repository icon use](../BRAND_USAGE.md#repository-icon-use) for
 the full decision, use outside CUBRID Lab, and the reviews still pending.
 
 ## README header
@@ -61,27 +60,21 @@ Python ORM, MCP, and Cookbook icons.
 | `cubrid-benchmark` | Benchmark | Neutral | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
 | `showcase` | Showcase | Neutral | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
 
-The Operator icon was selected on 2026-10-15, the TypeScript, Go, and Rust
-ORM icons were selected on 2026-10-20, and the Benchmark and Showcase icons were
-approved on 2026-10-25. Each repository README must pin the promotion commit
-containing its `dist/icons/<repository>.svg` asset; older study URLs are
-historical evidence rather than approved integration sources.
+Each repository README must pin a commit containing its approved
+`dist/icons/<repository>.svg` asset; older study URLs are historical evidence
+rather than approved integration sources. The `docs` and `community` icons are
+concept surfaces, not repository names; a documentation or community surface
+that adopts one pins a commit the same way.
 
-The `docs` and `community` concept-surface icons were also approved on
-2026-10-25 and are generated as `dist/icons/docs.svg` and
-`dist/icons/community.svg`. They are not repository names; a documentation or
-community surface that adopts one pins the same promotion commit. Their use, like that
-of `cubrid-benchmark` and `showcase`, was permitted by the maintainer's
-2026-10-25 decision in
-[issue #19](https://github.com/cubrid-lab/brand/issues/19).
-
-No registry entry is currently marked `pending-symbol`. Record explicit
-maintainer approval before promoting or applying any future candidate. The
-registry remains authoritative as approvals change.
+Check the [registry](../registry/repositories.json) for the current approval
+status before applying an icon; an entry marked `pending-symbol` is a candidate
+and must not be applied. Approval dates and decisions are recorded in
+[PROVENANCE.md](../PROVENANCE.md#review-state), and the permitted uses in
+[Repository icon use](../BRAND_USAGE.md#repository-icon-use).
 
 The organization emblem has separate scoped approval and
 [usage guidance](ORGANIZATION_MARK_USAGE.md), as do the approved wordmark
-lockups. Broader legal/license review remains under
+lockups. Their legal/trademark review remains under
 [issue #3](https://github.com/cubrid-lab/brand/issues/3).
 A repository's role icon must not become the organization avatar or
 organization-site logo.

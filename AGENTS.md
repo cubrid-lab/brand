@@ -15,8 +15,26 @@ This repository is the source of truth for CUBRID Lab brand geometry, tokens, ge
 7. Keep experimental concepts out of `dist/`.
 8. Generated assets must be reproducible from `tokens/`, `registry/`, and `scripts/`.
 9. Legal/trademark review status must remain separate from design approval.
-10. Do not broaden the visual-asset license while rights/trademark review is pending.
+10. Do not grant or broaden a visual-asset license without a recorded maintainer decision. None is offered: on 2026-10-25 the maintainer reserved all rights in the visual assets (see `BRAND_USAGE.md`), and trademark review is pending.
 11. The Driver role icon is not the CUBRID Lab organization logo. Keep the three-color organization-mark study separate (issue #3); do not repurpose a role icon or publish an organization avatar before design and rights approval.
+
+## Approval status sources
+
+Current approval status lives only in `registry/repositories.json` (repository and
+concept-surface icons) and `tokens/organization.json` (organization emblem and
+wordmark lockups). Record the decision history in `PROVENANCE.md`. Guides link to
+these files rather than repeating status lists, counts or approval dates. When a
+status changes, also update the independent `APPROVED` list in
+`tests/test_brand.py`.
+
+## Repository settings
+
+`main` uses classic branch protection, as configured on 2026-10-25 (issue #18):
+a pull request is required (0 approving reviews), the `validate` check must pass
+on a branch that is up to date with `main`, and force pushes and branch deletion
+are blocked. `enforce_admins` is off, so a repository administrator can bypass the
+rules; this is a documented exception. Viewing or changing these settings requires
+a repository administrator.
 
 ## Workflow
 
