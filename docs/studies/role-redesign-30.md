@@ -62,8 +62,8 @@ The candidates were checked with the same code as `tests/test_glyph_seams.py` an
 The seam check does catch a broken router. With the backing pad set to 0, `mcp-router-hub` has 101 white samples on a seam. The test also confirms these points:
 
 - Changing the language changes only the color.
-- The Driver candidate's drawing is identical to the current `src/orm.svg`.
-- Every candidate differs from every current role.
+- Exactly one candidate per role is `selected` (`driver-vertical-stack`, `orm-lateral-plates`, `mcp-router-hub`), and each draws the same SVG as its promoted role in every language it is rendered in. Before the promotion, the Driver candidate matched the previous `src/orm.svg`.
+- Every unselected candidate differs from every current role and from every other candidate.
 - Candidates must be registered `study` entries.
 
 ### Observations by eye (one reviewer, rsvg; not a design decision)
