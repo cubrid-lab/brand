@@ -5,6 +5,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
 GEOMETRY = json.loads((ROOT / "tokens/geometry.json").read_text(encoding="utf-8"))
@@ -46,11 +47,46 @@ def cube_polygons() -> dict[str, list[tuple[float, float]]]:
     }
 
 
-def cube_faces() -> str:
+def cube_outline() -> list[tuple[float, float]]:
+    """The cube's outer silhouette, which bounds every role mark."""
     polygons = cube_polygons()
-    lines = [f'  <path d="{path_data(polygons[face])}" fill="currentColor"/>' for face in ("top", "left", "right")]
+    top, left, right = polygons["top"], polygons["left"], polygons["right"]
+    return [top[0], top[1], right[2], right[3], left[2], left[3], top[3]]
+
+
+def glyph_backing(role: str) -> str:
+    """A solid plate in the cube color: the role mark, filled and widened by ``glyph_backing_pad``.
+
+    It is drawn under the face shading, so it is invisible on the faces and only
+    bridges the transparent seams where the white mark crosses or encloses them.
+    """
+    pad = GEOMETRY["glyph_backing_pad"]
+    group = ElementTree.fromstring(f"<g>{GLYPHS[role]}</g>")
+    for node in group.iter():
+        stroked = node.get("stroke") == "#fff"
+        if not stroked and node.get("fill") != "#fff":
+            continue
+        width = float(node.get("stroke-width")) if stroked else 0.0
+        node.set("fill", "currentColor")
+        node.set("stroke", "currentColor")
+        node.set("stroke-width", number(width + 2 * pad))
+        node.set("stroke-linejoin", "round")
+    lines = []
+    for child in group:
+        child.tail = None
+        lines.append("    " + ElementTree.tostring(child, encoding="unicode").replace(" />", "/>"))
+    return "\n".join(lines)
+
+
+def cube_faces(role: str, key: str) -> str:
+    polygons = cube_polygons()
+    clip = f"{key}-cube"
+    lines = [f'  <clipPath id="{clip}"><path d="{path_data(cube_outline())}"/></clipPath>']
+    lines += [f'  <path d="{path_data(polygons[face])}" fill="currentColor"/>' for face in ("top", "left", "right")]
+    lines.append(f'  <g clip-path="url(#{clip})">\n{glyph_backing(role)}\n  </g>')
     lines.append(f'  <path d="{path_data(polygons["top"])}" fill="#fff" opacity="0.08"/>')
     lines.append(f'  <path d="{path_data(polygons["left"])}" fill="#000" opacity="0.10"/>')
+    lines.append(f'  <g clip-path="url(#{clip})">\n{GLYPHS[role]}\n  </g>')
     return "\n".join(lines)
 
 
@@ -94,7 +130,7 @@ def render_icon(role: str, color: str, key: str, status: str = "pending-symbol")
     if color != "currentColor" and not COLOR_RE.fullmatch(color):
         raise ValueError("invalid color")
     color_attr = "" if color == "currentColor" else f' color="{color}"'
-    shape = orm_faces() if role == "orm" else cube_faces() + "\n" + GLYPHS[role]
+    shape = orm_faces() if role == "orm" else cube_faces(role, key)
     review_note = (
         "Design selected; legal clearance pending."
         if status == "approved"

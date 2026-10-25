@@ -1,10 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="#6B7280" role="img" aria-labelledby="showcase-title showcase-desc">
   <title id="showcase-title">CUBRID Lab showcase icon — showcase</title>
   <desc id="showcase-desc">Cube-based showcase role symbol. Symbol candidate; design and legal review pending.</desc>
+  <clipPath id="showcase-cube"><path d="M 12 1 L 22 6.774 L 22 17.25 L 12.7 22.5 L 11.3 22.5 L 2 17.25 L 2 6.774 Z"/></clipPath>
   <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="currentColor"/>
   <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="currentColor"/>
   <path d="M 12.7 13.25 L 22 8 L 22 17.25 L 12.7 22.5 Z" fill="currentColor"/>
+  <g clip-path="url(#showcase-cube)">
+    <path d="M 16.2 13.8 L 20 16.1 L 16.2 18.4 Z" fill="currentColor" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+  </g>
   <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="#fff" opacity="0.08"/>
   <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="#000" opacity="0.10"/>
+  <g clip-path="url(#showcase-cube)">
   <path d="M 16.2 13.8 L 20 16.1 L 16.2 18.4 Z" fill="#fff"/>
+  </g>
 </svg>
