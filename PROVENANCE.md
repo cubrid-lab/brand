@@ -26,4 +26,8 @@ The infographic also depicts a separate three-color CUBRID Lab cube and wordmark
 - Visual-asset redistribution license: pending.
 - Trademark and legal clearance: pending.
 
+## Seam backing change (issue #23)
+
+On 2026-10-25 the generator gained a cube-colored backing under each role mark, clipped to the cube silhouette, so marks no longer cross transparent seams ([issue #23](https://github.com/cubrid-lab/brand/issues/23); construction in [`docs/GEOMETRY.md`](docs/GEOMETRY.md)). Glyph paths, colors and review statuses are unchanged. Approved assets whose rendering changes: the four Driver variants (`pycubrid`, `cubrid-client`, `cubrid-go`, `cubrid-rs`), `cubrid-mcp-server`, `cubrid-cookbook-python` and `cubrid-kubernetes-operator`; pending candidates `cubrid-benchmark` and `community` also change. `showcase` and `docs` gain the same markup but render identically, and the ORM icons are untouched. This replacement of approved `dist/` geometry requires the maintainer's design review on the pull request before merge; it does not approve or promote anything. Consumer READMEs pin immutable revisions and keep their current artwork until updated in their own repositories. The before/after review sheet is [`docs/studies/glyph-seams-before-after.png`](docs/studies/glyph-seams-before-after.png).
+
 AI assistance was used to reconstruct the SVGs and prepare this documentation. Publication in this repository is not a grant of rights to use the visual assets.

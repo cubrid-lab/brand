@@ -13,6 +13,10 @@ Let `c = 12`, `h = 10`, `r = 10 / √3` (stored as `5.773502692`), and `t = 1`. 
 
 Its internal corners are 60° and 120°. The left and right face vertices are computed from the inset center seam and face-height parameters in the token file. Their gap leaves visible negative space around the top and center seams. Each role uses the same cube grammar, with a distinct white geometric mark. ORM uses the shared rhombus plus two open chevron layers instead of the cube faces.
 
+### Seam backing (issue #23)
+
+A white mark that crosses or encloses a seam would otherwise sit on transparent negative space and break apart or vanish on a light page. Each cube-based role therefore paints a solid backing in the cube color under its mark: the mark itself, filled and widened by `glyph_backing_pad` (`0.55`) on every side. The backing is drawn before the face shading, so it matches the faces exactly and is visible only where it bridges a seam. Both the backing and the white mark are clipped to the cube's outer silhouette, so neither extends past it. The glyph paths themselves are unchanged. `tests/test_glyph_seams.py` samples every generated role template and fails if any white sample lies within 0.3 units of an unpainted seam.
+
 The role marks are original vector primitives: Driver connector and node, ORM layers, MCP network, Cookbook book, Benchmark bars, Operator six-spoke control dial, Showcase play triangle, Docs lines, and Community people. The Operator dial is deliberately six-spoke and is not a Kubernetes logo. The Cookbook mark is an open book drawn as one filled page per side face, with the transparent center seam serving as the spine; its text lines are stroked in `currentColor` so they fade out at small sizes. Keeping each page on a single face means the seam gap never cuts through the white mark on dark backgrounds.
 
 ## Color and identity
