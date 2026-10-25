@@ -100,8 +100,8 @@ GLYPHS = {
     <path d="M 7.8 15.1 L 16.2 15.1"/>
   </g>
   <g fill="#fff"><circle cx="12" cy="9.2" r="1.65"/><circle cx="7.8" cy="15.1" r="1.55"/><circle cx="16.2" cy="15.1" r="1.55"/><circle cx="12" cy="20" r="1.55"/></g>''',
-    "cookbook": '''  <path d="M 4.4 11.8 Q 7.4 11.2 11.3 14.0 L 11.3 19.7 Q 7.7 17.1 4.4 17.7 Z M 19.6 11.8 Q 16.6 11.2 12.7 14.0 L 12.7 19.7 Q 16.3 17.1 19.6 17.7 Z" fill="none" stroke="#fff" stroke-width="1.35" stroke-linejoin="round"/>
-  <path d="M 12 14 L 12 20" stroke="#fff" stroke-width="1.25"/>''',
+    "cookbook": '''  <path d="M 5.6 13.3 Q 8.6 12.8 10.7 14.5 L 10.7 20.0 Q 8.6 18.3 5.6 18.8 Z M 18.4 13.3 Q 15.4 12.8 13.3 14.5 L 13.3 20.0 Q 15.4 18.3 18.4 18.8 Z" fill="#fff"/>
+  <path d="M 6.9 15.5 Q 8.6 15.4 9.6 16.1 M 6.9 17.0 Q 8.6 16.9 9.6 17.6 M 17.1 15.5 Q 15.4 15.4 14.4 16.1 M 17.1 17.0 Q 15.4 16.9 14.4 17.6" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>''',
     "benchmark": '''  <path d="M 5.5 15.2 H 8.4 V 19.1 H 5.5 Z M 10.5 12.7 H 13.4 V 19.1 H 10.5 Z M 15.5 9.9 H 18.4 V 19.1 H 15.5 Z" fill="#fff"/>''',
     "operator": '''  <circle cx="12" cy="13.7" r="4.25" fill="none" stroke="#fff" stroke-width="1.25"/>
   <circle cx="12" cy="13.7" r="1.2" fill="none" stroke="#fff" stroke-width="1.1"/>
