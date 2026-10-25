@@ -19,13 +19,13 @@ On 2026-10-15 the maintainer explicitly approved the three-color organization em
 
 ## Visual-asset license status
 
-The MIT license in this repository covers only `scripts/` and `tests/`. The names, marks, generated SVGs, and other visual brand assets are **not yet licensed for redistribution** while the maintainers review asset licensing and trademark implications.
+The MIT license in this repository covers only `scripts/` and `tests/`. The names, marks, generated SVGs, and other visual brand assets are **not licensed for redistribution**. On 2026-10-25 the maintainer decided not to offer a visual-asset license for now; all rights in them are reserved (see [Maintainer decisions](#maintainer-decisions-2026-10-25)). Trademark review is still pending.
 
 Publication in this public repository should not be interpreted as a grant of trademark rights or a general license to reuse the visual marks. A public URL, a merged pull request or a symbol approval does not grant one either.
 
-CUBRID Lab's own repositories may embed their approved repository icons by commit-pinned URL, within the limits described in [Repository icon use](#repository-icon-use). That is an internal authorization, not a license, and it does not extend to anyone else.
+CUBRID Lab's own repositories may show their approved repository icons by commit-pinned URL, and forks and mirrors may keep that link in an unmodified README, within the limits described in [Repository icon use](#repository-icon-use). These are recorded permissions, not a license.
 
-The emblem's recorded own-organization-use authorization is separate from this pending general redistribution license. It is not a statement that independent legal or trademark clearance has been completed.
+The emblem's recorded own-organization-use authorization is separate from the repository icon decisions and does not create a redistribution license. It is not a statement that independent legal or trademark clearance has been completed.
 
 ## Repository icon use
 
@@ -36,11 +36,28 @@ This section covers the approved repository-role and concept-surface icons in
 `studies/`, `src/` and `provenance/` are not approved for use anywhere.
 
 Symbol approval (issue #6) is a design decision: it chooses which drawing
-represents a role. It does not grant a license, clear trademarks or settle
-creator rights. Only the uses marked **Permitted** below are authorized; they
-are an internal maintainer decision for CUBRID Lab's own repositories, not a
-license. Everything else stays unlicensed until the maintainers record a
-decision.
+represents a role. It does not grant a license or clear trademarks.
+
+### Maintainer decisions (2026-10-25)
+
+On 2026-10-25 the maintainer (@yeongseon) decided the following for issue #19:
+
+1. Every approved icon in `dist/icons/` may be shown by its own CUBRID Lab
+   repository, in its README and as its documentation-site logo and favicon,
+   only through a commit-pinned `raw.githubusercontent.com` URL. The `docs` and
+   `community` icons follow the same rule on CUBRID Lab documentation and
+   community surfaces. Copying, modifying, rasterizing and using another
+   repository's icon stay not permitted.
+2. Forks and mirrors may keep the pinned image link in an unmodified CUBRID Lab
+   README. Modification and redistribution remain unlicensed.
+3. No visual-asset license is offered for now. All rights in the icons are
+   reserved; the pinned-link uses in this section are the only permitted uses.
+   [LICENSE](LICENSE) is unchanged.
+4. The maintainer confirmed that the AI-assisted icon reconstruction is the
+   maintainer's original work; see [PROVENANCE.md](PROVENANCE.md#creator-rights).
+
+These are permissions recorded by the maintainer, not a license, and not a
+legal or trademark clearance.
 
 ### Inside CUBRID Lab organization repositories
 
@@ -48,13 +65,12 @@ A CUBRID Lab repository is one owned by the `cubrid-lab` GitHub organization.
 
 | Use | Status |
 | --- | --- |
-| Embed the repository's own mapped icon, by its commit-pinned `raw.githubusercontent.com` URL, in that repository's README and translated READMEs: the four Driver variants, `sqlalchemy-cubrid`, `cubrid-mcp-server`, `cubrid-cookbook-python`, `cubrid-kubernetes-operator`, `drizzle-cubrid`, `gorm-cubrid` and `sea-orm-cubrid` | **Permitted** (rollout scope agreed in [issue #8](https://github.com/cubrid-lab/brand/issues/8) and its per-repository rollout issues listed in [Applying repository icons](docs/REPOSITORY_ICON_USAGE.md#rollout-inventory); consumer pin instructions recorded in [issue #6](https://github.com/cubrid-lab/brand/issues/6)) |
-| Use the same pinned URL as that repository's documentation-site logo and favicon: `pycubrid`, `sqlalchemy-cubrid`, `cubrid-mcp-server`, `cubrid-cookbook-python`, `drizzle-cubrid`, `gorm-cubrid` and `sea-orm-cubrid` | **Permitted** (the Python mappings were kept under issue #8; the 2026-10-20 pin instruction in issue #6 names documentation surfaces for the three ORM repositories) |
-| The same documentation-site use for `cubrid-client`, `cubrid-go`, `cubrid-rs` and `cubrid-kubernetes-operator` | **Pending maintainer confirmation.** Their recorded rollout covers the README only. |
-| Embed `cubrid-benchmark` or `showcase` in its repository, or `docs` or `community` on a CUBRID Lab documentation or community surface | **Pending maintainer confirmation.** The 2026-10-25 record in issue #6 approves these symbols only and leaves usage to issue #19. |
-| CUBRID Lab's own package pages (for example PyPI) rendering a permitted README with its pinned image link | **Permitted**; the image is still loaded from this repository |
-| Commit a copy of an SVG into another repository, package or build output | **Not authorized yet.** Link the pinned URL. Ask in this repository first if a copy is needed. |
-| Modify, recolor, crop, combine with text, or rasterize a role icon | **Not authorized.** Change the generator here so the result goes through design review. |
+| Show the repository's own approved icon, by its commit-pinned `raw.githubusercontent.com` URL, in that repository's README and translated READMEs (all 13 repository icons) | **Permitted** (decision 1) |
+| Use the same pinned URL as that repository's documentation-site logo and favicon | **Permitted** (decision 1) |
+| Show the `docs` or `community` icon by its pinned URL on a CUBRID Lab documentation or community surface | **Permitted** (decision 1) |
+| CUBRID Lab's own package pages (for example PyPI) rendering a README with its pinned image link | **Permitted**; the image is still loaded from this repository |
+| Commit a copy of an SVG into another repository, package or build output | **Not permitted** (decision 1). Link the pinned URL. |
+| Modify, recolor, crop, combine with text, or rasterize an icon | **Not permitted** (decision 1). Change the generator here so the result goes through design review. |
 | Use another repository's icon, or a role icon as the organization avatar or site logo | **Not permitted** |
 | Link a `main` branch, study or candidate URL | **Not permitted** |
 
@@ -71,14 +87,14 @@ projects and other organizations.
 | Use | Status |
 | --- | --- |
 | Link to this repository or to a CUBRID Lab project page in text | Allowed; a hyperlink does not use the icon |
-| Embed (hotlink) an icon in your own page, README or slides | **No permission granted.** Pending the review below. |
-| Copy or redistribute an SVG, alone or in a package, theme or icon set | **Not licensed** |
-| Modify an icon or make derivative artwork | **Not licensed** |
-| Keep the pinned image link of an unmodified CUBRID Lab README in a fork or mirror | **Undecided.** No permission is recorded; this is a pending decision below. |
+| Keep the pinned image link of an unmodified CUBRID Lab README in a fork or mirror | **Permitted** (decision 2) |
+| Embed (hotlink) an icon in your own page, README or slides | **Not permitted**; no license is offered (decision 3) |
+| Copy or redistribute an SVG, alone or in a package, theme or icon set | **Not licensed** (decisions 2 and 3) |
+| Modify an icon or make derivative artwork | **Not licensed** (decisions 2 and 3) |
 
-This policy grants nothing beyond the table above, and it does not decide what
-the law allows without permission in any jurisdiction. To ask for a use, open
-an issue in [cubrid-lab/brand](https://github.com/cubrid-lab/brand/issues).
+This policy grants nothing beyond the tables above, and it does not decide
+what the law allows without permission in any jurisdiction. To ask for a use,
+open an issue in [cubrid-lab/brand](https://github.com/cubrid-lab/brand/issues).
 Only a maintainer decision recorded there authorizes it. Any such decision
 sets its own attribution terms.
 
@@ -91,23 +107,15 @@ sets its own attribution terms.
 - Combining a role icon with an official CUBRID logo or wordmark.
 - Using a role icon as the CUBRID Lab organization logo or avatar.
 
-### Pending decisions
+### Still pending
 
-The rules above are the maintainers' position while these items remain open:
+A person still has to carry out and record two checks; no clearance is
+claimed until then:
 
-1. confirmation of first-party use for `cubrid-benchmark`, `showcase`, `docs`
-   and `community`, and of documentation-site use for `cubrid-client`,
-   `cubrid-go`, `cubrid-rs` and `cubrid-kubernetes-operator`,
-2. whether forks and mirrors may keep the pinned image link of an unmodified
-   CUBRID Lab README,
-3. a visual-asset license (or a decision not to offer one) for third-party
-   embedding, copying, modification and redistribution,
-4. creator-rights confirmation for the AI-assisted reconstruction recorded in
-   [PROVENANCE.md](PROVENANCE.md),
-5. the confusing-similarity and trademark items listed below.
+1. a confusing-similarity review of the icons,
+2. relevant trademark searches.
 
-Until those are recorded, third-party uses stay unlicensed and first-party
-use stays limited to the permitted rows above.
+Both are also listed under [Broader use and remaining review](#broader-use-and-remaining-review).
 
 ## Third-party marks and language identifiers
 
@@ -120,7 +128,7 @@ The scoped emblem authorization above does not claim that independent similarity
 1. confusing-similarity review,
 2. relevant trademark searches,
 3. confirmation of the intended use of the CUBRID name,
-4. asset-license and creator-rights approval,
+4. asset-license and creator-rights approval (decided for the repository icons on 2026-10-25: no license is offered and the maintainer confirmed creator rights; still open for the wordmark lockups under issue #3),
 5. final human design review of any additional identity assets, including the pending wordmark lockups.
 
 This document is project governance, not legal advice.

@@ -4,9 +4,10 @@ This guide is for repositories owned by the `cubrid-lab` GitHub organization.
 Each one embeds its approved role icon from `dist/icons/` by a commit-pinned URL;
 it does not copy or modify the SVG. The
 [registry](../registry/repositories.json) defines the icon's role, language, and
-approval status. Use outside CUBRID Lab is not covered: see
-[Repository icon use](../BRAND_USAGE.md#repository-icon-use) for what is
-permitted, what is not, and what is still pending legal review.
+approval status. On 2026-10-25 the maintainer permitted this pinned-URL use
+for every approved icon, in the README and as the documentation-site logo and
+favicon. See [Repository icon use](../BRAND_USAGE.md#repository-icon-use) for
+the full decision, use outside CUBRID Lab, and the reviews still pending.
 
 ## README header
 
@@ -57,8 +58,8 @@ Python ORM, MCP, and Cookbook icons.
 | `drizzle-cubrid` | ORM | TypeScript | `cc9c7b2a50b1b93f96b18902dbf3f029ccdda026` | [#116](https://github.com/cubrid-lab/drizzle-cubrid/issues/116) |
 | `gorm-cubrid` | ORM | Go | `cc9c7b2a50b1b93f96b18902dbf3f029ccdda026` | [#22](https://github.com/cubrid-lab/gorm-cubrid/issues/22) |
 | `sea-orm-cubrid` | ORM | Rust | `cc9c7b2a50b1b93f96b18902dbf3f029ccdda026` | [#7](https://github.com/cubrid-lab/sea-orm-cubrid/issues/7) |
-| `cubrid-benchmark` | Benchmark | Neutral | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending use confirmation ([#19](https://github.com/cubrid-lab/brand/issues/19)) |
-| `showcase` | Showcase | Neutral | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending use confirmation ([#19](https://github.com/cubrid-lab/brand/issues/19)) |
+| `cubrid-benchmark` | Benchmark | Neutral | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
+| `showcase` | Showcase | Neutral | Promotion commit recorded in [brand #6](https://github.com/cubrid-lab/brand/issues/6) | Pending consumer rollout |
 
 The Operator icon was selected on 2026-10-15, the TypeScript, Go, and Rust
 ORM icons were selected on 2026-10-20, and the Benchmark and Showcase icons were
@@ -69,11 +70,10 @@ historical evidence rather than approved integration sources.
 The `docs` and `community` concept-surface icons were also approved on
 2026-10-25 and are generated as `dist/icons/docs.svg` and
 `dist/icons/community.svg`. They are not repository names; a documentation or
-community surface that adopts one pins the same promotion commit. As with
-`cubrid-benchmark` and `showcase`, their 2026-10-25 approval covers the symbol
-only: rollout waits until the maintainer confirms that use in
-[issue #19](https://github.com/cubrid-lab/brand/issues/19) (see
-[Repository icon use](../BRAND_USAGE.md#repository-icon-use)).
+community surface that adopts one pins the same promotion commit. Their use, like that
+of `cubrid-benchmark` and `showcase`, was permitted by the maintainer's
+2026-10-25 decision in
+[issue #19](https://github.com/cubrid-lab/brand/issues/19).
 
 No registry entry is currently marked `pending-symbol`. Record explicit
 maintainer approval before promoting or applying any future candidate. The
@@ -105,9 +105,9 @@ any SVG in this repository's history found:
 a brand asset. No repository holds an SVG copy that a package could ship; a
 registry page that renders one of these READMEs loads the same pinned URL. All observed
 use is first-party embedding by pinned URL, which
-[Repository icon use](../BRAND_USAGE.md#repository-icon-use) permits. Before an
-organization repository departs from that pattern, for example by vendoring a
-copy for offline documentation builds, it needs a recorded maintainer decision.
+[Repository icon use](../BRAND_USAGE.md#repository-icon-use) permits. Copying an
+SVG into a repository, for example for offline documentation builds, is not
+permitted.
 
 ## Verification
 
