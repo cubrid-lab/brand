@@ -67,8 +67,8 @@ Run from the repository root with Python 3.12 (the version used in CI):
 ```bash
 python3 scripts/build.py
 python3 -m unittest discover -s tests -v
-git diff --exit-code -- src dist studies/icons studies/organization
-test -z "$(git ls-files --others --exclude-standard -- src dist studies/icons studies/organization)"
+git diff --exit-code -- src dist studies/icons studies/organization studies/roles
+test -z "$(git ls-files --others --exclude-standard -- src dist studies/icons studies/organization studies/roles)"
 ```
 
 The generator reports unmanaged SVGs rather than silently deleting them. Details, contribution expectations, and approval boundaries are in [AGENTS.md](AGENTS.md) and [CONTRIBUTING.md](CONTRIBUTING.md).

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 import sys
 from pathlib import Path
@@ -12,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 GEOMETRY = json.loads((ROOT / "tokens/geometry.json").read_text(encoding="utf-8"))
 COLORS = json.loads((ROOT / "tokens/colors.json").read_text(encoding="utf-8"))["languages"]
 ORGANIZATION = json.loads((ROOT / "tokens/organization.json").read_text(encoding="utf-8"))
+ROLE_CANDIDATES = json.loads((ROOT / "tokens/role-candidates.json").read_text(encoding="utf-8"))["candidates"]
 REGISTRY_DATA = json.loads((ROOT / "registry/repositories.json").read_text(encoding="utf-8"))
 REGISTRY = REGISTRY_DATA["repositories"]
 SURFACES = REGISTRY_DATA["surfaces"]
@@ -55,14 +57,14 @@ def cube_outline() -> list[tuple[float, float]]:
     return [top[0], top[1], right[2], right[3], left[2], left[3], top[3]]
 
 
-def glyph_backing(role: str) -> str:
+def glyph_backing(role: str, glyph: str | None = None) -> str:
     """A solid plate in the cube color: the role mark, filled and widened by ``glyph_backing_pad``.
 
     It is drawn under the face shading, so it is invisible on the faces and only
     bridges the transparent seams where the white mark crosses or encloses them.
     """
     pad = GEOMETRY["glyph_backing_pad"]
-    group = ElementTree.fromstring(f"<g>{GLYPHS[role]}</g>")
+    group = ElementTree.fromstring(f"<g>{GLYPHS[role] if glyph is None else glyph}</g>")
     for node in group.iter():
         stroked = node.get("stroke") == "#fff"
         if not stroked and node.get("fill") != "#fff":
@@ -79,15 +81,16 @@ def glyph_backing(role: str) -> str:
     return "\n".join(lines)
 
 
-def cube_faces(role: str, key: str) -> str:
+def cube_faces(role: str, key: str, glyph: str | None = None) -> str:
+    glyph = GLYPHS[role] if glyph is None else glyph
     polygons = cube_polygons()
     clip = f"{key}-cube"
     lines = [f'  <clipPath id="{clip}"><path d="{path_data(cube_outline())}"/></clipPath>']
     lines += [f'  <path d="{path_data(polygons[face])}" fill="currentColor"/>' for face in ("top", "left", "right")]
-    lines.append(f'  <g clip-path="url(#{clip})">\n{glyph_backing(role)}\n  </g>')
+    lines.append(f'  <g clip-path="url(#{clip})">\n{glyph_backing(role, glyph)}\n  </g>')
     lines.append(f'  <path d="{path_data(polygons["top"])}" fill="#fff" opacity="0.08"/>')
     lines.append(f'  <path d="{path_data(polygons["left"])}" fill="#000" opacity="0.10"/>')
-    lines.append(f'  <g clip-path="url(#{clip})">\n{GLYPHS[role]}\n  </g>')
+    lines.append(f'  <g clip-path="url(#{clip})">\n{glyph}\n  </g>')
     return "\n".join(lines)
 
 
@@ -146,6 +149,137 @@ def render_icon(role: str, color: str, key: str, status: str = "pending-symbol")
         f'{shape}\n'
         '</svg>\n'
     )
+
+
+# Study-only role candidates for issue #30 (Driver vertical stack, ORM lateral
+# stacks) and the MCP "3-Way Router" direction selected in issue #23. They are
+# rendered to studies/roles/ for review and are never inputs to src/ or dist/.
+TOP_SHADE = '  <path d="{d}" fill="#fff" opacity="0.08"/>'
+LEFT_SHADE = '  <path d="{d}" fill="#000" opacity="0.10"/>'
+
+
+def top_point(u: float, v: float) -> tuple[float, float]:
+    """A point on the top rhombus: ``u`` runs toward the right corner, ``v`` toward the left."""
+    cx, half, rise, top_y = GEOMETRY["center"][0], GEOMETRY["half_width"], GEOMETRY["roof_rise"], GEOMETRY["top_y"]
+    return (cx + half * (u - v), top_y + 2 * rise - rise * (u + v))
+
+
+def right_face_y(x: float, edge: str) -> float:
+    """The y of the right face's top or bottom edge at ``x``."""
+    face = cube_polygons()["right"]
+    (x0, y0), (x1, y1) = (face[0], face[1]) if edge == "top" else (face[3], face[2])
+    return y0 + (y1 - y0) * (x - x0) / (x1 - x0)
+
+
+def shaded(pieces: list[tuple[str, list[tuple[float, float]]]]) -> str:
+    """Flat pieces in the cube color, with the cube's top and left face shading."""
+    lines = [f'  <path d="{path_data(points)}" fill="currentColor"/>' for _, points in pieces]
+    lines += [TOP_SHADE.format(d=path_data(points)) for plane, points in pieces if plane == "top"]
+    lines += [LEFT_SHADE.format(d=path_data(points)) for plane, points in pieces if plane == "left"]
+    return "\n".join(lines)
+
+
+def lateral_slabs() -> str:
+    """Three slabs side by side along the right axis; the front slab keeps the left face."""
+    cx, half, seam = GEOMETRY["center"][0], GEOMETRY["half_width"], GEOMETRY["seam_half_width"]
+    gap = 2 * seam
+    width = (half - 2 * gap) / 3
+    pieces = [("left", cube_polygons()["left"])]
+    for index in range(3):
+        a = index * (width + gap) / half
+        b = a + width / half
+        pieces.append(("top", [top_point(a, 0), top_point(b, 0), top_point(b, 1), top_point(a, 1)]))
+        x0, x1 = max(cx + half * a, cx + seam), cx + half * b
+        pieces.append(("right", [(x0, right_face_y(x0, "top")), (x1, right_face_y(x1, "top")), (x1, right_face_y(x1, "bottom")), (x0, right_face_y(x0, "bottom"))]))
+    return shaded(pieces)
+
+
+def mirrored_rows() -> str:
+    """Two half-stacks split at the center seam, with three facing layers on each side."""
+    cx, half, rise, top_y, seam = (GEOMETRY[key] for key in ("center", "half_width", "roof_rise", "top_y", "seam_half_width"))
+    cx = cx[0]
+    slope = rise / half
+    pieces = [
+        ("top", [(cx - half, top_y + rise), (cx - seam, top_y + seam * slope), (cx - seam, top_y + 2 * rise - seam * slope)]),
+        ("top", [(cx + seam, top_y + seam * slope), (cx + half, top_y + rise), (cx + seam, top_y + 2 * rise - seam * slope)]),
+    ]
+    left, right = cube_polygons()["left"], cube_polygons()["right"]
+    height = left[3][1] - left[0][1]
+    gap = 1.0
+    band = (height - 2 * gap) / 3
+    for index in range(3):
+        d0 = index * (band + gap)
+        d1 = d0 + band
+        pieces.append(("left", [(left[0][0], left[0][1] + d0), (left[1][0], left[1][1] + d0), (left[1][0], left[1][1] + d1), (left[0][0], left[0][1] + d1)]))
+        pieces.append(("right", [(right[0][0], right[0][1] + d0), (right[1][0], right[1][1] + d0), (right[1][0], right[1][1] + d1), (right[0][0], right[0][1] + d1)]))
+    return shaded(pieces)
+
+
+def lateral_plates() -> str:
+    """The layered Driver stack turned on its side: a left-face plate and two bent layers."""
+    cx, half = GEOMETRY["center"][0], GEOMETRY["half_width"]
+    lines = [f'  <path d="{path_data(cube_polygons()["left"])}" fill="currentColor"/>']
+    for x0, x1 in ((cx + 2.0, cx + 5.0), (cx + 7.0, cx + half)):
+        a, b = (x0 - cx) / half, (x1 - cx) / half
+        points = [top_point(a, 1), top_point(a, 0), (x0, right_face_y(x0, "bottom")), (x1, right_face_y(x1, "bottom")), top_point(b, 0), top_point(b, 1)]
+        lines.append(f'  <path d="{path_data(points)}" fill="currentColor"/>')
+    return "\n".join(lines)
+
+
+ROUTER_HUB = (12.0, 12.95)
+# 3-Way Router, white rendition: one link from the center hub into each face.
+ROUTER_GLYPH = '''  <path d="M 12 12.95 L 12 7.1 M 12 12.95 L 6.7 15.45 M 12 12.95 L 17.3 15.45" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/>
+  <g fill="#fff"><circle cx="12" cy="12.95" r="1.75"/><circle cx="12" cy="6.9" r="1.45"/><circle cx="6.5" cy="15.55" r="1.45"/><circle cx="17.5" cy="15.55" r="1.45"/></g>'''
+
+
+def router_channels(key: str) -> str:
+    """3-Way Router in negative space: the three seams run into a ring around a solid hub."""
+    hx, hy = ROUTER_HUB
+    outer, inner, sides = 2.9, 1.8, 48
+    ring = [(hx + outer * math.cos(2 * math.pi * i / sides), hy + outer * math.sin(2 * math.pi * i / sides)) for i in range(sides)]
+    clip = f"{key}-router"
+    faces = cube_polygons()
+    body = [f'  <path d="{path_data(faces[face])}" fill="currentColor"/>' for face in ("top", "left", "right")]
+    body += [TOP_SHADE.format(d=path_data(faces["top"])), LEFT_SHADE.format(d=path_data(faces["left"]))]
+    return "\n".join(
+        [f'  <clipPath id="{clip}"><path d="M 0 0 H 24 V 24 H 0 Z {path_data(ring)}" clip-rule="evenodd"/></clipPath>',
+         f'  <g clip-path="url(#{clip})">', *body, "  </g>",
+         f'  <circle cx="{number(hx)}" cy="{number(hy)}" r="{number(inner)}" fill="currentColor"/>']
+    )
+
+
+def render_role_candidate(candidate_id: str, language: str) -> str:
+    spec = ROLE_CANDIDATES.get(candidate_id)
+    if spec is None or not KEY_RE.fullmatch(candidate_id) or spec.get("status") != "study":
+        raise ValueError("role candidates must be registered study-only entries")
+    if spec["role"] not in ROLES or language not in spec["languages"] or language not in COLORS:
+        raise ValueError("invalid role candidate role or language")
+    key = f"{candidate_id}-{language}"
+    shapes = {
+        "driver-vertical-stack": orm_faces,
+        "orm-lateral-slabs": lateral_slabs,
+        "orm-mirrored-rows": mirrored_rows,
+        "orm-lateral-plates": lateral_plates,
+        "mcp-router-hub": lambda: cube_faces("mcp", key, ROUTER_GLYPH),
+        "mcp-router-channels": lambda: router_channels(key),
+    }
+    if candidate_id not in shapes:
+        raise ValueError(f"unsupported role candidate: {candidate_id}")
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="{COLORS[language]}" role="img" aria-labelledby="{key}-title {key}-desc">\n'
+        f'  <title id="{key}-title">CUBRID Lab {spec["role"]} role study — {candidate_id} ({language})</title>\n'
+        f'  <desc id="{key}-desc">{escape(spec["description"])} Study candidate for review; not approved.</desc>\n'
+        f'{shapes[candidate_id]()}\n'
+        '</svg>\n'
+    )
+
+
+def role_candidate_files() -> dict[Path, tuple[str, str]]:
+    return {
+        ROOT / "studies/roles" / f"{candidate_id}-{language}.svg": (candidate_id, language)
+        for candidate_id in sorted(ROLE_CANDIDATES)
+        for language in ROLE_CANDIDATES[candidate_id]["languages"]
+    }
 
 
 def organization_faces(face_colors: dict[str, str] | None = None) -> str:
@@ -293,6 +427,8 @@ def outputs() -> dict[Path, str]:
     for layout in LOCKUP_LAYOUTS:
         for variant in ORGANIZATION["wordmarks"]["variants"]:
             expected[ROOT / lockup_directory / lockup_name(layout, variant)] = render_organization_lockup(layout, variant)
+    for path, (candidate_id, language) in role_candidate_files().items():
+        expected[path] = render_role_candidate(candidate_id, language)
     return expected
 
 
@@ -313,6 +449,7 @@ def owned_outputs() -> set[Path]:
         for variant in ORGANIZATION["wordmarks"]["variants"]:
             name = lockup_name(layout, variant)
             owned |= {ROOT / "dist/organization" / name, ROOT / "studies/organization" / name}
+    owned |= set(role_candidate_files())
     return owned
 
 
@@ -326,7 +463,7 @@ def main() -> int:
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(content, encoding="utf-8")
     unmanaged = []
-    for directory in (OUT, STUDY_OUT, ROOT / "dist/organization", ROOT / "studies/organization"):
+    for directory in (OUT, STUDY_OUT, ROOT / "dist/organization", ROOT / "studies/organization", ROOT / "studies/roles"):
         for path in sorted(directory.glob("*.svg")):
             if path in expected:
                 continue

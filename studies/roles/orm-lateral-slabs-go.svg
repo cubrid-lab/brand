@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="#00ADD8" role="img" aria-labelledby="orm-lateral-slabs-go-title orm-lateral-slabs-go-desc">
+  <title id="orm-lateral-slabs-go-title">CUBRID Lab orm role study — orm-lateral-slabs (go)</title>
+  <desc id="orm-lateral-slabs-go-desc">The cube sliced into three slabs standing side by side along its right axis, each slab keeping its top and right face. Study candidate for review; not approved.</desc>
+  <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="currentColor"/>
+  <path d="M 12 12.547 L 14.4 11.161 L 4.4 5.388 L 2 6.774 Z" fill="currentColor"/>
+  <path d="M 12.7 13.25 L 14.4 12.29 L 14.4 21.54 L 12.7 22.5 Z" fill="currentColor"/>
+  <path d="M 15.8 10.353 L 18.2 8.967 L 8.2 3.194 L 5.8 4.58 Z" fill="currentColor"/>
+  <path d="M 15.8 11.5 L 18.2 10.145 L 18.2 19.395 L 15.8 20.75 Z" fill="currentColor"/>
+  <path d="M 19.6 8.159 L 22 6.774 L 12 1 L 9.6 2.386 Z" fill="currentColor"/>
+  <path d="M 19.6 9.355 L 22 8 L 22 17.25 L 19.6 18.605 Z" fill="currentColor"/>
+  <path d="M 12 12.547 L 14.4 11.161 L 4.4 5.388 L 2 6.774 Z" fill="#fff" opacity="0.08"/>
+  <path d="M 15.8 10.353 L 18.2 8.967 L 8.2 3.194 L 5.8 4.58 Z" fill="#fff" opacity="0.08"/>
+  <path d="M 19.6 8.159 L 22 6.774 L 12 1 L 9.6 2.386 Z" fill="#fff" opacity="0.08"/>
+  <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="#000" opacity="0.10"/>
+</svg>

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "note": "Study-only role candidates for maintainer review (issue #30, MCP direction from issue #23). Rendered to studies/roles/ and never to src/ or dist/; the registry role mapping is unchanged.",
+  "review_issue": "https://github.com/cubrid-lab/brand/issues/30",
+  "candidates": {
+    "driver-vertical-stack": {
+      "role": "driver",
+      "status": "study",
+      "languages": ["python", "typescript"],
+      "description": "The current ORM layered geometry, unchanged, reassigned to the Driver role: a top plate over two layers stacked top to bottom."
+    },
+    "orm-lateral-slabs": {
+      "role": "orm",
+      "status": "study",
+      "languages": ["python", "go"],
+      "description": "The cube sliced into three slabs standing side by side along its right axis, each slab keeping its top and right face."
+    },
+    "orm-mirrored-rows": {
+      "role": "orm",
+      "status": "study",
+      "languages": ["python", "go"],
+      "description": "Two half-stacks split down the center, with three corresponding layers facing each other across the gap."
+    },
+    "orm-lateral-plates": {
+      "role": "orm",
+      "status": "study",
+      "languages": ["python", "go"],
+      "description": "The Driver stack turned on its side: a front plate on the left face and two bent layers behind it to the right."
+    },
+    "mcp-router-hub": {
+      "role": "mcp",
+      "status": "study",
+      "languages": ["python", "typescript"],
+      "description": "3-Way Router: a hub at the cube's center vertex routing one link into each of the three faces."
+    },
+    "mcp-router-channels": {
+      "role": "mcp",
+      "status": "study",
+      "languages": ["python", "typescript"],
+      "description": "3-Way Router in negative space: the cube's three seams become channels meeting at a ringed central hub."
+    }
+  }
+}
