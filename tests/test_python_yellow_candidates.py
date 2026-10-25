@@ -82,7 +82,11 @@ class PythonYellowCandidateTests(unittest.TestCase):
                 # An untreated token draws the same geometry; only the color attribute differs.
                 approved = render_icon(meta["role"], COLORS["typescript"], "x", "approved")
                 study = render_yellow_candidate("t0-naive", name).replace(f"t0-naive-{name}", "x")
-                self.assertEqual(body(approved), body(study))
+                if meta["role"] in {"driver", "orm"}:
+                    # The #38 study predates the restored cube shapes.
+                    self.assertNotEqual(body(approved), body(study))
+                else:
+                    self.assertEqual(body(approved), body(study))
 
     def test_promoted_python_icons_are_the_selected_t3_candidate(self):
         # Maintainer decision on 2026-10-25 (issue #38): t3-ochre-keyline.
@@ -99,7 +103,11 @@ class PythonYellowCandidateTests(unittest.TestCase):
                 promoted = generated[ROOT / "dist/icons" / f"{name}.svg"]
                 study = render_yellow_candidate("t3-ochre-keyline", name).replace(f"t3-ochre-keyline-{name}", name)
                 self.assertEqual(ElementTree.fromstring(promoted).get("color"), "#FFD43B")
-                self.assertEqual(body(promoted), body(study))
+                if REGISTRY[name]["role"] in {"driver", "orm"}:
+                    # Preserve reviewed yellow treatments as historical evidence.
+                    self.assertNotEqual(body(promoted), body(study))
+                else:
+                    self.assertEqual(body(promoted), body(study))
 
     def test_promoted_icons_draw_the_treatment_colors(self):
         spec = TREATMENTS[COLORS["python"]]

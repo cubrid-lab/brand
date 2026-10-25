@@ -345,7 +345,13 @@ class BrandTests(unittest.TestCase):
         driver_svg = ElementTree.fromstring(generated[ROOT / "src/driver.svg"])
         orm_svg = ElementTree.fromstring(generated[ROOT / "src/orm.svg"])
         driver_paths = {p.attrib["d"] for p in driver_svg.findall(".//" + SVG + "path")}
-        orm_layer_paths = {p.attrib["d"] for p in orm_svg.findall(".//" + SVG + "path")[1:]}
+        role_grooves = {
+            node.attrib["d"]
+            for svg in (driver_svg, orm_svg)
+            for group in svg.iter(SVG + "g")
+            if group.get("data-layer-grooves") is not None
+            for node in group.findall(SVG + "path")
+        }
         candidate_signatures = set()
         for path in (
             ROOT / "dist/organization/mark.svg",
@@ -359,7 +365,9 @@ class BrandTests(unittest.TestCase):
                 svg = ElementTree.fromstring(generated[path])
                 self.assertIsNone(svg.find(".//" + SVG + "circle"))
                 paths = [p.attrib["d"] for p in svg.findall(".//" + SVG + "path")]
-                self.assertFalse(set(paths) & orm_layer_paths)
+                # Organization and repository icons intentionally share cube faces,
+                # but the role-specific division grooves belong only to role icons.
+                self.assertFalse(set(paths) & role_grooves)
                 self.assertNotIn("M 12.6 18.1 L 15.7 16.15 L 17.45 16.15", driver_paths & set(paths))
                 fills = tuple(p.attrib["fill"] for p in svg.findall(".//" + SVG + "path"))
                 candidate_signatures.add((tuple(paths), fills))

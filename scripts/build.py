@@ -120,14 +120,70 @@ GLYPHS = {
 }
 
 
-def vertical_stack() -> str:
-    """Driver: a top plate over two layers stacked top to bottom (issue #30; the former ORM geometry)."""
+def vertical_stack_legacy() -> str:
+    """Preserve the reviewed #30 floating-stack drawing in historical study assets."""
     top = path_data(cube_polygons()["top"])
     layers = (
         "M 2 10.1 L 12 15.6 L 22 10.1 L 22 12.15 L 12 17.65 L 2 12.15 Z",
         "M 2 14.3 L 12 19.8 L 22 14.3 L 22 16.35 L 12 21.85 L 2 16.35 Z",
     )
     return "\n".join([f'  <path d="{top}" fill="currentColor"/>'] + [f'  <path d="{layer}" fill="currentColor"/>' for layer in layers])
+
+
+# Two equally spaced divisions yield three layers in the same cubic volume.
+LAYER_DIVISIONS = (1 / 3, 2 / 3)
+
+
+def cube_layers(role: str) -> str:
+    """Keep all three faces of the cube; turn its equal-depth grooves by role.
+
+    Driver grooves follow the horizontal edges of the side faces. ORM grooves
+    cross the top and continue vertically down the right face. The outlines
+    remain the shared CUBRID Lab 24 x 24 isometric cube (issues #41 and #43).
+    """
+    if role not in {"driver", "orm"}:
+        raise ValueError("cube layers are only defined for Driver and ORM")
+    faces = cube_polygons()
+    lines = [f'  <path d="{path_data(faces[face])}" fill="currentColor"/>' for face in ("top", "left", "right")]
+    lines += [
+        f'  <path d="{path_data(faces["top"])}" fill="#fff" opacity="0.08"/>',
+        f'  <path d="{path_data(faces["left"])}" fill="#000" opacity="0.10"/>',
+    ]
+
+    def lerp(a: tuple[float, float], b: tuple[float, float], t: float) -> tuple[float, float]:
+        return (a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)
+
+    def segment(a: tuple[float, float], b: tuple[float, float]) -> str:
+        return f'M {number(a[0])} {number(a[1])} L {number(b[0])} {number(b[1])}'
+
+    grooves = []
+    for fraction in LAYER_DIVISIONS:
+        if role == "driver":
+            height = faces["left"][3][1] - faces["left"][0][1]
+            for face in ("left", "right"):
+                start = lerp(faces[face][0], faces[face][1], 0.1)
+                end = lerp(faces[face][0], faces[face][1], 0.9)
+                grooves.append(segment((start[0], start[1] + height * fraction),
+                                       (end[0], end[1] + height * fraction)))
+        else:
+            # Two equal lateral divisions run across the top and right side.
+            grooves.append(segment(top_point(fraction, 0.13), top_point(fraction, 0.87)))
+            right = faces["right"]
+            x = right[0][0] + (right[1][0] - right[0][0]) * fraction
+            grooves.append(segment((x, right_face_y(x, "top") + 0.9),
+                                   (x, right_face_y(x, "bottom") - 0.9)))
+    lines.append(f'  <g data-layer-grooves="{role}" fill="none" stroke="#fff" stroke-width="1.05" stroke-linecap="round">')
+    lines += [f'    <path d="{groove}"/>' for groove in grooves]
+    lines.append("  </g>")
+    return "\n".join(lines)
+
+
+def vertical_stack() -> str:
+    return cube_layers("driver")
+
+
+def lateral_plates() -> str:
+    return cube_layers("orm")
 
 
 FILL_D_RE = re.compile(r'<path d="([^"]+)" fill="currentColor"/>')
@@ -141,18 +197,19 @@ def light_treatment(role: str, key: str, shape: str, mark: str | None, keyline: 
     if any(value is not None and not COLOR_RE.fullmatch(value) for value in (mark, keyline)):
         raise ValueError("invalid treatment color")
     layered = role in {"driver", "orm"}
-    if mark is not None and not layered:
-        # Only the topmost group holds the visible mark; the backing stays in the cube color.
-        split = shape.rindex("<g clip-path")
+    grooved_cube = layered and 'data-layer-grooves=' in shape
+    if mark is not None and (not layered or grooved_cube):
+        # Recolor only the visible role mark, never the cube or its face shades.
+        split = shape.rindex('  <g data-layer-grooves=') if grooved_cube else shape.rindex("<g clip-path")
         shape = shape[:split] + shape[split:].replace('"#fff"', f'"{mark}"')
     if keyline is None:
         return shape
     stroke = f'fill="none" stroke="{keyline}" stroke-width="{number(2 * width)}" stroke-linejoin="round"'
-    if layered:
-        # Drawn under each layer, so only its outer half shows around every piece.
+    if layered and not grooved_cube:
+        # Historical #30 study: strokes belong under each detached layer.
         lines = [f'  <path d="{d}" {stroke}/>' for d in FILL_D_RE.findall(shape)]
     else:
-        # Clipped to the outside of the cube, so the seams stay open.
+        # A single outline leaves the new cube intact; grooves remain inside it.
         clip, outline = f"{key}-outside", path_data(cube_outline())
         lines = [
             f'  <clipPath id="{clip}"><path d="M 0 0 H 24 V 24 H 0 Z {outline}" clip-rule="evenodd"/></clipPath>',
@@ -252,8 +309,8 @@ def mirrored_rows() -> str:
     return shaded(pieces)
 
 
-def lateral_plates() -> str:
-    """The layered Driver stack turned on its side: a left-face plate and two bent layers."""
+def lateral_plates_legacy() -> str:
+    """Keep the original lateral plates for the #30 review record."""
     cx, half = GEOMETRY["center"][0], GEOMETRY["half_width"]
     lines = [f'  <path d="{path_data(cube_polygons()["left"])}" fill="currentColor"/>']
     for x0, x1 in ((cx + 2.0, cx + 5.0), (cx + 7.0, cx + half)):
@@ -292,10 +349,10 @@ def render_role_candidate(candidate_id: str, language: str) -> str:
         raise ValueError("invalid role candidate role or language")
     key = f"{candidate_id}-{language}"
     shapes = {
-        "driver-vertical-stack": vertical_stack,
+        "driver-vertical-stack": vertical_stack_legacy,
         "orm-lateral-slabs": lateral_slabs,
         "orm-mirrored-rows": mirrored_rows,
-        "orm-lateral-plates": lateral_plates,
+        "orm-lateral-plates": lateral_plates_legacy,
         "mcp-router-hub": lambda: cube_faces("mcp", key, ROUTER_GLYPH),
         "mcp-router-channels": lambda: router_channels(key),
     }
@@ -339,7 +396,8 @@ def render_yellow_candidate(treatment: str, name: str) -> str:
     if any(not COLOR_RE.fullmatch(value) for value in [color, *inks.values()]):
         raise ValueError("invalid yellow candidate color")
     role, key = REGISTRY[name]["role"], f"{treatment}-{name}"
-    shape = {"driver": vertical_stack, "orm": lateral_plates}.get(role, lambda: cube_faces(role, key))()
+    # The Yellow #38 comparison predates cube restoration; keep its study intact.
+    shape = {"driver": vertical_stack_legacy, "orm": lateral_plates_legacy}.get(role, lambda: cube_faces(role, key))()
     mark = None if spec["mark"] == "white" else inks[spec["mark"]]
     keyline = inks[spec["keyline"]] if spec["keyline"] and role in spec["keyline_roles"] else None
     shape = light_treatment(role, key, shape, mark, keyline, YELLOW_CANDIDATES["keyline_width"])

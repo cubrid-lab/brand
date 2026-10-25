@@ -1,10 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="#FFD43B" role="img" aria-labelledby="pycubrid-title pycubrid-desc">
   <title id="pycubrid-title">CUBRID Lab driver icon — pycubrid</title>
   <desc id="pycubrid-desc">Cube-based driver role symbol. Design selected; legal clearance pending.</desc>
-  <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="none" stroke="#8C7520" stroke-width="1.2" stroke-linejoin="round"/>
-  <path d="M 2 10.1 L 12 15.6 L 22 10.1 L 22 12.15 L 12 17.65 L 2 12.15 Z" fill="none" stroke="#8C7520" stroke-width="1.2" stroke-linejoin="round"/>
-  <path d="M 2 14.3 L 12 19.8 L 22 14.3 L 22 16.35 L 12 21.85 L 2 16.35 Z" fill="none" stroke="#8C7520" stroke-width="1.2" stroke-linejoin="round"/>
+  <clipPath id="pycubrid-outside"><path d="M 0 0 H 24 V 24 H 0 Z M 12 1 L 22 6.774 L 22 17.25 L 12.7 22.5 L 11.3 22.5 L 2 17.25 L 2 6.774 Z" clip-rule="evenodd"/></clipPath>
+  <path d="M 12 1 L 22 6.774 L 22 17.25 L 12.7 22.5 L 11.3 22.5 L 2 17.25 L 2 6.774 Z" fill="none" stroke="#8C7520" stroke-width="1.2" stroke-linejoin="round" clip-path="url(#pycubrid-outside)"/>
   <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="currentColor"/>
-  <path d="M 2 10.1 L 12 15.6 L 22 10.1 L 22 12.15 L 12 17.65 L 2 12.15 Z" fill="currentColor"/>
-  <path d="M 2 14.3 L 12 19.8 L 22 14.3 L 22 16.35 L 12 21.85 L 2 16.35 Z" fill="currentColor"/>
+  <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="currentColor"/>
+  <path d="M 12.7 13.25 L 22 8 L 22 17.25 L 12.7 22.5 Z" fill="currentColor"/>
+  <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="#fff" opacity="0.08"/>
+  <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="#000" opacity="0.10"/>
+  <g data-layer-grooves="driver" fill="none" stroke="#40350F" stroke-width="1.05" stroke-linecap="round">
+    <path d="M 2.93 11.608 L 10.37 15.808"/>
+    <path d="M 13.63 15.808 L 21.07 11.608"/>
+    <path d="M 2.93 14.692 L 10.37 18.892"/>
+    <path d="M 13.63 18.892 L 21.07 14.692"/>
+  </g>
 </svg>
