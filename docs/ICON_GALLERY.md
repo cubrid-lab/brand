@@ -39,6 +39,15 @@ The same generated Driver SVG is shown at the study's requested sizes:
 | --- | --- | --- | --- | --- |
 | <img src="../dist/icons/pycubrid.svg" width="16" alt="Driver at 16 pixels"> | <img src="../dist/icons/pycubrid.svg" width="24" alt="Driver at 24 pixels"> | <img src="../dist/icons/pycubrid.svg" width="32" alt="Driver at 32 pixels"> | <img src="../dist/icons/pycubrid.svg" width="48" alt="Driver at 48 pixels"> | <img src="../dist/icons/pycubrid.svg" width="64" alt="Driver at 64 pixels"> |
 
+### Known small-size limits
+
+The maintainer accepted two limits on 2026-10-25 instead of changing the approved marks ([issue #23](https://github.com/cubrid-lab/brand/issues/23)); the evidence is in the [small-size legibility study](studies/small-size-legibility.md):
+
+- **Operator** (`cubrid-kubernetes-operator`): the six-spoke dial does not resolve at 16 px; it reads as a solid disc. Use 24 px or larger where the dial must be recognizable.
+- **Community**: the three figures do not separate at 32 px or smaller; they read as one group. Use 48 px or larger where the individual figures matter.
+
+Other icons need no size restriction beyond the general 24 px guidance in the study.
+
 ## Driver, ORM and MCP redesign
 
 On 2026-10-25 the Driver role became a vertical stack, the ORM role became lateral plates, and the MCP role became a three-way router ([issue #30](https://github.com/cubrid-lab/brand/issues/30), [issue #23](https://github.com/cubrid-lab/brand/issues/23)). [`studies/role-redesign-30.md`](studies/role-redesign-30.md) has the candidates, the decision, and a before/after sheet of every icon.
