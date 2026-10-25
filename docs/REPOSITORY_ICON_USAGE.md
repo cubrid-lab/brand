@@ -80,8 +80,9 @@ maintainer approval before promoting or applying any future candidate. The
 registry remains authoritative as approvals change.
 
 The organization emblem has separate scoped approval and
-[usage guidance](ORGANIZATION_MARK_USAGE.md). Wordmark and broader legal/license
-review remain under [issue #3](https://github.com/cubrid-lab/brand/issues/3).
+[usage guidance](ORGANIZATION_MARK_USAGE.md), as do the approved wordmark
+lockups. Broader legal/license review remains under
+[issue #3](https://github.com/cubrid-lab/brand/issues/3).
 A repository's role icon must not become the organization avatar or
 organization-site logo.
 

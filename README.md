@@ -9,7 +9,7 @@ Canonical brand-system source for CUBRID Lab.
 - **Shape = technical role.** Nine role symbols share one 24×24 isometric construction grammar and use distinct internal marks.
 - **Color = implementation language.** Every repository variant uses a language token; mixed-language repositories and non-repository surfaces use Neutral.
 
-The maintainer selected the [cube-based infographic](docs/studies/repository-icon-system-infographic.png) recorded in the [design review proposal](docs/REPOSITORY_ICON_SYSTEM_PROPOSAL.md) to replace the former Driver drawing and build out the individual icon family. The [icon gallery](docs/ICON_GALLERY.md) previews all 15 generated variants, the separate organization emblem, and wordmark studies. The [numerical construction](docs/GEOMETRY.md) documents the SVG reconstruction. The raster is a visual reference, not a source of generated geometry.
+The maintainer selected the [cube-based infographic](docs/studies/repository-icon-system-infographic.png) recorded in the [design review proposal](docs/REPOSITORY_ICON_SYSTEM_PROPOSAL.md) to replace the former Driver drawing and build out the individual icon family. The [icon gallery](docs/ICON_GALLERY.md) previews all 15 generated variants, the separate organization emblem, and the wordmark lockups. The [numerical construction](docs/GEOMETRY.md) documents the SVG reconstruction. The raster is a visual reference, not a source of generated geometry.
 
 Current language and neutral tokens are defined in [`tokens/colors.json`](tokens/colors.json):
 
@@ -35,7 +35,7 @@ See [Applying repository icons](docs/REPOSITORY_ICON_USAGE.md) for the shared RE
 
 ## Organization identity
 
-The [three-color organization emblem](dist/organization/mark.svg) is separate from role icons. On 2026-10-15 the maintainer approved its design and use as the CUBRID Lab organization avatar and profile mark, recorded in [issue #3](https://github.com/cubrid-lab/brand/issues/3). The [horizontal](studies/organization/lockup-horizontal.svg) and [stacked](studies/organization/lockup-stacked.svg) wordmark lockups remain review candidates. General redistribution licensing and independent legal/trademark clearance remain pending. See [Organization mark usage](docs/ORGANIZATION_MARK_USAGE.md) for the scoped approval and rollout. The GitHub handle remains `cubrid-lab`.
+The [three-color organization emblem](dist/organization/mark.svg) is separate from role icons. On 2026-10-15 the maintainer approved its design and use as the CUBRID Lab organization avatar and profile mark, recorded in [issue #3](https://github.com/cubrid-lab/brand/issues/3). On 2026-10-25 the maintainer approved the design and own-organization use of the [horizontal](dist/organization/lockup-horizontal.svg) and [stacked](dist/organization/lockup-stacked.svg) wordmark lockups, which also have [dark-background variants](dist/organization/lockup-horizontal-dark.svg) ([stacked](dist/organization/lockup-stacked-dark.svg)). General redistribution licensing and independent legal/trademark clearance remain pending. See [Organization mark usage](docs/ORGANIZATION_MARK_USAGE.md) for the scoped approval and rollout. The GitHub handle remains `cubrid-lab`.
 
 ## Source of truth
 
@@ -45,9 +45,9 @@ registry/            repository and concept-surface mappings
 scripts/             deterministic SVG generation
 src/                 generated color-inheriting role templates
 dist/icons/           generated approved repository icons
-dist/organization/    generated organization emblem approved for own-organization use
+dist/organization/    generated organization emblem and wordmark lockups approved for own-organization use
 studies/icons/        generated individual symbol candidates (pending review; currently none)
-studies/organization/ generated organization mark and wordmark candidates (pending review)
+studies/organization/ generated alternative organization mark candidates (study only)
 docs/                construction, gallery, and visual-reference study
 provenance/          immutable superseded Connector Study / 02 reference
 ```
@@ -73,6 +73,6 @@ Code in `scripts/` and `tests/` is MIT-licensed. Visual marks and generated bran
 
 CUBRID Lab's own repositories may show their approved icons in the README and on their documentation sites by commit-pinned URL, without copying or modifying them. Forks and mirrors may keep that link in an unmodified README. No other embedding, copying, modification or redistribution is permitted. [Repository icon use](BRAND_USAGE.md#repository-icon-use) lists each case and the reviews still pending.
 
-Design selection for repository icons does **not** mean trademark, non-infringement, or formal legal review is complete. The organization emblem's scoped design and own-organization-use approval does not broaden the visual-asset redistribution license or approve the wordmark candidates.
+Design selection for repository icons does **not** mean trademark, non-infringement, or formal legal review is complete. The organization emblem's scoped design and own-organization-use approval and the wordmark lockups' design and own-organization-use approval do not broaden the visual-asset redistribution license.
 
 Refs #3, #4, #6.
