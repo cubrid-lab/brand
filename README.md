@@ -1,60 +1,68 @@
+<p align="center">
+  <img src="dist/organization/mark.svg" width="96" alt="CUBRID Lab geometric organization emblem">
+</p>
+
 # CUBRID Lab Brand
 
-Canonical brand-system source for CUBRID Lab.
+The visual identity and source of truth for **CUBRID Lab** — a geometric icon family for database drivers, ORMs, developer tools, and community projects.
+
+**[Browse the icon gallery](docs/ICON_GALLERY.md)** · **[Use an icon](docs/REPOSITORY_ICON_USAGE.md)** · **[Brand usage and rights](BRAND_USAGE.md)** · **[How icons are built](docs/GEOMETRY.md)**
 
 > CUBRID Lab is an independent, community-driven open-source initiative and is not affiliated with, sponsored by, or endorsed by CUBRID Corporation or the official CUBRID project. CUBRID is a trademark of its owner; the name is used here only to identify compatibility with the CUBRID database.
 
-## Design system
+## Explore the identity
 
-- **Shape = technical role.** Nine role symbols share one 24×24 isometric construction grammar and use distinct internal marks.
-- **Color = implementation language.** Every repository variant uses a language token; mixed-language repositories and non-repository surfaces use Neutral.
+The **organization emblem** is the approved three-color cube. Repository icons belong to the same geometric family, but each represents a **technical role**, not the organization itself.
 
-The maintainer selected the [cube-based infographic](docs/studies/repository-icon-system-infographic.png) recorded in the [design review proposal](docs/REPOSITORY_ICON_SYSTEM_PROPOSAL.md) to replace the former Driver drawing and build out the individual icon family. The [icon gallery](docs/ICON_GALLERY.md) previews all 15 generated variants, the separate organization emblem, and the wordmark lockups. The [numerical construction](docs/GEOMETRY.md) documents the SVG reconstruction. The raster is a visual reference, not a source of generated geometry.
+| Driver · `pycubrid` | ORM · `sqlalchemy-cubrid` | AI tools · `cubrid-mcp-server` | Examples · `cubrid-cookbook-python` |
+|:---:|:---:|:---:|:---:|
+| <img src="dist/icons/pycubrid.svg" width="76" alt="Current pycubrid icon"> | <img src="dist/icons/sqlalchemy-cubrid.svg" width="76" alt="Current SQLAlchemy CUBRID icon"> | <img src="dist/icons/cubrid-mcp-server.svg" width="76" alt="Current CUBRID MCP icon"> | <img src="dist/icons/cubrid-cookbook-python.svg" width="76" alt="Current CUBRID Cookbook icon"> |
 
-Current language and neutral tokens are defined in [`tokens/colors.json`](tokens/colors.json):
+**[See every approved repository icon and concept-surface icon](docs/ICON_GALLERY.md)**. The gallery also identifies studies and shows small-size previews. Current published artwork is not necessarily the final design: the Driver/ORM directions are being refined in [#30](https://github.com/cubrid-lab/brand/issues/30), and role-glyph visual improvements are tracked in [#23](https://github.com/cubrid-lab/brand/issues/23).
 
-| Token | Color |
-| --- | --- |
-| Python | `#3776AB` |
-| TypeScript | `#3178C6` |
-| Go | `#00ADD8` |
-| Rust | `#DEA384` |
-| JavaScript | `#F7DF1E` |
-| OCaml | `#A34CC3` |
-| Neutral | `#6B7280` |
+## How the brand system works
 
-These are **CUBRID Lab design tokens**, not official CUBRID brand colors or claims about language brands. JavaScript and OCaml currently have no mapped repositories. The infographic's labels differ from the actual mappings for Drizzle, Benchmark, and Showcase; the registry records the implementation-language decisions.
+- **Shape = technical role.** Icons follow a shared **24 × 24 isometric construction grammar**. A Driver, ORM, MCP server, and Cookbook have different silhouettes.
+- **Color = implementation language.** Repositories with the same technical role share geometry, while their language determines the color. Python currently uses **Python Blue `#3776AB`**; other colors are maintained in [`tokens/colors.json`](tokens/colors.json).
+- **One generated source of truth.** Approved assets in `dist/` are generated from the [registry](registry/repositories.json), numeric [geometry tokens](tokens/geometry.json), and [build script](scripts/build.py). Edit the generator, not generated SVGs.
+- **Organization and role symbols stay separate.** Do not substitute a Driver/ORM icon for the CUBRID Lab emblem.
 
-## Repository and surface mapping
+See the [construction specification](docs/GEOMETRY.md), [original visual-study rationale](docs/REPOSITORY_ICON_SYSTEM_PROPOSAL.md), and [design provenance](PROVENANCE.md) for details.
 
-Machine-readable mappings live in [`registry/repositories.json`](registry/repositories.json). `dist/icons/` contains all fifteen approved icons: the four Driver variants; the Python ORM (`sqlalchemy-cubrid`), MCP (`cubrid-mcp-server`), and Cookbook (`cubrid-cookbook-python`) icons selected on 2026-10-14; the Go Operator (`cubrid-kubernetes-operator`) icon selected on 2026-10-15; the TypeScript, Go, and Rust ORM (`drizzle-cubrid`, `gorm-cubrid`, `sea-orm-cubrid`) icons selected on 2026-10-20; and the Benchmark (`cubrid-benchmark`) and Showcase (`showcase`) repository icons and the Docs (`docs`) and Community (`community`) concept-surface icons approved on 2026-10-25. The maintainer selections are recorded in [issue #6](https://github.com/cubrid-lab/brand/issues/6). No repository or surface icon is currently pending symbol approval, so `studies/icons/` is empty. `docs` and `community` are not asserted to be repository names.
+## Use an approved icon
 
-Role geometry is common across repositories with the same role. The six-spoke Operator control dial is an original generic mark and does not copy the Kubernetes logo or any other third-party logo.
+For **CUBRID Lab-owned repositories**, use only the mapped SVGs and placements authorized under [brand usage and rights](BRAND_USAGE.md), with a **commit-pinned URL** as described in the [icon usage guide](docs/REPOSITORY_ICON_USAGE.md). Icon design approval alone does not authorize every use. For example, a first-party `pycubrid` README header may use:
 
-See [Applying repository icons](docs/REPOSITORY_ICON_USAGE.md) for the shared README header, immutable asset URLs, documentation-site configuration, and rollout inventory.
+```html
+<p align="center">
+  <a href="https://github.com/cubrid-lab/brand">
+    <img src="https://raw.githubusercontent.com/cubrid-lab/brand/bfb1871c8856d59dd60eb6276328465a7ab03ac7/dist/icons/pycubrid.svg" alt="pycubrid icon" width="120">
+  </a>
+</p>
+```
+
+This example pins an existing published revision; when integrating newly approved artwork, select its reviewed commit. **Design approval does not grant general rights to reuse, modify, or redistribute icons.** Read [brand usage and rights](BRAND_USAGE.md) before embedding assets on a new surface, especially outside CUBRID Lab. The [organization emblem](dist/organization/mark.svg) has separate approval and usage rules.
 
 ## Organization identity
 
 The [three-color organization emblem](dist/organization/mark.svg) is separate from role icons. On 2026-10-15 the maintainer approved its design and use as the CUBRID Lab organization avatar and profile mark, recorded in [issue #3](https://github.com/cubrid-lab/brand/issues/3). On 2026-10-25 the maintainer approved the design and own-organization use of the [horizontal](dist/organization/lockup-horizontal.svg) and [stacked](dist/organization/lockup-stacked.svg) wordmark lockups, which also have [dark-background variants](dist/organization/lockup-horizontal-dark.svg) ([stacked](dist/organization/lockup-stacked-dark.svg)). General redistribution licensing and independent legal/trademark clearance remain pending. See [Organization mark usage](docs/ORGANIZATION_MARK_USAGE.md) for the scoped approval and rollout. The GitHub handle remains `cubrid-lab`.
 
-## Source of truth
+## Find the source files
 
-```text
-tokens/              numeric geometry, language colors, scoped organization approval
-registry/            repository and concept-surface mappings
-scripts/             deterministic SVG generation
-src/                 generated color-inheriting role templates
-dist/icons/           generated approved repository icons
-dist/organization/    generated organization emblem and wordmark lockups approved for own-organization use
-studies/icons/        generated individual symbol candidates (pending review; currently none)
-studies/organization/ generated alternative organization mark candidates (study only)
-docs/                construction, gallery, and visual-reference study
-provenance/          immutable superseded Connector Study / 02 reference
-```
-
-The old Driver SVG and numerical parameters remain under [`provenance/connector-study-02/`](provenance/connector-study-02/) as historical evidence. Do not edit generated SVG geometry directly.
+| Path | Purpose |
+| --- | --- |
+| [`dist/icons/`](dist/icons/) | Currently approved repository and concept-surface icons |
+| [`dist/organization/`](dist/organization/) | Approved organization emblem and wordmark lockups (light and dark) |
+| [`studies/`](studies/) | Candidate artwork and visual review references (not approved for distribution) |
+| [`registry/repositories.json`](registry/repositories.json) | Authoritative repository, language, and role mapping |
+| [`tokens/`](tokens/) | Geometry, language colors, and organization construction |
+| [`scripts/build.py`](scripts/build.py) | Deterministic SVG generation |
+| [`docs/ICON_GALLERY.md`](docs/ICON_GALLERY.md) | Complete visual inventory and size previews |
+| [`provenance/`](provenance/) | Historical/superseded design references |
 
 ## Build and verify
+
+Run from the repository root with Python 3.12 (the version used in CI):
 
 ```bash
 python3 scripts/build.py
@@ -63,9 +71,7 @@ git diff --exit-code -- src dist studies/icons studies/organization
 test -z "$(git ls-files --others --exclude-standard -- src dist studies/icons studies/organization)"
 ```
 
-CI uses `python` on its Python 3.12 runner.
-
-The build removes only stale copies of its own outputs: the SVG names derived from `registry/repositories.json` (repositories and surfaces, in both `dist/icons/` and `studies/icons/`) and from the organization emblem, candidates, and lockups. When an asset changes review status, its copy in the previous location is removed. Any other SVG in `dist/icons/`, `studies/icons/`, `dist/organization/`, or `studies/organization/` is never deleted: the build reports it as unmanaged and exits with status 1, so CI fails until it is removed or moved elsewhere. A repository dropped from the registry leaves an unmanaged SVG to delete by hand.
+The generator reports unmanaged SVGs rather than silently deleting them. Details, contribution expectations, and approval boundaries are in [AGENTS.md](AGENTS.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Licensing and review status
 
@@ -75,4 +81,4 @@ CUBRID Lab's own repositories may show their approved icons in the README and on
 
 Design selection for repository icons does **not** mean trademark, non-infringement, or formal legal review is complete. The organization emblem's scoped design and own-organization-use approval and the wordmark lockups' design and own-organization-use approval do not broaden the visual-asset redistribution license.
 
-Refs #3, #4, #6.
+Related: [organization mark and wordmark #3](https://github.com/cubrid-lab/brand/issues/3), [symbol approvals #6](https://github.com/cubrid-lab/brand/issues/6), [README usability #20](https://github.com/cubrid-lab/brand/issues/20).
