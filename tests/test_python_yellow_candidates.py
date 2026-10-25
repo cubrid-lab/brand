@@ -1,4 +1,4 @@
-"""Python Yellow contrast treatments (issue #38): study-only renders of the approved Python icons."""
+"""Python Yellow contrast treatments (issue #38): the study candidates and the promoted T3 treatment."""
 from __future__ import annotations
 
 import re
@@ -11,13 +11,22 @@ from xml.etree import ElementTree
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts import build
-from scripts.build import COLORS, REGISTRY, YELLOW_CANDIDATES, outputs, render_icon, render_yellow_candidate, yellow_candidate_files
+from scripts.build import COLORS, REGISTRY, TREATMENTS, YELLOW_CANDIDATES, outputs, render_icon, render_yellow_candidate, yellow_candidate_files
 from tests.test_glyph_seams import seam_contacts
 from tests.test_legibility import THRESHOLD, contrast, face_shades, rgb
 
-TREATMENTS = YELLOW_CANDIDATES["treatments"]
+TREATMENTS_STUDY = YELLOW_CANDIDATES["treatments"]
 INKS = {key: ink["value"] for key, ink in YELLOW_CANDIDATES["inks"].items()}
 KEYLINE_RE = re.compile(r'  (?:<clipPath id="[^"]+-outside">.*?</clipPath>|<path [^>]*stroke-width="1\.2" stroke-linejoin="round"(?: clip-path="[^"]+")?/>)\n')
+
+
+def untreated(svg_text: str, mark: str) -> str:
+    """The SVG without its keyline, with the visible ``mark`` color back to white."""
+    stripped = KEYLINE_RE.sub("", svg_text)
+    if "<g clip-path" not in stripped:
+        return stripped
+    split = stripped.rindex("<g clip-path")
+    return stripped[:split] + stripped[split:].replace(f'"{mark}"', '"#fff"')
 
 
 def body(svg_text: str) -> list[str]:
@@ -32,10 +41,9 @@ class PythonYellowCandidateTests(unittest.TestCase):
             self.assertEqual(path.parent, ROOT / "studies/python-yellow")
             self.assertIn(path, generated)
             self.assertEqual(REGISTRY[name]["language"], "python")
-        self.assertEqual({spec["status"] for spec in TREATMENTS.values()}, {"study"})
-        # Phase 1 of issue #38: the language token and approved outputs keep Python Blue.
-        self.assertEqual(COLORS["python"], "#3776AB")
-        self.assertEqual(YELLOW_CANDIDATES["color"], "#FFD43B")
+        self.assertEqual({spec["status"] for spec in TREATMENTS_STUDY.values()}, {"study"})
+        self.assertEqual(COLORS["python"], "#FFD43B")
+        self.assertEqual(YELLOW_CANDIDATES["color"], COLORS["python"])
         self.assertEqual(sorted(YELLOW_CANDIDATES["repositories"]), sorted(n for n, m in REGISTRY.items() if m["language"] == "python"))
 
     def test_outputs_follow_a_redirected_root(self):
@@ -58,8 +66,8 @@ class PythonYellowCandidateTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Python"):
             render_yellow_candidate("t0-naive", "cubrid-go")
         original = build.YELLOW_CANDIDATES
-        promoted = {**TREATMENTS["t2-dark-keyline"], "status": "approved"}
-        build.YELLOW_CANDIDATES = {**original, "treatments": {**TREATMENTS, "t2-dark-keyline": promoted}}
+        promoted = {**TREATMENTS_STUDY["t2-dark-keyline"], "status": "approved"}
+        build.YELLOW_CANDIDATES = {**original, "treatments": {**TREATMENTS_STUDY, "t2-dark-keyline": promoted}}
         try:
             with self.assertRaisesRegex(ValueError, "study-only"):
                 render_yellow_candidate("t2-dark-keyline", "pycubrid")
@@ -70,25 +78,52 @@ class PythonYellowCandidateTests(unittest.TestCase):
         for name in YELLOW_CANDIDATES["repositories"]:
             meta = REGISTRY[name]
             with self.subTest(icon=name):
-                approved = render_icon(meta["role"], YELLOW_CANDIDATES["color"], "x", "approved")
+                # An untreated token draws the same geometry; only the color attribute differs.
+                approved = render_icon(meta["role"], COLORS["typescript"], "x", "approved")
                 study = render_yellow_candidate("t0-naive", name).replace(f"t0-naive-{name}", "x")
                 self.assertEqual(body(approved), body(study))
 
+    def test_promoted_python_icons_are_the_selected_t3_candidate(self):
+        # Maintainer decision on 2026-10-25 (issue #38): t3-ochre-keyline.
+        spec = TREATMENTS[COLORS["python"]]
+        self.assertEqual(
+            (spec["mark"], spec["keyline"], spec["keyline_width"]),
+            (INKS["dark"], INKS["ochre"], YELLOW_CANDIDATES["keyline_width"]),
+        )
+        t3 = TREATMENTS_STUDY["t3-ochre-keyline"]
+        self.assertEqual((t3["mark"], t3["keyline"], len(t3["keyline_roles"])), ("dark", "ochre", 4))
+        generated = outputs()
+        for name in YELLOW_CANDIDATES["repositories"]:
+            with self.subTest(icon=name):
+                promoted = generated[ROOT / "dist/icons" / f"{name}.svg"]
+                study = render_yellow_candidate("t3-ochre-keyline", name).replace(f"t3-ochre-keyline-{name}", name)
+                self.assertEqual(ElementTree.fromstring(promoted).get("color"), "#FFD43B")
+                self.assertEqual(body(promoted), body(study))
+
+    def test_promoted_contrast_matches_the_review(self):
+        spec = TREATMENTS[COLORS["python"]]
+        white, dark = (255, 255, 255), (13, 17, 23)
+        for name in ("cubrid-mcp-server", "cubrid-cookbook-python"):
+            svg = outputs()[ROOT / "dist/icons" / f"{name}.svg"]
+            low = min(contrast(rgb(spec["mark"]), shade) for shade in face_shades(svg).values())
+            with self.subTest(icon=name):
+                self.assertAlmostEqual(low, 6.84, places=2)
+                self.assertEqual(seam_contacts(untreated(svg, spec["mark"]))[:5], [])
+        self.assertAlmostEqual(contrast(rgb(spec["keyline"]), white), 4.49, places=2)
+        self.assertAlmostEqual(contrast(rgb(spec["keyline"]), dark), 4.22, places=2)
+
     def test_treatments_change_only_mark_color_and_keyline(self):
-        for treatment, spec in TREATMENTS.items():
+        for treatment, spec in TREATMENTS_STUDY.items():
             for name in YELLOW_CANDIDATES["repositories"]:
                 with self.subTest(treatment=treatment, icon=name):
                     svg = render_yellow_candidate(treatment, name).replace(treatment, "t0-naive")
                     has_keyline = bool(spec["keyline"]) and REGISTRY[name]["role"] in spec["keyline_roles"]
-                    stripped = KEYLINE_RE.sub("", svg)
-                    self.assertEqual(stripped != svg, has_keyline)
-                    if spec["mark"] != "white":
-                        split = stripped.rindex("<g clip-path") if "<g clip-path" in stripped else len(stripped)
-                        stripped = stripped[:split] + stripped[split:].replace(f'"{INKS[spec["mark"]]}"', '"#fff"')
-                    self.assertEqual(body(stripped), body(render_yellow_candidate("t0-naive", name).replace(treatment, "t0-naive")))
+                    self.assertEqual(KEYLINE_RE.sub("", svg) != svg, has_keyline)
+                    plain = untreated(svg, INKS.get(spec["mark"], "#fff"))
+                    self.assertEqual(body(plain), body(render_yellow_candidate("t0-naive", name)))
 
     def test_dark_marks_reach_three_to_one_and_stay_off_seams(self):
-        for treatment, spec in TREATMENTS.items():
+        for treatment, spec in TREATMENTS_STUDY.items():
             for name in ("cubrid-mcp-server", "cubrid-cookbook-python"):
                 svg = render_yellow_candidate(treatment, name)
                 mark = (255, 255, 255) if spec["mark"] == "white" else rgb(INKS[spec["mark"]])
@@ -103,7 +138,7 @@ class PythonYellowCandidateTests(unittest.TestCase):
                         self.assertGreaterEqual(low, THRESHOLD)
 
     def test_keylines_reach_three_to_one_on_white(self):
-        for treatment, spec in TREATMENTS.items():
+        for treatment, spec in TREATMENTS_STUDY.items():
             if spec["keyline"]:
                 with self.subTest(treatment=treatment):
                     self.assertIn("driver", spec["keyline_roles"])

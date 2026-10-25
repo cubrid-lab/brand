@@ -8,7 +8,7 @@ Pillow. It never writes to ``dist/``, ``src/`` or ``studies/``::
 writes to ``OUT_DIR``:
 
 - ``family.png``: the organization emblem and the four Python icons, today in
-  Python Blue and in each treatment of ``tokens/python-yellow-candidates.json``,
+  their current token and in each treatment of ``tokens/python-yellow-candidates.json``,
   next to the unchanged TypeScript, Go and Rust icons, at 24 and 48 px on the
   light and dark review backgrounds.
 - ``sizes-<treatment>.png``: the four Python icons in one treatment at 16, 24,
@@ -52,7 +52,7 @@ def treatments() -> list[str]:
 def family_rows() -> list[tuple[str, list[str]]]:
     tail = [current(name) for name in OTHERS]
     emblem = build.render_organization_mark()
-    rows = [("current: Python Blue", [emblem, *map(current, PYTHON), *tail])]
+    rows = [(f"current: {build.COLORS['python']}", [emblem, *map(current, PYTHON), *tail])]
     for treatment in treatments():
         rows.append((treatment, [emblem, *(build.render_yellow_candidate(treatment, name) for name in PYTHON), *tail]))
     return rows

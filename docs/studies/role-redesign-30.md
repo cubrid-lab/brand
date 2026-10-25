@@ -21,7 +21,7 @@ The sheets below are kept as they were reviewed. Their "current" rows show the i
 - **Driver: vertical stack (top to bottom).** Approved direction in issue #30: the existing layered geometry, reassigned to the Driver role.
 - **ORM: lateral stack (side by side).** Approved direction in issue #30. The final geometry needs review, so there are three candidates.
 - **MCP: "3-Way Router".** Selected in issue #23 (candidate A). No vector source for candidate A was found in this repository's history, branches, pull requests or issue attachments, so the two drawings below are reconstructions from the written description: a three-way connection worked into the cube's planes and negative space. If the original comparison image exists elsewhere, please compare it with these.
-- **Color:** Python Blue `#3776AB`, one color, for every Python repository (issue #30, final color decision). No yellow or green. Each candidate is also rendered in one non-Python language token to show that only the color changes.
+- **Color:** Python Blue `#3776AB`, one color, for every Python repository (issue #30, final color decision at the time). No yellow or green. *Superseded on 2026-10-25 by issue #38: Python now uses Python Yellow `#FFD43B` with dark marks and an ochre keyline ([study](python-yellow-38.md)). The sheets on this page keep Python Blue as reviewed; the SVGs in `studies/roles/` are regenerated in the current token, and the selected ones carry the treatment.* Each candidate is also rendered in one non-Python language token to show that only the color changes.
 - **Unchanged:** the three-color organization emblem and every other role.
 
 ## Candidates

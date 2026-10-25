@@ -2,9 +2,19 @@
 
 Date: 2026-10-25, against `main` at [`4a0555e`](https://github.com/cubrid-lab/brand/commit/4a0555e). Renderer: librsvg (`rsvg-convert`), composited with Pillow.
 
-The maintainer decided on 2026-10-25 in [issue #38](https://github.com/cubrid-lab/brand/issues/38) to change the Python language token from Python Blue `#3776AB` to Python Yellow `#FFD43B`. That supersedes the "Python Blue" color decision recorded in [`role-redesign-30.md`](role-redesign-30.md). Yellow has about 1.43:1 contrast on white, so this study compares contrast treatments before any approved asset changes.
+The maintainer decided on 2026-10-25 in [issue #38](https://github.com/cubrid-lab/brand/issues/38) to change the Python language token from Python Blue `#3776AB` to Python Yellow `#FFD43B`. That supersedes the "Python Blue" color decision recorded in [`role-redesign-30.md`](role-redesign-30.md). Yellow has about 1.43:1 contrast on white, so this study compared contrast treatments before any approved asset changed.
 
-**Status: candidates for review.** `tokens/colors.json`, `src/` and `dist/` are unchanged; the approved Python icons stay Python Blue until the maintainer picks a treatment. The shapes are the Driver, ORM and MCP geometry selected in PR #37 and the existing Cookbook mark. TypeScript, Go, Rust, Neutral, the reserved JavaScript token and the organization emblem are unchanged.
+## Decision (2026-10-25)
+
+The maintainer (@yeongseon) reviewed [`family.png`](python-yellow-38/family.png) and [`checks.md`](python-yellow-38/checks.md), generated at [`31adfc4`](https://github.com/cubrid-lab/brand/commit/31adfc43b48c3b5249774ca75a7247022472762c) on [PR #40](https://github.com/cubrid-lab/brand/pull/40), and selected **`t3-ochre-keyline`**: dark ink marks and an ochre keyline on all four Python icons.
+
+`tokens/colors.json` now sets Python to `#FFD43B` with that treatment, and `scripts/build.py` draws it for every Python icon ([construction](../GEOMETRY.md#light-token-treatment-issue-38)). The promoted `dist/icons/` SVGs draw exactly what the `t3-ochre-keyline` candidates draw; `tests/test_python_yellow_candidates.py` checks this, and the renders match pixel for pixel at 16 to 128 px. [`python-yellow-38/promoted-before-after.png`](python-yellow-38/promoted-before-after.png) shows every generated icon and the organization emblem before and after: only the four Python icons change. The decision is recorded in [PROVENANCE.md](../../PROVENANCE.md#python-yellow-with-an-ochre-keyline-issue-38).
+
+The review sheets below are kept as reviewed: their "current" row shows Python Blue. Rerunning the study script on a later revision shows the then-current icons in that row.
+
+## Study
+
+The shapes are the Driver, ORM and MCP geometry selected in PR #37 and the existing Cookbook mark. TypeScript, Go, Rust, Neutral, the reserved JavaScript token and the organization emblem are unchanged.
 
 ## Candidates
 
@@ -48,6 +58,6 @@ Regenerate them and [`python-yellow-38/checks.md`](python-yellow-38/checks.md) w
 - **T3** is the quietest consistent option: ochre edges hold the shapes on white from 24 px, look close to face shading on dark, and stay nearest to the flat family style. At 16 px on white the ochre edge and the layer gaps blend into a striped block.
 - 16 px remains a limitation for the Driver and ORM layers on white in every treatment.
 
-## Next step
+## Known limits
 
-After the maintainer chooses a treatment, the same PR switches `tokens/colors.json` to `#FFD43B`, folds the chosen treatment into the generator for the Python icons, regenerates `dist/`, and updates the contrast documentation and tests (phase 2). Downstream repins happen in separate PRs.
+At 16 px the Driver and ORM layers blur on white, and on dark pages the MCP hub merges with the dark seams. Both read from 24 px. Downstream repositories repin the new icons in their own PRs.
