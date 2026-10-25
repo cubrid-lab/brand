@@ -81,15 +81,24 @@ def inside(point: Point, rings: list[list[Point]]) -> bool:
     return crossings % 2 == 1
 
 
-def distance(point: Point, rings: list[list[Point]]) -> float:
+def distance(point: Point, rings: list[list[Point]], butt: bool) -> float:
+    """Distance to the stroked outline; ``butt`` caps add nothing past open ends.
+
+    Joins and other caps are treated as round.
+    """
     best = math.inf
     for ring in rings:
-        if len(ring) == 1:
+        open_ends = butt and ring[0] != ring[-1]
+        if len(ring) == 1 and not butt:
             best = min(best, math.dist(point, ring[0]))
-        for a, b in zip(ring, ring[1:]):
+        last = len(ring) - 2
+        for index, (a, b) in enumerate(zip(ring, ring[1:])):
             dx, dy = b[0] - a[0], b[1] - a[1]
             length = dx * dx + dy * dy
-            t = 0.0 if length == 0 else max(0.0, min(1.0, ((point[0] - a[0]) * dx + (point[1] - a[1]) * dy) / length))
+            t = 0.0 if length == 0 else ((point[0] - a[0]) * dx + (point[1] - a[1]) * dy) / length
+            if open_ends and ((index == 0 and t < 0) or (index == last and t > 1)):
+                continue
+            t = max(0.0, min(1.0, t))
             best = min(best, math.dist(point, (a[0] + t * dx, a[1] + t * dy)))
     return best
 
@@ -98,6 +107,7 @@ class Shape:
     def __init__(self, node: ElementTree.Element, style: dict[str, str], clip: list[list[Point]] | None):
         self.fill, self.stroke = style.get("fill", "black"), style.get("stroke", "none")
         self.half = float(style.get("stroke-width", "1")) / 2
+        self.butt = style.get("stroke-linecap", "butt") == "butt"
         self.clip = clip
         if node.tag == SVG + "circle":
             self.circle = (float(node.get("cx")), float(node.get("cy")), float(node.get("r")))
@@ -122,7 +132,7 @@ class Shape:
             in_fill, on_stroke = gap <= r, abs(gap - r) <= self.half
         else:
             in_fill = inside(point, self.rings)
-            on_stroke = self.stroke != "none" and distance(point, self.rings) <= self.half
+            on_stroke = self.stroke != "none" and distance(point, self.rings, self.butt) <= self.half
         if on_stroke and self.stroke != "none":
             return self.stroke
         if in_fill and self.fill != "none":
@@ -140,7 +150,7 @@ def shapes(svg: ElementTree.Element) -> list[Shape]:
     def walk(node: ElementTree.Element, style: dict[str, str], clip: list[list[Point]] | None) -> None:
         if node.tag in (SVG + "clipPath", SVG + "title", SVG + "desc") or node.get("opacity"):
             return  # Shading overlays only tint the faces beneath them.
-        style = {**style, **{key: node.get(key) for key in ("fill", "stroke", "stroke-width") if node.get(key)}}
+        style = {**style, **{key: node.get(key) for key in ("fill", "stroke", "stroke-width", "stroke-linecap") if node.get(key)}}
         reference = node.get("clip-path")
         if reference:
             clip = clips[reference.removeprefix("url(#").removesuffix(")")]
@@ -203,9 +213,19 @@ class GlyphSeamTests(unittest.TestCase):
         )
         inside_face = '<circle cx="6" cy="12" r="1.5" fill="#fff"/>'
         across_seam = '<path d="M 6 12 H 18" fill="none" stroke="#fff" stroke-width="1.2"/>'
+        # A butt-capped backing that ends flush with its butt-capped mark
+        # leaves the mark's end on the seam; a round cap past the end does not.
+        flush = (
+            '<path d="M 6 16 V 6" stroke="currentColor" stroke-width="2.3"/>'
+            '<path d="M 6 16 V 6" stroke="#fff" stroke-width="1.2"/>'
+        )
+        cube_with_gap = cube.replace("M 2 2 L 11 2", "M 2 12 L 11 12")
         outline = [[(2, 2), (22, 2), (22, 22), (2, 22)]]
         self.assertEqual(seam_contacts(cube.format(mark=inside_face), outline), [])
         self.assertTrue(seam_contacts(cube.format(mark=across_seam), outline))
+        self.assertTrue(seam_contacts(cube_with_gap.format(mark=flush), outline))
+        rounded = flush.replace('stroke-width="2.3"', 'stroke-width="2.3" stroke-linecap="round"')
+        self.assertEqual(seam_contacts(cube_with_gap.format(mark=rounded), outline), [])
 
 
 if __name__ == "__main__":
