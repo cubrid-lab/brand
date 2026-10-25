@@ -17,6 +17,7 @@ from tests.test_legibility import THRESHOLD, contrast, face_shades, rgb
 
 TREATMENTS_STUDY = YELLOW_CANDIDATES["treatments"]
 INKS = {key: ink["value"] for key, ink in YELLOW_CANDIDATES["inks"].items()}
+SVG = "{http://www.w3.org/2000/svg}"
 KEYLINE_RE = re.compile(r'  (?:<clipPath id="[^"]+-outside">.*?</clipPath>|<path [^>]*stroke-width="1\.2" stroke-linejoin="round"(?: clip-path="[^"]+")?/>)\n')
 
 
@@ -99,6 +100,22 @@ class PythonYellowCandidateTests(unittest.TestCase):
                 study = render_yellow_candidate("t3-ochre-keyline", name).replace(f"t3-ochre-keyline-{name}", name)
                 self.assertEqual(ElementTree.fromstring(promoted).get("color"), "#FFD43B")
                 self.assertEqual(body(promoted), body(study))
+
+    def test_promoted_icons_draw_the_treatment_colors(self):
+        spec = TREATMENTS[COLORS["python"]]
+        generated = outputs()
+        for name in YELLOW_CANDIDATES["repositories"]:
+            svg = generated[ROOT / "dist/icons" / f"{name}.svg"]
+            root = ElementTree.fromstring(svg)
+            strokes = [node.get("stroke") for node in root.iter() if node.get("stroke-width") == "1.2" and node.get("fill") == "none"]
+            with self.subTest(icon=name):
+                self.assertTrue(strokes)
+                self.assertEqual(set(strokes), {spec["keyline"]})
+                if REGISTRY[name]["role"] in {"mcp", "cookbook"}:
+                    # The visible mark is the last clipped group; it must not be white any more.
+                    mark = [g for g in root.iter(SVG + "g") if g.get("clip-path")][-1]
+                    paints = {node.get(key) for node in mark.iter() for key in ("fill", "stroke")} - {None, "none", "currentColor"}
+                    self.assertEqual(paints, {spec["mark"]})
 
     def test_promoted_contrast_matches_the_review(self):
         spec = TREATMENTS[COLORS["python"]]
