@@ -13,12 +13,12 @@
 
     "cubrid-mcp-server": {"role": "mcp", "language": "python", "status": "approved"},
     "cubrid-cookbook-python": {"role": "cookbook", "language": "python", "status": "approved"},
-    "cubrid-benchmark": {"role": "benchmark", "language": "neutral", "status": "pending-symbol"},
+    "cubrid-benchmark": {"role": "benchmark", "language": "neutral", "status": "approved"},
     "cubrid-kubernetes-operator": {"role": "operator", "language": "go", "status": "approved"},
-    "showcase": {"role": "showcase", "language": "neutral", "status": "pending-symbol"}
+    "showcase": {"role": "showcase", "language": "neutral", "status": "approved"}
   },
   "surfaces": {
-    "docs": {"role": "docs", "language": "neutral", "status": "pending-symbol"},
-    "community": {"role": "community", "language": "neutral", "status": "pending-symbol"}
+    "docs": {"role": "docs", "language": "neutral", "status": "approved"},
+    "community": {"role": "community", "language": "neutral", "status": "approved"}
   }
 }

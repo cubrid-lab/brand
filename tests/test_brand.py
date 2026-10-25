@@ -30,8 +30,9 @@ from scripts.build import (
 SVG = "{http://www.w3.org/2000/svg}"
 # Role symbols the maintainer explicitly approved (AGENTS.md rule 6): the four
 # Driver variants, the Python ORM, MCP and Cookbook symbols (2026-10-14), the
-# Go Operator symbol (2026-10-15), and the TypeScript, Go and Rust ORM symbols
-# (2026-10-20), recorded in issue #6.
+# Go Operator symbol (2026-10-15), the TypeScript, Go and Rust ORM symbols
+# (2026-10-20), and the Benchmark and Showcase symbols plus the Docs and
+# Community surfaces (2026-10-25), recorded in issue #6.
 APPROVED = {
     "pycubrid",
     "cubrid-client",
@@ -44,6 +45,10 @@ APPROVED = {
     "cubrid-mcp-server",
     "cubrid-cookbook-python",
     "cubrid-kubernetes-operator",
+    "cubrid-benchmark",
+    "showcase",
+    "docs",
+    "community",
 }
 
 
@@ -113,6 +118,8 @@ class BrandTests(unittest.TestCase):
                     for directory in ("dist/icons", "studies/icons", "dist/organization", "studies/organization")
                 ]
                 for path in unmanaged:
+                    # No entry is pending-symbol, so the build may not create studies/icons/.
+                    path.parent.mkdir(parents=True, exist_ok=True)
                     path.write_text("<svg/>", encoding="utf-8")
                 stderr = io.StringIO()
                 with contextlib.redirect_stderr(stderr):
@@ -124,7 +131,9 @@ class BrandTests(unittest.TestCase):
                         self.assertIn(path.relative_to(root).as_posix(), stderr.getvalue())
 
     def test_cleanup_removes_stale_owned_outputs(self):
-        with TemporaryDirectory() as folder:
+        # Treat one entry as pending so both review locations hold a stale owned copy.
+        pending = {**REGISTRY["cubrid-benchmark"], "status": "pending-symbol"}
+        with TemporaryDirectory() as folder, patch.dict(REGISTRY, {"cubrid-benchmark": pending}):
             root = Path(folder)
             with patch.multiple(build, ROOT=root, OUT=root / "dist/icons", STUDY_OUT=root / "studies/icons"):
                 build.main()

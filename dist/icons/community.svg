@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="#6B7280" role="img" aria-labelledby="community-title community-desc">
   <title id="community-title">CUBRID Lab community icon — community</title>
-  <desc id="community-desc">Cube-based community role symbol. Symbol candidate; design and legal review pending.</desc>
+  <desc id="community-desc">Cube-based community role symbol. Design selected; legal clearance pending.</desc>
   <clipPath id="community-cube"><path d="M 12 1 L 22 6.774 L 22 17.25 L 12.7 22.5 L 11.3 22.5 L 2 17.25 L 2 6.774 Z"/></clipPath>
   <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="currentColor"/>
   <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="currentColor"/>
