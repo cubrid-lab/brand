@@ -41,5 +41,19 @@ class CubeLayerTests(unittest.TestCase):
                 self.assertEqual(groove.get("stroke"), "#fff")
 
 
+class OperatorKnockoutTests(unittest.TestCase):
+    def test_dial_is_a_mask_cutout_not_white_paint(self):
+        svg_text = render_icon("operator", "currentColor", "operator")
+        svg = ElementTree.fromstring(svg_text)
+        mask = next(svg.iter(SVG + "mask"))
+        self.assertEqual(mask.get("maskUnits"), "userSpaceOnUse")
+        strokes = {e.get("stroke") for e in mask.iter() if e.get("stroke")}
+        self.assertEqual(strokes, {"#000"}, "the dial is cut out of the mask in black")
+        self.assertNotIn('stroke="#fff"', svg_text, "no white dial strokes remain")
+        group = next(g for g in svg.iter(SVG + "g") if g.get("mask") == f"url(#{mask.get('id')})")
+        painted = [p.get("d") for p in group.findall(SVG + "path") if p.get("fill") == "currentColor"]
+        self.assertEqual(set(painted), {path_data(face) for face in cube_polygons().values()})
+
+
 if __name__ == "__main__":
     unittest.main()
