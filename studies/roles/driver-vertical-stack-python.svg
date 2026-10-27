@@ -1,9 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="#FFD43B" role="img" aria-labelledby="driver-vertical-stack-python-title driver-vertical-stack-python-desc">
   <title id="driver-vertical-stack-python-title">CUBRID Lab driver role study — driver-vertical-stack (python)</title>
   <desc id="driver-vertical-stack-python-desc">The current ORM layered geometry, unchanged, reassigned to the Driver role: a top plate over two layers stacked top to bottom. Study candidate for review; not approved.</desc>
-  <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="none" stroke="#8C7520" stroke-width="1.2" stroke-linejoin="round"/>
-  <path d="M 2 10.1 L 12 15.6 L 22 10.1 L 22 12.15 L 12 17.65 L 2 12.15 Z" fill="none" stroke="#8C7520" stroke-width="1.2" stroke-linejoin="round"/>
-  <path d="M 2 14.3 L 12 19.8 L 22 14.3 L 22 16.35 L 12 21.85 L 2 16.35 Z" fill="none" stroke="#8C7520" stroke-width="1.2" stroke-linejoin="round"/>
   <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="currentColor"/>
   <path d="M 2 10.1 L 12 15.6 L 22 10.1 L 22 12.15 L 12 17.65 L 2 12.15 Z" fill="currentColor"/>
   <path d="M 2 14.3 L 12 19.8 L 22 14.3 L 22 16.35 L 12 21.85 L 2 16.35 Z" fill="currentColor"/>

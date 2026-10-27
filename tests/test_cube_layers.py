@@ -28,7 +28,7 @@ class CubeLayerTests(unittest.TestCase):
             self.assertEqual(len(grooves[role]), 4, "two grooves over two cube faces")
         self.assertNotEqual(grooves["driver"], grooves["orm"])
 
-    def test_all_language_variants_and_python_treatment(self):
+    def test_all_language_variants_use_white_grooves(self):
         icons = outputs()
         for name, meta in REGISTRY.items():
             if meta["role"] not in {"driver", "orm"}:
@@ -37,8 +37,8 @@ class CubeLayerTests(unittest.TestCase):
                 svg = ElementTree.fromstring(icons[ROOT / "dist/icons" / f"{name}.svg"])
                 self.assertEqual(svg.get("color"), COLORS[meta["language"]])
                 groove = next(g for g in svg.iter(SVG + "g") if g.get("data-layer-grooves") == meta["role"])
-                expected = "#40350F" if meta["language"] == "python" else "#fff"
-                self.assertEqual(groove.get("stroke"), expected)
+                # Python Yellow included (issue #54): one treatment for every language.
+                self.assertEqual(groove.get("stroke"), "#fff")
 
 
 if __name__ == "__main__":

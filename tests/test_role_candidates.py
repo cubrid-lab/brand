@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT))
 from scripts import build
 from scripts.build import COLORS, REGISTRY, ROLE_CANDIDATES, TREATMENTS, ROLES, outputs, render_role_candidate, role_candidate_files
 from tests.test_glyph_seams import seam_contacts
-from tests.test_legibility import THRESHOLD, WHITE, contrast, face_shades, rgb, thin_white_marks
+from tests.test_legibility import BELOW_THREE_TO_ONE, THRESHOLD, WHITE, contrast, face_shades, rgb, thin_white_marks
 from tests.test_python_yellow_candidates import KEYLINE_RE, untreated
 
 SVG = "{http://www.w3.org/2000/svg}"
@@ -109,7 +109,7 @@ class RoleCandidateTests(unittest.TestCase):
             with self.subTest(candidate=candidate_id, language=language):
                 mark = TREATMENTS[COLORS[language]]["mark"] if spec_selected(candidate_id) and COLORS[language] in TREATMENTS else None
                 self.assertEqual(seam_contacts(untreated(svg, mark) if mark else svg)[:5], [])
-                if candidate_id == "mcp-router-hub":
+                if candidate_id == "mcp-router-hub" and language not in BELOW_THREE_TO_ONE:
                     shades = face_shades(svg)
                     ink = rgb(mark) if mark else WHITE
                     self.assertGreaterEqual(min(contrast(ink, shade) for shade in shades.values()), THRESHOLD)

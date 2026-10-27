@@ -52,7 +52,7 @@ Other icons need no size restriction beyond the general 24 px guidance in the st
 
 On 2026-10-25 the Driver role became a vertical stack, the ORM role became lateral plates, and the MCP role became a three-way router ([issue #30](https://github.com/cubrid-lab/brand/issues/30), [issue #23](https://github.com/cubrid-lab/brand/issues/23)). [`studies/role-redesign-30.md`](studies/role-redesign-30.md) has the candidates, the decision, and a before/after sheet of every icon.
 
-On 2026-10-25 the Python icons switched from Python Blue to Python Yellow `#FFD43B`, with dark role marks and a thin ochre keyline so they hold up on white ([issue #38](https://github.com/cubrid-lab/brand/issues/38)). [`studies/python-yellow-38.md`](studies/python-yellow-38.md) has the reviewed treatments, the decision, and a [before/after sheet](studies/python-yellow-38/promoted-before-after.png) of every icon.
+On 2026-10-25 the Python icons switched from Python Blue to Python Yellow `#FFD43B`, with dark role marks and a thin ochre keyline so they hold up on white ([issue #38](https://github.com/cubrid-lab/brand/issues/38)). On 2026-10-27 they returned to the shared treatment, white marks on a bare cube like every other language ([issue #54](https://github.com/cubrid-lab/brand/issues/54); [before/after](studies/python-white-marks-54/before-after.png)). [`studies/python-yellow-38.md`](studies/python-yellow-38.md) has the reviewed treatments, the decision, and a [before/after sheet](studies/python-yellow-38/promoted-before-after.png) of every icon.
 
 ## Seam review sheet
 

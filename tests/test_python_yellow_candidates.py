@@ -1,4 +1,4 @@
-"""Python Yellow contrast treatments (issue #38): the study candidates and the promoted T3 treatment."""
+"""Python Yellow contrast treatments (issue #38): the study candidates, and the shared treatment the promoted icons use since issue #54."""
 from __future__ import annotations
 
 import re
@@ -88,99 +88,25 @@ class PythonYellowCandidateTests(unittest.TestCase):
                 else:
                     self.assertEqual(body(approved), body(study))
 
-    def test_promoted_python_icons_are_the_selected_t3_candidate(self):
-        # Maintainer decision on 2026-10-25 (issue #38): t3-ochre-keyline.
-        spec = TREATMENTS[COLORS["python"]]
-        self.assertEqual(
-            (spec["mark"], spec["keyline"], spec["keyline_width"]),
-            (INKS["dark"], INKS["ochre"], YELLOW_CANDIDATES["keyline_width"]),
-        )
-        t3 = TREATMENTS_STUDY["t3-ochre-keyline"]
-        self.assertEqual((t3["mark"], t3["keyline"], len(t3["keyline_roles"])), ("dark", "ochre", 4))
+    def test_promoted_python_icons_use_the_shared_treatment(self):
+        # Maintainer decision on 2026-10-27 (issue #54): the Python icons drop the
+        # 2026-10-25 T3 treatment and draw white marks on a bare cube like every other
+        # language, so only the color attribute differs.
+        self.assertNotIn(COLORS["python"], TREATMENTS)
         generated = outputs()
         for name in YELLOW_CANDIDATES["repositories"]:
+            meta = REGISTRY[name]
             with self.subTest(icon=name):
                 promoted = generated[ROOT / "dist/icons" / f"{name}.svg"]
-                study = render_yellow_candidate("t3-ochre-keyline", name).replace(f"t3-ochre-keyline-{name}", name)
+                shared = render_icon(meta["role"], COLORS["typescript"], name, meta["status"])
                 self.assertEqual(ElementTree.fromstring(promoted).get("color"), "#FFD43B")
-                if REGISTRY[name]["role"] in {"driver", "orm"}:
-                    # Preserve reviewed yellow treatments as historical evidence.
-                    self.assertNotEqual(body(promoted), body(study))
-                else:
-                    # #50 opens the promoted keyline at the seams; the #38 study keeps its
-                    # closed outline. Everything else is the selected T3 drawing.
-                    self.assertNotEqual(body(promoted), body(study))
-                    self.assertEqual(body(KEYLINE_RE.sub("", promoted)), body(KEYLINE_RE.sub("", study)))
-
-    def test_promoted_icons_draw_the_treatment_colors(self):
-        spec = TREATMENTS[COLORS["python"]]
-        generated = outputs()
-        for name in YELLOW_CANDIDATES["repositories"]:
-            svg = generated[ROOT / "dist/icons" / f"{name}.svg"]
-            root = ElementTree.fromstring(svg)
-            strokes = [node.get("stroke") for node in root.iter() if node.get("stroke-width") == "1.2" and node.get("fill") == "none"]
-            with self.subTest(icon=name):
-                self.assertTrue(strokes)
-                self.assertEqual(set(strokes), {spec["keyline"]})
-                if REGISTRY[name]["role"] in {"mcp", "cookbook"}:
-                    # The visible mark is the last clipped group; it must not be white any more.
-                    mark = [g for g in root.iter(SVG + "g") if g.get("clip-path")][-1]
-                    paints = {node.get(key) for node in mark.iter() for key in ("fill", "stroke")} - {None, "none", "currentColor"}
-                    self.assertEqual(paints, {spec["mark"]})
-
-    def test_promoted_keylines_keep_the_emblem_silhouette(self):
-        # Issue #50: the organization emblem is the baseline cube. Its seams stay open at
-        # the side corners and the bottom vertex, so the keyline may only run along a
-        # face's outer edges and never join two faces.
-        # An allowed segment lies on the cube's silhouette and is an edge of a single face.
-        silhouette = build.cube_outline()
-        sides = list(zip(silhouette, silhouette[1:] + silhouette[:1]))
-
-        def on_silhouette(p, q):
-            # Both ends on one silhouette side: collinear and within its span.
-            return any(
-                all(
-                    abs((b[0] - a[0]) * (r[1] - a[1]) - (b[1] - a[1]) * (r[0] - a[0])) < 1e-6
-                    and min(a[0], b[0]) - 1e-6 <= r[0] <= max(a[0], b[0]) + 1e-6
-                    and min(a[1], b[1]) - 1e-6 <= r[1] <= max(a[1], b[1]) + 1e-6
-                    for r in (p, q)
-                )
-                for a, b in sides
-            )
-
-        outer_edges = {
-            frozenset(map(self._rounded, (a, b)))
-            for points in build.cube_polygons().values()
-            for a, b in zip(points, points[1:] + points[:1])
-            if on_silhouette(a, b)
-        }
-        self.assertEqual(len(outer_edges), 6)
-        generated = outputs()
-        for name in YELLOW_CANDIDATES["repositories"]:
-            root = ElementTree.fromstring(generated[ROOT / "dist/icons" / f"{name}.svg"])
-            keyline = [node for node in root.iter(SVG + "path") if node.get("stroke-width") == "1.2"]
-            with self.subTest(icon=name):
-                self.assertEqual(len(keyline), 1)
-                for subpath in re.findall(r"M[^M]+", keyline[0].get("d")):
-                    points = [tuple(map(float, xy)) for xy in re.findall(r"(-?[\d.]+) (-?[\d.]+)", subpath)]
-                    for a, b in zip(points, points[1:]):
-                        self.assertIn(frozenset((a, b)), outer_edges)
-
-    @staticmethod
-    def _rounded(point: tuple[float, float]) -> tuple[float, float]:
-        return tuple(round(c, build.GEOMETRY["decimal_places"]) for c in point)
-
-    def test_promoted_contrast_matches_the_review(self):
-        spec = TREATMENTS[COLORS["python"]]
-        white, dark = (255, 255, 255), (13, 17, 23)
-        for name in ("cubrid-mcp-server", "cubrid-cookbook-python"):
-            svg = outputs()[ROOT / "dist/icons" / f"{name}.svg"]
-            low = min(contrast(rgb(spec["mark"]), shade) for shade in face_shades(svg).values())
-            with self.subTest(icon=name):
-                self.assertAlmostEqual(low, 6.84, places=2)
-                self.assertEqual(seam_contacts(untreated(svg, spec["mark"]))[:5], [])
-        self.assertAlmostEqual(contrast(rgb(spec["keyline"]), white), 4.49, places=2)
-        self.assertAlmostEqual(contrast(rgb(spec["keyline"]), dark), 4.22, places=2)
+                self.assertEqual(body(promoted), body(shared))
+                for ink in (*INKS.values(), "-outside"):  # No dark marks, keyline or keyline clip.
+                    self.assertNotIn(ink, promoted)
+                if meta["role"] not in {"driver", "orm"}:
+                    # The #38 study's untreated candidate is this drawing.
+                    study = render_yellow_candidate("t0-naive", name).replace(f"t0-naive-{name}", name)
+                    self.assertEqual(body(promoted), body(study))
 
     def test_treatments_change_only_mark_color_and_keyline(self):
         for treatment, spec in TREATMENTS_STUDY.items():
