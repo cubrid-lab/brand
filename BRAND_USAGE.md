@@ -58,6 +58,7 @@ On 2026-10-25 the maintainer (@yeongseon) decided the following for issue #19:
 4. The maintainer confirmed that the AI-assisted icon reconstruction is the
    maintainer's original work; see [PROVENANCE.md](PROVENANCE.md#creator-rights).
 5. **Videos.** For CUBRID Lab's own promotional and introduction videos, the approved icons, emblem and lockups may be rendered, animated and shown together, under the conditions in the table below. This does not extend to third parties.
+6. **Presentations.** For decks published by the `cubrid-lab` organization (for example the `showcase` conference deck), the approved icons, emblem and lockups may be shown as whole, unmodified images, with a byte-identical copy of the SVG committed in the deck's repository because decks run offline. This does not extend to third parties. Recorded on 2026-10-28 ([issue #65](https://github.com/cubrid-lab/brand/issues/65)).
 
 These are permissions recorded by the maintainer, not a license, and not a
 legal or trademark clearance.
@@ -77,6 +78,7 @@ A CUBRID Lab repository is one owned by the `cubrid-lab` GitHub organization.
 | Use another repository's icon, or a role icon as the organization avatar or site logo | **Not permitted** |
 | Link a `main` branch, study or candidate URL | **Not permitted** |
 | CUBRID Lab promotional and introduction videos published by the organization (for example the `showcase` introduction video): render approved repository icons, the organization emblem and the approved wordmark lockups to video, animate them (including cube-assembly motion that resolves into the icon), and show several repositories' icons together | **Permitted** (decision 5). Assets are loaded from a commit-pinned URL at render time, never committed as copies; every held frame of a finished icon, emblem or lockup matches the approved SVG exactly (no recolouring, reshaping or added text inside the mark); intermediate animation frames may show partial cube faces. |
+| CUBRID Lab presentation decks published by the organization (for example the `showcase` conference deck): show approved repository icons, the organization emblem and the approved wordmark lockups on slides and as the deck favicon | **Permitted** (decision 6). Keep a byte-identical copy of the SVG at a recorded commit-pinned brand revision, with its SHA-256 recorded next to it; show it as a whole image (scale, position or fade only, no recolouring, cropping, reshaping, rasterizing or text inside the mark); a role icon only for the repository it represents; keep the independence notice on a closing slide. |
 
 Follow [Applying repository icons](docs/REPOSITORY_ICON_USAGE.md) for layout,
 alt text and pinning. The README image links to
