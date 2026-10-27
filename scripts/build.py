@@ -133,7 +133,7 @@ GLYPHS = {
     "benchmark": '''  <path d="M 5.5 15.2 H 8.4 V 19.1 H 5.5 Z M 10.5 12.7 H 13.4 V 19.1 H 10.5 Z M 15.5 9.9 H 18.4 V 19.1 H 15.5 Z" fill="#fff"/>''',
     "operator": '''  <circle cx="12" cy="13.15" r="4.25" fill="none" stroke="#fff" stroke-width="1.25"/>
   <circle cx="12" cy="13.15" r="1.2" fill="none" stroke="#fff" stroke-width="1.1"/>
-  <path d="M 12 7.95 V 11.85 M 12 14.45 V 22 M 7.5 10.55 L 10.9 12.55 M 13.1 13.75 L 16.5 15.75 M 7.5 15.75 L 10.9 13.75 M 13.1 12.55 L 16.5 10.55" fill="none" stroke="#fff" stroke-width="1.25" stroke-linecap="round"/>''',
+  <path d="M 12 7.95 V 11.85 M 12 14.45 V 22 M 1 6.81 L 10.9 12.55 M 13.1 13.75 L 16.5 15.75 M 7.5 15.75 L 10.9 13.75 M 13.1 12.55 L 23 6.81" fill="none" stroke="#fff" stroke-width="1.25" stroke-linecap="round"/>''',
     # Showcase and Docs are enlarged about their own centers (x1.3 and x1.25) for
     # small sizes, as reviewed in docs/studies/small-size-legibility.md (issue #21, P2).
     "showcase": '''  <path d="M 15.63 13.11 L 20.57 16.1 L 15.63 19.09 Z" fill="#fff"/>''',
