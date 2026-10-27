@@ -93,6 +93,7 @@ def glyph_backing(role: str, glyph: str | None = None) -> str:
 
 
 def cube_faces(role: str, key: str, glyph: str | None = None) -> str:
+    default_mark = glyph is None
     glyph = GLYPHS[role] if glyph is None else glyph
     polygons = cube_polygons()
     clip = f"{key}-cube"
@@ -101,8 +102,8 @@ def cube_faces(role: str, key: str, glyph: str | None = None) -> str:
     lines.append(f'  <g clip-path="url(#{clip})">\n{glyph_backing(role, glyph)}\n  </g>')
     lines.append(f'  <path d="{path_data(polygons["top"])}" fill="#fff" opacity="0.08"/>')
     lines.append(f'  <path d="{path_data(polygons["left"])}" fill="#000" opacity="0.10"/>')
-    if role in KNOCKOUT_ROLES and glyph is GLYPHS[role]:
-        # The white mark becomes real alpha transparency (issue #59): the whole
+    if role in KNOCKOUT_ROLES and default_mark:
+        # The white mark becomes real alpha transparency (issues #59 and #58): the whole
         # painted cube is masked by the mark, so the background shows through.
         mask = f"{key}-knockout"
         cutout = glyph.replace('"#fff"', '"#000"')
@@ -119,7 +120,7 @@ def cube_faces(role: str, key: str, glyph: str | None = None) -> str:
 
 
 # Roles whose mark is knocked out to transparency instead of painted white.
-KNOCKOUT_ROLES = {"operator"}
+KNOCKOUT_ROLES = {"operator", "mcp"}
 
 # White marks are original geometric drawings. In particular, Operator is a
 # generic six-spoke control dial, not a Kubernetes or other third-party logo.
@@ -434,7 +435,7 @@ def render_yellow_candidate(treatment: str, name: str) -> str:
         raise ValueError("invalid yellow candidate color")
     role, key = REGISTRY[name]["role"], f"{treatment}-{name}"
     # The Yellow #38 comparison predates cube restoration; keep its study intact.
-    shape = {"driver": vertical_stack_legacy, "orm": lateral_plates_legacy}.get(role, lambda: cube_faces(role, key))()
+    shape = {"driver": vertical_stack_legacy, "orm": lateral_plates_legacy}.get(role, lambda: cube_faces(role, key, GLYPHS[role]))()
     mark = None if spec["mark"] == "white" else inks[spec["mark"]]
     keyline = inks[spec["keyline"]] if spec["keyline"] and role in spec["keyline_roles"] else None
     shape = light_treatment(role, key, shape, mark, keyline, YELLOW_CANDIDATES["keyline_width"])

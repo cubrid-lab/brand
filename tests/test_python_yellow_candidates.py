@@ -82,8 +82,8 @@ class PythonYellowCandidateTests(unittest.TestCase):
                 # An untreated token draws the same geometry; only the color attribute differs.
                 approved = render_icon(meta["role"], COLORS["typescript"], "x", "approved")
                 study = render_yellow_candidate("t0-naive", name).replace(f"t0-naive-{name}", "x")
-                if meta["role"] in {"driver", "orm"}:
-                    # The #38 study predates the restored cube shapes.
+                if meta["role"] in {"driver", "orm", "mcp"}:
+                    # The #38 study predates the restored cube shapes and the #58 MCP knockout.
                     self.assertNotEqual(body(approved), body(study))
                 else:
                     self.assertEqual(body(approved), body(study))
@@ -103,7 +103,7 @@ class PythonYellowCandidateTests(unittest.TestCase):
                 self.assertEqual(body(promoted), body(shared))
                 for ink in (*INKS.values(), "-outside"):  # No dark marks, keyline or keyline clip.
                     self.assertNotIn(ink, promoted)
-                if meta["role"] not in {"driver", "orm"}:
+                if meta["role"] not in {"driver", "orm", "mcp"}:
                     # The #38 study's untreated candidate is this drawing.
                     study = render_yellow_candidate("t0-naive", name).replace(f"t0-naive-{name}", name)
                     self.assertEqual(body(promoted), body(study))

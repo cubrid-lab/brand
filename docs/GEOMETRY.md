@@ -43,7 +43,7 @@ Both current roles use the **same** top rhombus and inset left/right faces as th
 
 Review the [Driver/ORM comparison](studies/cube-stacks-41-43.md).
 
-### MCP three-way router (issue #23)
+### MCP three-way router (issue #23, transparent since issue #58)
 
 The MCP mark is a hub at the cube's center vertex, a white circle of radius 1.75 at `(12, 12.95)`. From the hub, one 1.3-unit link runs into each face to a port of radius 1.45: top `(12, 6.9)`, left `(6.5, 15.55)` and right `(17.5, 15.55)`. The hub covers the point where the three seams meet, and the seam backing bridges it. Each link stays on its own face. It replaced the earlier four-node diamond network.
 
