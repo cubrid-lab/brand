@@ -107,7 +107,10 @@ class PythonYellowCandidateTests(unittest.TestCase):
                     # Preserve reviewed yellow treatments as historical evidence.
                     self.assertNotEqual(body(promoted), body(study))
                 else:
-                    self.assertEqual(body(promoted), body(study))
+                    # #50 opens the promoted keyline at the seams; the #38 study keeps its
+                    # closed outline. Everything else is the selected T3 drawing.
+                    self.assertNotEqual(body(promoted), body(study))
+                    self.assertEqual(body(KEYLINE_RE.sub("", promoted)), body(KEYLINE_RE.sub("", study)))
 
     def test_promoted_icons_draw_the_treatment_colors(self):
         spec = TREATMENTS[COLORS["python"]]
@@ -124,6 +127,48 @@ class PythonYellowCandidateTests(unittest.TestCase):
                     mark = [g for g in root.iter(SVG + "g") if g.get("clip-path")][-1]
                     paints = {node.get(key) for node in mark.iter() for key in ("fill", "stroke")} - {None, "none", "currentColor"}
                     self.assertEqual(paints, {spec["mark"]})
+
+    def test_promoted_keylines_keep_the_emblem_silhouette(self):
+        # Issue #50: the organization emblem is the baseline cube. Its seams stay open at
+        # the side corners and the bottom vertex, so the keyline may only run along a
+        # face's outer edges and never join two faces.
+        # An allowed segment lies on the cube's silhouette and is an edge of a single face.
+        silhouette = build.cube_outline()
+        sides = list(zip(silhouette, silhouette[1:] + silhouette[:1]))
+
+        def on_silhouette(p, q):
+            # Both ends on one silhouette side: collinear and within its span.
+            return any(
+                all(
+                    abs((b[0] - a[0]) * (r[1] - a[1]) - (b[1] - a[1]) * (r[0] - a[0])) < 1e-6
+                    and min(a[0], b[0]) - 1e-6 <= r[0] <= max(a[0], b[0]) + 1e-6
+                    and min(a[1], b[1]) - 1e-6 <= r[1] <= max(a[1], b[1]) + 1e-6
+                    for r in (p, q)
+                )
+                for a, b in sides
+            )
+
+        outer_edges = {
+            frozenset(map(self._rounded, (a, b)))
+            for points in build.cube_polygons().values()
+            for a, b in zip(points, points[1:] + points[:1])
+            if on_silhouette(a, b)
+        }
+        self.assertEqual(len(outer_edges), 6)
+        generated = outputs()
+        for name in YELLOW_CANDIDATES["repositories"]:
+            root = ElementTree.fromstring(generated[ROOT / "dist/icons" / f"{name}.svg"])
+            keyline = [node for node in root.iter(SVG + "path") if node.get("stroke-width") == "1.2"]
+            with self.subTest(icon=name):
+                self.assertEqual(len(keyline), 1)
+                for subpath in re.findall(r"M[^M]+", keyline[0].get("d")):
+                    points = [tuple(map(float, xy)) for xy in re.findall(r"(-?[\d.]+) (-?[\d.]+)", subpath)]
+                    for a, b in zip(points, points[1:]):
+                        self.assertIn(frozenset((a, b)), outer_edges)
+
+    @staticmethod
+    def _rounded(point: tuple[float, float]) -> tuple[float, float]:
+        return tuple(round(c, build.GEOMETRY["decimal_places"]) for c in point)
 
     def test_promoted_contrast_matches_the_review(self):
         spec = TREATMENTS[COLORS["python"]]

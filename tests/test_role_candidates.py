@@ -12,7 +12,7 @@ from scripts import build
 from scripts.build import COLORS, REGISTRY, ROLE_CANDIDATES, TREATMENTS, ROLES, outputs, render_role_candidate, role_candidate_files
 from tests.test_glyph_seams import seam_contacts
 from tests.test_legibility import THRESHOLD, WHITE, contrast, face_shades, rgb, thin_white_marks
-from tests.test_python_yellow_candidates import untreated
+from tests.test_python_yellow_candidates import KEYLINE_RE, untreated
 
 SVG = "{http://www.w3.org/2000/svg}"
 
@@ -89,7 +89,9 @@ class RoleCandidateTests(unittest.TestCase):
                         # #30 stays a historical study; #41/#43 restore the cube.
                         self.assertNotEqual(body(promoted), body(study))
                     else:
-                        self.assertEqual(body(promoted), body(study))
+                        # #50 opens only the promoted Python Yellow keyline at the seams.
+                        self.assertEqual(body(KEYLINE_RE.sub("", promoted)), body(KEYLINE_RE.sub("", study)))
+                        self.assertEqual(body(promoted) == body(study), "keyline" not in TREATMENTS.get(COLORS[language], {}))
 
     def test_unselected_candidates_are_distinct_from_each_other_and_current_roles(self):
         shapes = {tuple(body(build.render_icon(role, "currentColor", "x"))) for role in ROLES}
