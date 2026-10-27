@@ -1,15 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="#DEA384" role="img" aria-labelledby="cubrid-rs-title cubrid-rs-desc">
   <title id="cubrid-rs-title">CUBRID Lab driver icon — cubrid-rs</title>
   <desc id="cubrid-rs-desc">Cube-based driver role symbol. Design selected; legal clearance pending.</desc>
-  <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="currentColor"/>
-  <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="currentColor"/>
-  <path d="M 12.7 13.25 L 22 8 L 22 17.25 L 12.7 22.5 Z" fill="currentColor"/>
-  <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="#fff" opacity="0.08"/>
-  <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="#000" opacity="0.10"/>
-  <g data-layer-grooves="driver" fill="none" stroke="#fff" stroke-width="1.05" stroke-linecap="round">
-    <path d="M 2.93 11.608 L 10.37 15.808"/>
-    <path d="M 13.63 15.808 L 21.07 11.608"/>
-    <path d="M 2.93 14.692 L 10.37 18.892"/>
-    <path d="M 13.63 18.892 L 21.07 14.692"/>
+  <mask id="cubrid-rs-layers" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+    <rect width="24" height="24" fill="#fff"/>
+    <path d="M 0 9.154 L 11.3 15.533 L 11.3 16.733 L 0 10.354 Z" fill="#000"/>
+    <path d="M 12.7 15.533 L 24 9.154 L 24 10.354 L 12.7 16.733 Z" fill="#000"/>
+    <path d="M 0 12.638 L 11.3 19.017 L 11.3 20.217 L 0 13.838 Z" fill="#000"/>
+    <path d="M 12.7 19.017 L 24 12.638 L 24 13.838 L 12.7 20.217 Z" fill="#000"/>
+  </mask>
+  <g mask="url(#cubrid-rs-layers)">
+    <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="currentColor"/>
+    <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="currentColor"/>
+    <path d="M 12.7 13.25 L 22 8 L 22 17.25 L 12.7 22.5 Z" fill="currentColor"/>
+    <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="#fff" opacity="0.08"/>
+    <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="#000" opacity="0.10"/>
   </g>
 </svg>
