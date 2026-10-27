@@ -94,7 +94,7 @@ def glyph_backing(role: str, glyph: str | None = None) -> str:
 
 def cube_faces(role: str, key: str, glyph: str | None = None) -> str:
     default_mark = glyph is None
-    glyph = GLYPHS[role] if glyph is None else glyph
+    glyph = KNOCKOUT_MARKS.get(role, GLYPHS[role]) if glyph is None else glyph
     polygons = cube_polygons()
     clip = f"{key}-cube"
     lines = [f'  <clipPath id="{clip}"><path d="{path_data(cube_outline())}"/></clipPath>']
@@ -120,7 +120,12 @@ def cube_faces(role: str, key: str, glyph: str | None = None) -> str:
 
 
 # Roles whose mark is knocked out to transparency instead of painted white.
-KNOCKOUT_ROLES = {"operator", "mcp"}
+KNOCKOUT_ROLES = {"operator", "mcp", "cookbook"}
+# Where the knocked-out mark differs from the white mark (issue #57): the open book
+# keeps only its two pages, without the text lines, and they are cut out.
+KNOCKOUT_MARKS = {
+    "cookbook": '''  <path d="M 5.6 13.3 Q 8.6 12.8 10.7 14.5 L 10.7 20.0 Q 8.6 18.3 5.6 18.8 Z M 18.4 13.3 Q 15.4 12.8 13.3 14.5 L 13.3 20.0 Q 15.4 18.3 18.4 18.8 Z" fill="#fff"/>''',
+}
 
 # White marks are original geometric drawings. In particular, Operator is a
 # generic six-spoke control dial, not a Kubernetes or other third-party logo.
@@ -154,60 +159,71 @@ def vertical_stack_legacy() -> str:
     return "\n".join([f'  <path d="{top}" fill="currentColor"/>'] + [f'  <path d="{layer}" fill="currentColor"/>' for layer in layers])
 
 
-# Two equally spaced divisions yield three layers in the same cubic volume.
-LAYER_DIVISIONS = (1 / 3, 2 / 3)
+def cube_layers(role: str, key: str) -> str:
+    """Keep all three faces of the cube; cut two equal transparent gaps by role (issue #57).
 
-
-def cube_layers(role: str) -> str:
-    """Keep all three faces of the cube; turn its equal-depth grooves by role.
-
-    Driver grooves follow the horizontal edges of the side faces. ORM grooves
-    cross the top and continue vertically down the right face. The outlines
-    remain the shared CUBRID Lab 24 x 24 isometric cube (issues #41 and #43).
+    Driver gaps follow the horizontal edges of the side faces and meet at the
+    center seam; the top stays solid. ORM gaps cross the top and continue
+    vertically down the right face; the left face stays solid. Gap widths come
+    from the shared ``layer_gap`` token and every cut is square-ended, running
+    out to the face boundary. The cube is drawn inside a mask whose cutout is
+    the gaps, so they are real alpha transparency.
     """
     if role not in {"driver", "orm"}:
         raise ValueError("cube layers are only defined for Driver and ORM")
     faces = cube_polygons()
-    lines = [f'  <path d="{path_data(faces[face])}" fill="currentColor"/>' for face in ("top", "left", "right")]
-    lines += [
-        f'  <path d="{path_data(faces["top"])}" fill="#fff" opacity="0.08"/>',
-        f'  <path d="{path_data(faces["left"])}" fill="#000" opacity="0.10"/>',
+    gap = GEOMETRY["layer_gap"]
+    mask, cuts, clips = f"{key}-layers", [], []
+
+    def edge_y(face: str, x: float) -> float:
+        (x0, y0), (x1, y1) = (faces[face][0], faces[face][1]) if face == "left" else (faces[face][1], faces[face][0])
+        return y0 + (y1 - y0) * (x - x0) / (x1 - x0)
+
+    if role == "driver":
+        height = faces["left"][3][1] - faces["left"][0][1]
+        layer = (height - 2 * gap) / 3
+        span = {"left": (0.0, faces["left"][1][0]), "right": (faces["right"][0][0], 24.0)}
+        for index in (1, 2):
+            start = index * layer + (index - 1) * gap
+            for face, (x0, x1) in span.items():
+                quad = [(x0, edge_y(face, x0) + start), (x1, edge_y(face, x1) + start),
+                        (x1, edge_y(face, x1) + start + gap), (x0, edge_y(face, x0) + start + gap)]
+                cuts.append(f'    <path d="{path_data(quad)}" fill="#000"/>')
+    else:
+        # Three plates along the top's right axis; a gap of horizontal width ``gap``
+        # is the same strip on the top (constant u) and on the right face (constant x).
+        du = gap / GEOMETRY["half_width"]
+        plate = (1 - 2 * du) / 3
+        clips = [f'  <clipPath id="{mask}-top"><path d="{path_data(faces["top"])}"/></clipPath>',
+                 f'  <clipPath id="{mask}-right"><path d="{path_data(faces["right"])}"/></clipPath>']
+        cx, half = GEOMETRY["center"][0], GEOMETRY["half_width"]
+        for index in (1, 2):
+            a = index * plate + (index - 1) * du
+            b = a + du
+            strip = [top_point(a, -0.2), top_point(b, -0.2), top_point(b, 1.2), top_point(a, 1.2)]
+            x0, x1 = cx + half * a, cx + half * b
+            cuts.append(f'    <path d="{path_data(strip)}" fill="#000" clip-path="url(#{mask}-top)"/>')
+            cuts.append(f'    <path d="M {number(x0)} 0 H {number(x1)} V 24 H {number(x0)} Z" fill="#000" clip-path="url(#{mask}-right)"/>')
+    lines = clips + [
+        f'  <mask id="{mask}" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">',
+        '    <rect width="24" height="24" fill="#fff"/>',
+        *cuts,
+        "  </mask>",
+        f'  <g mask="url(#{mask})">',
+        *[f'    <path d="{path_data(faces[face])}" fill="currentColor"/>' for face in ("top", "left", "right")],
+        f'    <path d="{path_data(faces["top"])}" fill="#fff" opacity="0.08"/>',
+        f'    <path d="{path_data(faces["left"])}" fill="#000" opacity="0.10"/>',
+        "  </g>",
     ]
-
-    def lerp(a: tuple[float, float], b: tuple[float, float], t: float) -> tuple[float, float]:
-        return (a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)
-
-    def segment(a: tuple[float, float], b: tuple[float, float]) -> str:
-        return f'M {number(a[0])} {number(a[1])} L {number(b[0])} {number(b[1])}'
-
-    grooves = []
-    for fraction in LAYER_DIVISIONS:
-        if role == "driver":
-            height = faces["left"][3][1] - faces["left"][0][1]
-            for face in ("left", "right"):
-                start = lerp(faces[face][0], faces[face][1], 0.1)
-                end = lerp(faces[face][0], faces[face][1], 0.9)
-                grooves.append(segment((start[0], start[1] + height * fraction),
-                                       (end[0], end[1] + height * fraction)))
-        else:
-            # Two equal lateral divisions run across the top and right side.
-            grooves.append(segment(top_point(fraction, 0.13), top_point(fraction, 0.87)))
-            right = faces["right"]
-            x = right[0][0] + (right[1][0] - right[0][0]) * fraction
-            grooves.append(segment((x, right_face_y(x, "top") + 0.9),
-                                   (x, right_face_y(x, "bottom") - 0.9)))
-    lines.append(f'  <g data-layer-grooves="{role}" fill="none" stroke="#fff" stroke-width="1.05" stroke-linecap="round">')
-    lines += [f'    <path d="{groove}"/>' for groove in grooves]
-    lines.append("  </g>")
     return "\n".join(lines)
 
 
-def vertical_stack() -> str:
-    return cube_layers("driver")
+def vertical_stack(key: str) -> str:
+    return cube_layers("driver", key)
 
 
-def lateral_plates() -> str:
-    return cube_layers("orm")
+def lateral_plates(key: str) -> str:
+    return cube_layers("orm", key)
 
 
 FILL_D_RE = re.compile(r'<path d="([^"]+)" fill="currentColor"/>')
@@ -264,7 +280,7 @@ def render_icon(role: str, color: str, key: str, status: str = "pending-symbol")
     if color != "currentColor" and not COLOR_RE.fullmatch(color):
         raise ValueError("invalid color")
     color_attr = "" if color == "currentColor" else f' color="{color}"'
-    shape = {"driver": vertical_stack, "orm": lateral_plates}.get(role, lambda: cube_faces(role, key))()
+    shape = {"driver": lambda: vertical_stack(key), "orm": lambda: lateral_plates(key)}.get(role, lambda: cube_faces(role, key))()
     if color in TREATMENTS:
         spec = TREATMENTS[color]
         shape = light_treatment(role, key, shape, spec["mark"], spec["keyline"], spec["keyline_width"], open_seams=True)
