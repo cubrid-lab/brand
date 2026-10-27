@@ -23,7 +23,7 @@ The **organization emblem** is the approved three-color cube. Repository icons b
 ## How the brand system works
 
 - **Shape = technical role.** Icons follow a shared **24 × 24 isometric construction grammar**. A Driver, ORM, MCP server, and Cookbook have different silhouettes.
-- **Color = implementation language.** Repositories with the same technical role share geometry, while their language determines the color. Python uses **Python Yellow `#FFD43B`**, with dark role marks and a thin ochre keyline so the icons hold up on white ([issue #38](https://github.com/cubrid-lab/brand/issues/38)); other colors are maintained in [`tokens/colors.json`](tokens/colors.json).
+- **Color = implementation language.** Repositories with the same technical role share geometry, while their language determines the color. Python uses **Python Yellow `#FFD43B`** ([issue #38](https://github.com/cubrid-lab/brand/issues/38)) with the same white marks and bare cube as every other language ([issue #54](https://github.com/cubrid-lab/brand/issues/54)); other colors are maintained in [`tokens/colors.json`](tokens/colors.json).
 - **One generated source of truth.** Approved assets in `dist/` are generated from the [registry](registry/repositories.json), numeric [geometry tokens](tokens/geometry.json), and [build script](scripts/build.py). Edit the generator, not generated SVGs.
 - **Organization and role symbols stay separate.** Do not substitute a Driver/ORM icon for the CUBRID Lab emblem.
 

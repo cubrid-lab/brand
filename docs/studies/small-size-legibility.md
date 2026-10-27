@@ -11,7 +11,7 @@ The measurements and review sheets below describe `main` at `2de5d23`, before an
 After reviewing [`small-size-legibility/proposal-before-after.png`](small-size-legibility/proposal-before-after.png), the maintainer decided in issue #21:
 
 - **P2 approved.** The Docs mark is enlarged ×1.25 and the Showcase mark ×1.3 about their own centers, exactly as rendered in the study. `scripts/build.py` now draws them that way, and the regenerated `dist/icons/docs.svg` and `dist/icons/showcase.svg` are byte-identical to the study's P2 "after" renders. The grades below for Docs and Showcase are the pre-change grades; the P2 section gives the new measurements.
-- **P1 declined.** The darker keyline darkens the whole Operator dial for a small gain (it does not fix 16 or 24 px on the Driver marks). Go and Rust keep their current treatment, and `tests/test_legibility.py` keeps `{go, rust}` as the reviewed set below 3:1.
+- **P1 declined.** The darker keyline darkens the whole Operator dial for a small gain (it does not fix 16 or 24 px on the Driver marks). Go and Rust keep their current treatment, and `tests/test_legibility.py` keeps `{go, rust}` as the reviewed set below 3:1. Since [issue #54](https://github.com/cubrid-lab/brand/issues/54) (2026-10-27) Python Yellow also draws white marks (1.39:1 at its lowest), and the set is `{go, rust, python}`.
 
 ## Review sheets
 

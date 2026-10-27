@@ -10,12 +10,5 @@
     "ocaml": "#A34CC3",
     "neutral": "#6B7280"
   },
-  "treatments": {
-    "python": {
-      "mark": "#40350F",
-      "keyline": "#8C7520",
-      "keyline_width": 0.6,
-      "note": "Python Yellow is too light for white marks or a bare silhouette on white (issue #38). Role marks use the dark ink (the token mixed 75% toward black) and every icon gets an ochre keyline (45% toward black) outside its shape. Selected on 2026-10-25 as treatment t3-ochre-keyline."
-    }
-  }
+  "treatments": {}
 }

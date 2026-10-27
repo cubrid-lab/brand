@@ -28,9 +28,10 @@ SVG = "{http://www.w3.org/2000/svg}"
 WHITE = (255, 255, 255)
 THRESHOLD = 3.0
 # Go's existing low contrast and Rust's reintroduced white cube grooves are
-# recorded as visual review limitations (issues #21, #41 and #43).
-BELOW_THREE_TO_ONE = {"go", "rust"}
-# Driver/ORM now use white grooves too; Python Yellow recolors them dark.
+# recorded as visual review limitations (issues #21, #41 and #43). Python Yellow
+# draws the same white marks as every other language since issue #54.
+BELOW_THREE_TO_ONE = {"go", "rust", "python"}
+# Driver/ORM now use white grooves too.
 UNMARKED_ROLES: set[str] = set()
 MIN_WHITE_UNITS = 1.0
 
