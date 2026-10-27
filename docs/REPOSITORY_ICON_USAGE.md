@@ -20,7 +20,7 @@ This example uses the approved TypeScript Driver icon at an immutable revision:
 ```html
 <!-- CUBRID-LAB-ICON:START -->
 <p align="center">
-  <a href="https://github.com/cubrid-lab/brand"><img src="https://raw.githubusercontent.com/cubrid-lab/brand/38b46469a1e18c7e9f7270f0b3d286ab45c3b376/dist/icons/cubrid-client.svg" alt="CUBRID Lab Driver icon (TypeScript)" width="120"></a>
+  <a href="https://github.com/cubrid-lab/brand"><img src="https://raw.githubusercontent.com/cubrid-lab/brand/538bad3929bb661ee95774119cf3b9b4aebc7f15/dist/icons/cubrid-client.svg" alt="CUBRID Lab Driver icon (TypeScript)" width="120"></a>
 </p>
 <!-- CUBRID-LAB-ICON:END -->
 ```
@@ -28,8 +28,9 @@ This example uses the approved TypeScript Driver icon at an immutable revision:
 Follow the block with a blank line and the Markdown project title, such as
 `# cubrid-client`. When adapting the example, select the repository's own filename
 and an immutable commit containing its approved icon, and update the alt text.
-Keep an existing revision pin when its SVG is still current; a newer commit alone
-is not a reason to change it. Avoid `main` URLs, which can change unexpectedly.
+When a brand change is published, every consuming repository moves to the new
+revision, even when its own SVG is unchanged, so the organization pins one brand
+revision. Avoid `main` URLs, which can change unexpectedly.
 
 ## Documentation sites
 
@@ -49,7 +50,9 @@ documentation-site logo and favicon) was pinned to `8aa81b7`, the revision that 
 the #37 Driver/ORM/MCP redesign and the #38 Python Yellow treatment. After #45 restored
 the complete cube for the Driver and ORM roles, their eight repositories moved to `38b4646`. `showcase` pins
 `bfb1871`, whose `showcase.svg` is byte-identical to `8aa81b7`. On 2026-10-27, after #51 aligned the
-Python Yellow keyline with the organization emblem (#50), the four Python repositories moved to `538bad3`.
+Python Yellow keyline with the organization emblem (#50), the four Python repositories moved to `538bad3`. The same day
+every other consuming repository, the organization profile and the organization website moved to `538bad3` as
+well, so the whole organization pins one brand revision; their SVGs are byte-identical at their earlier pins.
 
 | Repository | Role | Language | Asset revision | Rollout PR |
 | --- | --- | --- | --- | --- |
@@ -57,15 +60,15 @@ Python Yellow keyline with the organization emblem (#50), the four Python reposi
 | `sqlalchemy-cubrid` | ORM | Python | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#1064](https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/1064) |
 | `cubrid-mcp-server` | MCP | Python | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#470](https://github.com/cubrid-lab/cubrid-mcp-server/pull/470) |
 | `cubrid-cookbook-python` | Cookbook | Python | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#506](https://github.com/cubrid-lab/cubrid-cookbook-python/pull/506) |
-| `cubrid-client` | Driver | TypeScript | `38b46469a1e18c7e9f7270f0b3d286ab45c3b376` | [#75](https://github.com/cubrid-lab/cubrid-client/pull/75) |
-| `cubrid-go` | Driver | Go | `38b46469a1e18c7e9f7270f0b3d286ab45c3b376` | [#50](https://github.com/cubrid-lab/cubrid-go/pull/50) |
-| `cubrid-rs` | Driver | Rust | `38b46469a1e18c7e9f7270f0b3d286ab45c3b376` | [#23](https://github.com/cubrid-lab/cubrid-rs/pull/23) |
-| `cubrid-kubernetes-operator` | Operator | Go | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#582](https://github.com/cubrid-lab/cubrid-kubernetes-operator/pull/582) |
-| `drizzle-cubrid` | ORM | TypeScript | `38b46469a1e18c7e9f7270f0b3d286ab45c3b376` | [#139](https://github.com/cubrid-lab/drizzle-cubrid/pull/139) |
-| `gorm-cubrid` | ORM | Go | `38b46469a1e18c7e9f7270f0b3d286ab45c3b376` | [#33](https://github.com/cubrid-lab/gorm-cubrid/pull/33) |
-| `sea-orm-cubrid` | ORM | Rust | `38b46469a1e18c7e9f7270f0b3d286ab45c3b376` | [#16](https://github.com/cubrid-lab/sea-orm-cubrid/pull/16) |
-| `cubrid-benchmark` | Benchmark | Neutral | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#65](https://github.com/cubrid-lab/cubrid-benchmark/pull/65) |
-| `showcase` | Showcase | Neutral | `bfb1871c8856d59dd60eb6276328465a7ab03ac7` | [#49](https://github.com/cubrid-lab/showcase/pull/49) |
+| `cubrid-client` | Driver | TypeScript | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#78](https://github.com/cubrid-lab/cubrid-client/pull/78) |
+| `cubrid-go` | Driver | Go | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#53](https://github.com/cubrid-lab/cubrid-go/pull/53) |
+| `cubrid-rs` | Driver | Rust | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#26](https://github.com/cubrid-lab/cubrid-rs/pull/26) |
+| `cubrid-kubernetes-operator` | Operator | Go | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#601](https://github.com/cubrid-lab/cubrid-kubernetes-operator/pull/601) |
+| `drizzle-cubrid` | ORM | TypeScript | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#144](https://github.com/cubrid-lab/drizzle-cubrid/pull/144) |
+| `gorm-cubrid` | ORM | Go | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#36](https://github.com/cubrid-lab/gorm-cubrid/pull/36) |
+| `sea-orm-cubrid` | ORM | Rust | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#19](https://github.com/cubrid-lab/sea-orm-cubrid/pull/19) |
+| `cubrid-benchmark` | Benchmark | Neutral | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#68](https://github.com/cubrid-lab/cubrid-benchmark/pull/68) |
+| `showcase` | Showcase | Neutral | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#60](https://github.com/cubrid-lab/showcase/pull/60) |
 
 Each repository README must pin a commit containing its approved
 `dist/icons/<repository>.svg` asset; older study URLs are historical evidence
@@ -86,7 +89,7 @@ lockups. Their legal/trademark review remains under
 A repository's role icon must not become the organization avatar or
 organization-site logo.
 
-## Consumption inventory (2026-10-25)
+## Consumption inventory (2026-10-27)
 
 A search of the default branches of every public `cubrid-lab` repository
 (plus the README files of the private `terraform-zadara-k8s` and of the `cubrid`
@@ -95,12 +98,13 @@ any SVG in this repository's history found:
 
 | Pattern | Where |
 | --- | --- |
-| README header, pinned `raw.githubusercontent.com` image | `pycubrid`, `sqlalchemy-cubrid`, `cubrid-mcp-server`, `cubrid-cookbook-python`, `cubrid-client`, `cubrid-go`, `cubrid-rs`, `cubrid-kubernetes-operator` |
-| Translated README headers, same pinned image | `pycubrid` and `sqlalchemy-cubrid` (de, hi, ko, ru, zh); `cubrid-mcp-server` and `cubrid-cookbook-python` (ko) |
+| README header, pinned `raw.githubusercontent.com` image | All thirteen repositories in the [registry](../registry/repositories.json) |
+| Translated README headers, same pinned image | `pycubrid` and `sqlalchemy-cubrid` (de, hi, ko, ru, zh); `cubrid-mcp-server`, `cubrid-cookbook-python` and `drizzle-cubrid` (ko) |
 | MkDocs `theme.logo` and `theme.favicon`, same pinned URL | `pycubrid`, `sqlalchemy-cubrid`, `cubrid-mcp-server`, `cubrid-cookbook-python` |
-| Organization emblem, pinned URL | `.github` profile README (governed by [Organization mark usage](ORGANIZATION_MARK_USAGE.md)) |
+| Organization emblem, pinned URL | `.github` profile README; `cubrid-lab.github.io` MkDocs `theme.logo` and `theme.favicon` (governed by [Organization mark usage](ORGANIZATION_MARK_USAGE.md)) |
+| Video frames rendered from pinned URLs (`BRAND_REVISION`) | `showcase` `demo-videos/intro-2026` (permitted by decision 5 under [Inside CUBRID Lab organization repositories](../BRAND_USAGE.md#inside-cubrid-lab-organization-repositories)) |
 | Copied brand SVG files | None |
-| Not yet consuming an icon | `drizzle-cubrid`, `gorm-cubrid`, `sea-orm-cubrid`, `cubrid-benchmark`, `showcase`, `cubrid-lab.github.io` |
+| Not consuming an icon | `cubrid` (engine fork) and `terraform-zadara-k8s`, which have no registry entry |
 
 `showcase/presentation/public/favicon.svg` is an unrelated letter "C" tile, not
 a brand asset. No repository holds an SVG copy that a package could ship; a
