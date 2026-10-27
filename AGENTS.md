@@ -1,5 +1,10 @@
 # AGENTS.md
 
+## Organization-wide writing standard
+
+Follow [cubrid-lab's Issue, PR and commit policy](https://github.com/cubrid-lab/.github/blob/main/docs/ISSUE_PR_COMMIT_STANDARD.md). Issue titles use a type-only prefix such as `feat: ...`, `bug: ...`, or `docs: ...` without a required module scope. Describe a human-readable goal/problem and verifiable acceptance criteria. Triage handles validity, scope, duplicates, priority and size; PR and commit titles retain Conventional Commits/local CI requirements. Avoid internal review codes, personal comments and agent execution logs in issue prose.
+
+
 ## Purpose
 
 This repository is the source of truth for CUBRID Lab brand geometry, tokens, generated assets, repository mappings, and usage guidance.
