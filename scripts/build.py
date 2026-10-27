@@ -61,6 +61,13 @@ def cube_outline() -> list[tuple[float, float]]:
     return [top[0], top[1], right[2], right[3], left[2], left[3], top[3]]
 
 
+def emblem_edges() -> list[list[tuple[float, float]]]:
+    """Each face's outer edges, stopping at the seams as the organization emblem does (issue #50)."""
+    polygons = cube_polygons()
+    top, left, right = polygons["top"], polygons["left"], polygons["right"]
+    return [[top[3], top[0], top[1]], [left[0], left[3], left[2]], [right[1], right[2], right[3]]]
+
+
 def glyph_backing(role: str, glyph: str | None = None) -> str:
     """A solid plate in the cube color: the role mark, filled and widened by ``glyph_backing_pad``.
 
@@ -189,10 +196,15 @@ def lateral_plates() -> str:
 FILL_D_RE = re.compile(r'<path d="([^"]+)" fill="currentColor"/>')
 
 
-def light_treatment(role: str, key: str, shape: str, mark: str | None, keyline: str | None, width: float) -> str:
+def light_treatment(
+    role: str, key: str, shape: str, mark: str | None, keyline: str | None, width: float, open_seams: bool = False
+) -> str:
     """Recolor the role mark to ``mark`` and add a ``keyline`` of ``width`` outside the shape.
 
     Used for light language tokens (issue #38); ``None`` leaves that part unchanged.
+    ``open_seams`` draws the keyline along each face's outer edges only, so the
+    seams stay open like the organization emblem (issue #50). The #38 studies keep
+    the original closed outline.
     """
     if any(value is not None and not COLOR_RE.fullmatch(value) for value in (mark, keyline)):
         raise ValueError("invalid treatment color")
@@ -208,6 +220,15 @@ def light_treatment(role: str, key: str, shape: str, mark: str | None, keyline: 
     if layered and not grooved_cube:
         # Historical #30 study: strokes belong under each detached layer.
         lines = [f'  <path d="{d}" {stroke}/>' for d in FILL_D_RE.findall(shape)]
+    elif open_seams:
+        # Clip to outside every face, so only the outer half shows and no seam is bridged.
+        clip = f"{key}-outside"
+        faces = " ".join(path_data(points) for points in cube_polygons().values())
+        edges = " ".join(path_data(points).removesuffix(" Z") for points in emblem_edges())
+        lines = [
+            f'  <clipPath id="{clip}"><path d="M 0 0 H 24 V 24 H 0 Z {faces}" clip-rule="evenodd"/></clipPath>',
+            f'  <path d="{edges}" {stroke} clip-path="url(#{clip})"/>',
+        ]
     else:
         # A single outline leaves the new cube intact; grooves remain inside it.
         clip, outline = f"{key}-outside", path_data(cube_outline())
@@ -229,7 +250,7 @@ def render_icon(role: str, color: str, key: str, status: str = "pending-symbol")
     shape = {"driver": vertical_stack, "orm": lateral_plates}.get(role, lambda: cube_faces(role, key))()
     if color in TREATMENTS:
         spec = TREATMENTS[color]
-        shape = light_treatment(role, key, shape, spec["mark"], spec["keyline"], spec["keyline_width"])
+        shape = light_treatment(role, key, shape, spec["mark"], spec["keyline"], spec["keyline_width"], open_seams=True)
     review_note = (
         "Design selected; legal clearance pending."
         if status == "approved"
