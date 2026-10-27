@@ -36,7 +36,7 @@ For **CUBRID Lab-owned repositories**, use only the mapped SVGs and placements a
 ```html
 <p align="center">
   <a href="https://github.com/cubrid-lab/brand">
-    <img src="https://raw.githubusercontent.com/cubrid-lab/brand/3a385be773af94077c56548a24cdb9313bdc3b5c/dist/icons/pycubrid.svg" alt="pycubrid icon" width="120">
+    <img src="https://raw.githubusercontent.com/cubrid-lab/brand/e55990a6a0b2c3b0d133985951d41e42b62a8588/dist/icons/pycubrid.svg" alt="pycubrid icon" width="120">
   </a>
 </p>
 ```
