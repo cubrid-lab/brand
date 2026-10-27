@@ -92,20 +92,35 @@ def glyph_backing(role: str, glyph: str | None = None) -> str:
     return "\n".join(lines)
 
 
+def junction_hole() -> tuple[float, float, float]:
+    """Center and radius of the MCP hole where the top and both side faces meet (issue #58)."""
+    polygons = cube_polygons()
+    cx = GEOMETRY["center"][0]
+    return (cx, (polygons["top"][2][1] + polygons["left"][1][1]) / 2, GEOMETRY["mcp_hole_radius"])
+
+
 def cube_faces(role: str, key: str, glyph: str | None = None) -> str:
+    default_mark = glyph is None
     glyph = GLYPHS[role] if glyph is None else glyph
     polygons = cube_polygons()
     clip = f"{key}-cube"
     lines = [f'  <clipPath id="{clip}"><path d="{path_data(cube_outline())}"/></clipPath>']
     lines += [f'  <path d="{path_data(polygons[face])}" fill="currentColor"/>' for face in ("top", "left", "right")]
-    lines.append(f'  <g clip-path="url(#{clip})">\n{glyph_backing(role, glyph)}\n  </g>')
+    knockout = default_mark and role in KNOCKOUT_ROLES
+    hole = default_mark and role in HOLE_ROLES
+    if not hole:
+        lines.append(f'  <g clip-path="url(#{clip})">\n{glyph_backing(role, glyph)}\n  </g>')
     lines.append(f'  <path d="{path_data(polygons["top"])}" fill="#fff" opacity="0.08"/>')
     lines.append(f'  <path d="{path_data(polygons["left"])}" fill="#000" opacity="0.10"/>')
-    if role in KNOCKOUT_ROLES and glyph is GLYPHS[role]:
-        # The white mark becomes real alpha transparency (issue #59): the whole
+    if knockout or hole:
+        # The mark becomes real alpha transparency (issues #59 and #58): the whole
         # painted cube is masked by the mark, so the background shows through.
         mask = f"{key}-knockout"
-        cutout = glyph.replace('"#fff"', '"#000"')
+        if hole:
+            hx, hy, hr = junction_hole()
+            cutout = f'    <circle cx="{number(hx)}" cy="{number(hy)}" r="{number(hr)}" fill="#000"/>'
+        else:
+            cutout = glyph.replace('"#fff"', '"#000"')
         lines = [lines[0]] + [
             f'  <mask id="{mask}" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">',
             '    <rect width="24" height="24" fill="#fff"/>',
@@ -120,6 +135,8 @@ def cube_faces(role: str, key: str, glyph: str | None = None) -> str:
 
 # Roles whose mark is knocked out to transparency instead of painted white.
 KNOCKOUT_ROLES = {"operator"}
+# Roles drawn as the plain cube with one circular transparent hole at the three-face junction.
+HOLE_ROLES = {"mcp"}
 
 # White marks are original geometric drawings. In particular, Operator is a
 # generic six-spoke control dial, not a Kubernetes or other third-party logo.
@@ -434,7 +451,7 @@ def render_yellow_candidate(treatment: str, name: str) -> str:
         raise ValueError("invalid yellow candidate color")
     role, key = REGISTRY[name]["role"], f"{treatment}-{name}"
     # The Yellow #38 comparison predates cube restoration; keep its study intact.
-    shape = {"driver": vertical_stack_legacy, "orm": lateral_plates_legacy}.get(role, lambda: cube_faces(role, key))()
+    shape = {"driver": vertical_stack_legacy, "orm": lateral_plates_legacy}.get(role, lambda: cube_faces(role, key, GLYPHS[role]))()
     mark = None if spec["mark"] == "white" else inks[spec["mark"]]
     keyline = inks[spec["keyline"]] if spec["keyline"] and role in spec["keyline_roles"] else None
     shape = light_treatment(role, key, shape, mark, keyline, YELLOW_CANDIDATES["keyline_width"])

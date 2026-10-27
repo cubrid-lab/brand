@@ -85,8 +85,9 @@ class RoleCandidateTests(unittest.TestCase):
                 with self.subTest(role=role, language=language):
                     promoted = build.render_icon(role, COLORS[language], "x", "approved")
                     study = render_role_candidate(candidate_id, language).replace(f"{candidate_id}-{language}", "x")
-                    if role in {"driver", "orm"}:
-                        # #30 stays a historical study; #41/#43 restore the cube.
+                    if role in {"driver", "orm", "mcp"}:
+                        # #30 stays a historical study; #41/#43 restore the cube;
+                        # #58 replaces the MCP router with a hole at the junction.
                         self.assertNotEqual(body(promoted), body(study))
                     else:
                         # #50 opens only the promoted Python Yellow keyline at the seams.

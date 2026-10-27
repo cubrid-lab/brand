@@ -102,3 +102,9 @@ The same day the maintainer asked for the dial's spokes to connect with the cube
 The maintainer then asked that the diagonal spokes connect with the diagonal seam lines. The two upper diagonal spokes now run along the seam centerlines to the cube's outer corners (clipped by the silhouette), so the seam and the spoke are one line instead of a spoke tip sealed off by its backing. Comparison: [`docs/studies/operator-transparent-59/connected-seams.png`](docs/studies/operator-transparent-59/connected-seams.png) (left: dial moved only, right: spokes joined to the seams).
 
 The lower vertical spoke now runs past the bottom edge and is cut by the cube silhouette, so it ends flat at the bottom instead of in a round cap ([`docs/studies/operator-transparent-59/flat-bottom.png`](docs/studies/operator-transparent-59/flat-bottom.png); left: round end, right: flat end).
+
+## MCP icon is the cube with a junction hole (issue #58)
+
+On 2026-10-27 the maintainer chose to replace the white three-way router on the MCP icon with the standard cube and one circular transparent hole at the three-face junction ([issue #58](https://github.com/cubrid-lab/brand/issues/58)). From mockups with two hole sizes (radius 2.2 and 3.0), the maintainer picked the smaller one, radius 2.2.
+
+`scripts/build.py` draws the hole as a mask cutout (`HOLE_ROLES`), with no seam backing, and `tokens/geometry.json` gains `mcp_hole_radius`. Only `dist/icons/cubrid-mcp-server.svg` and `src/mcp.svg` change; the router stays in the role-candidate and Python Yellow study SVGs, which are byte-identical. Mockup sheet: [`docs/studies/transparent-icons-57-58-mockups/`](docs/studies/transparent-icons-57-58-mockups/). Consumers' commit-pinned references move in separate follow-up PRs.

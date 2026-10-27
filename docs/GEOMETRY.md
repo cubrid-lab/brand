@@ -17,7 +17,7 @@ Its internal corners are 60° and 120°. The left and right face vertices are co
 
 A white mark that crosses or encloses a seam would otherwise sit on transparent negative space and break apart or vanish on a light page. Each cube-based role therefore paints a solid backing in the cube color under its mark: the mark itself, filled and widened by `glyph_backing_pad` (`0.55`) on every side. The backing is drawn before the face shading, so it matches the faces exactly and is visible only where it bridges a seam. Both the backing and the white mark are clipped to the cube's outer silhouette, so neither extends past it. The glyph paths themselves are unchanged. `tests/test_glyph_seams.py` samples every generated role template and fails if any white sample lies within 0.3 units of an unpainted seam.
 
-The role marks are original vector primitives: Driver vertical stack, ORM lateral plates, MCP three-way router, Cookbook book, Benchmark bars, Operator six-spoke control dial, Showcase play triangle, Docs lines, and Community people. The Operator dial is deliberately six-spoke and is not a Kubernetes logo. The Cookbook mark is an open book drawn as one filled page per side face, with the transparent center seam serving as the spine; its text lines are stroked in `currentColor` so they fade out at small sizes. Keeping each page on a single face means the seam gap never cuts through the white mark on dark backgrounds.
+The role marks are original vector primitives: Driver vertical stack, ORM lateral plates, MCP junction hole, Cookbook book, Benchmark bars, Operator six-spoke control dial, Showcase play triangle, Docs lines, and Community people. The Operator dial is deliberately six-spoke and is not a Kubernetes logo. The Cookbook mark is an open book drawn as one filled page per side face, with the transparent center seam serving as the spine; its text lines are stroked in `currentColor` so they fade out at small sizes. Keeping each page on a single face means the seam gap never cuts through the white mark on dark backgrounds.
 
 ### Operator transparent dial (issue #59)
 
@@ -43,7 +43,11 @@ Both current roles use the **same** top rhombus and inset left/right faces as th
 
 Review the [Driver/ORM comparison](studies/cube-stacks-41-43.md).
 
-### MCP three-way router (issue #23)
+### MCP junction hole (issue #58)
+
+The MCP icon is the plain organization cube with one circular, genuinely transparent hole where the top rhombus and the two side faces meet. The hole is centered on the seam junction `(12, 12.899)` (midway between the top rhombus' bottom vertex and the side faces' inner top corners) with radius `mcp_hole_radius` (`2.2`, [`tokens/geometry.json`](../tokens/geometry.json)). The generator draws the cube inside a `<mask>` with the circle cut out, so the page behind shows through; nothing is painted white. It adds no channels, spokes or seam backing, and the cube's outside corners and seams are unchanged. The earlier white router (below) stays documented as the reviewed #23 study. `scripts/build.py` keeps it for the role-candidate and Python Yellow study assets through `GLYPHS["mcp"]`.
+
+### MCP three-way router, retired (issue #23)
 
 The MCP mark is a hub at the cube's center vertex, a white circle of radius 1.75 at `(12, 12.95)`. From the hub, one 1.3-unit link runs into each face to a port of radius 1.45: top `(12, 6.9)`, left `(6.5, 15.55)` and right `(17.5, 15.55)`. The hub covers the point where the three seams meet, and the seam backing bridges it. Each link stays on its own face. It replaced the earlier four-node diamond network.
 

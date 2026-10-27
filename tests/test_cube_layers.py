@@ -55,5 +55,22 @@ class OperatorKnockoutTests(unittest.TestCase):
         self.assertEqual(set(painted), {path_data(face) for face in cube_polygons().values()})
 
 
+class McpJunctionHoleTests(unittest.TestCase):
+    def test_hole_is_a_single_mask_circle_at_the_junction(self):
+        svg_text = render_icon("mcp", "currentColor", "mcp")
+        svg = ElementTree.fromstring(svg_text)
+        mask = next(svg.iter(SVG + "mask"))
+        circles = list(mask.iter(SVG + "circle"))
+        self.assertEqual(len(circles), 1)
+        self.assertEqual(circles[0].get("fill"), "#000")
+        faces = cube_polygons()
+        junction = (faces["top"][2][1] + faces["left"][1][1]) / 2
+        self.assertAlmostEqual(float(circles[0].get("cy")), junction, places=3)
+        self.assertEqual(float(circles[0].get("cx")), 12)
+        self.assertNotIn("#fff\" stroke", svg_text, "no white router glyph remains")
+        self.assertEqual(len(list(svg.iter(SVG + "circle"))), 1, "no hub or port circles")
+        self.assertEqual(len(list(svg.iter(SVG + "path"))) - 1 - 2, 3, "three faces plus two shades only")
+
+
 if __name__ == "__main__":
     unittest.main()
