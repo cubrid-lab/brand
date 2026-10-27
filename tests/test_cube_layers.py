@@ -55,5 +55,17 @@ class OperatorKnockoutTests(unittest.TestCase):
         self.assertEqual(set(painted), {path_data(face) for face in cube_polygons().values()})
 
 
+class McpKnockoutTests(unittest.TestCase):
+    def test_router_is_a_mask_cutout_not_white_paint(self):
+        svg_text = render_icon("mcp", "currentColor", "mcp")
+        svg = ElementTree.fromstring(svg_text)
+        mask = next(svg.iter(SVG + "mask"))
+        self.assertGreaterEqual(len(list(mask.iter(SVG + "circle"))), 4, "hub and three ports are cut out")
+        self.assertNotIn('"#fff"', svg_text.split("</mask>")[1].replace('fill="#fff" opacity', ""), "no white router paint remains")
+        group = next(g for g in svg.iter(SVG + "g") if g.get("mask") == f"url(#{mask.get('id')})")
+        painted = [p.get("d") for p in group.findall(SVG + "path") if p.get("fill") == "currentColor"]
+        self.assertEqual(set(painted), {path_data(face) for face in cube_polygons().values()})
+
+
 if __name__ == "__main__":
     unittest.main()
