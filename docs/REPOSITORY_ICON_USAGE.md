@@ -48,14 +48,15 @@ On 2026-10-25 every repository README (and, where present, translated READMEs an
 documentation-site logo and favicon) was pinned to `8aa81b7`, the revision that contains
 the #37 Driver/ORM/MCP redesign and the #38 Python Yellow treatment. After #45 restored
 the complete cube for the Driver and ORM roles, their eight repositories moved to `38b4646`. `showcase` pins
-`bfb1871`, whose `showcase.svg` is byte-identical to `8aa81b7`.
+`bfb1871`, whose `showcase.svg` is byte-identical to `8aa81b7`. On 2026-10-27, after #51 aligned the
+Python Yellow keyline with the organization emblem (#50), the four Python repositories moved to `538bad3`.
 
 | Repository | Role | Language | Asset revision | Rollout PR |
 | --- | --- | --- | --- | --- |
-| `pycubrid` | Driver | Python | `38b46469a1e18c7e9f7270f0b3d286ab45c3b376` | [#1061](https://github.com/cubrid-lab/pycubrid/pull/1061) |
-| `sqlalchemy-cubrid` | ORM | Python | `38b46469a1e18c7e9f7270f0b3d286ab45c3b376` | [#1055](https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/1055) |
-| `cubrid-mcp-server` | MCP | Python | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#457](https://github.com/cubrid-lab/cubrid-mcp-server/pull/457) |
-| `cubrid-cookbook-python` | Cookbook | Python | `8aa81b79f00ae936b03a9546f14f514c5e2554a7` | [#500](https://github.com/cubrid-lab/cubrid-cookbook-python/pull/500) |
+| `pycubrid` | Driver | Python | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#1070](https://github.com/cubrid-lab/pycubrid/pull/1070) |
+| `sqlalchemy-cubrid` | ORM | Python | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#1064](https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/1064) |
+| `cubrid-mcp-server` | MCP | Python | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#470](https://github.com/cubrid-lab/cubrid-mcp-server/pull/470) |
+| `cubrid-cookbook-python` | Cookbook | Python | `538bad3929bb661ee95774119cf3b9b4aebc7f15` | [#506](https://github.com/cubrid-lab/cubrid-cookbook-python/pull/506) |
 | `cubrid-client` | Driver | TypeScript | `38b46469a1e18c7e9f7270f0b3d286ab45c3b376` | [#75](https://github.com/cubrid-lab/cubrid-client/pull/75) |
 | `cubrid-go` | Driver | Go | `38b46469a1e18c7e9f7270f0b3d286ab45c3b376` | [#50](https://github.com/cubrid-lab/cubrid-go/pull/50) |
 | `cubrid-rs` | Driver | Rust | `38b46469a1e18c7e9f7270f0b3d286ab45c3b376` | [#23](https://github.com/cubrid-lab/cubrid-rs/pull/23) |
