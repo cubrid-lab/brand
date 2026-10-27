@@ -101,9 +101,25 @@ def cube_faces(role: str, key: str, glyph: str | None = None) -> str:
     lines.append(f'  <g clip-path="url(#{clip})">\n{glyph_backing(role, glyph)}\n  </g>')
     lines.append(f'  <path d="{path_data(polygons["top"])}" fill="#fff" opacity="0.08"/>')
     lines.append(f'  <path d="{path_data(polygons["left"])}" fill="#000" opacity="0.10"/>')
+    if role in KNOCKOUT_ROLES and glyph is GLYPHS[role]:
+        # The white mark becomes real alpha transparency (issue #59): the whole
+        # painted cube is masked by the mark, so the background shows through.
+        mask = f"{key}-knockout"
+        cutout = glyph.replace('"#fff"', '"#000"')
+        lines = [lines[0]] + [
+            f'  <mask id="{mask}" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">',
+            '    <rect width="24" height="24" fill="#fff"/>',
+            f'    <g clip-path="url(#{clip})">\n{cutout}\n    </g>',
+            "  </mask>",
+            f'  <g mask="url(#{mask})">',
+        ] + ["  " + line for line in lines[1:]] + ["  </g>"]
+        return "\n".join(lines)
     lines.append(f'  <g clip-path="url(#{clip})">\n{glyph}\n  </g>')
     return "\n".join(lines)
 
+
+# Roles whose mark is knocked out to transparency instead of painted white.
+KNOCKOUT_ROLES = {"operator"}
 
 # White marks are original geometric drawings. In particular, Operator is a
 # generic six-spoke control dial, not a Kubernetes or other third-party logo.

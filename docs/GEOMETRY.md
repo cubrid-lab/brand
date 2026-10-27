@@ -19,6 +19,10 @@ A white mark that crosses or encloses a seam would otherwise sit on transparent 
 
 The role marks are original vector primitives: Driver vertical stack, ORM lateral plates, MCP three-way router, Cookbook book, Benchmark bars, Operator six-spoke control dial, Showcase play triangle, Docs lines, and Community people. The Operator dial is deliberately six-spoke and is not a Kubernetes logo. The Cookbook mark is an open book drawn as one filled page per side face, with the transparent center seam serving as the spine; its text lines are stroked in `currentColor` so they fade out at small sizes. Keeping each page on a single face means the seam gap never cuts through the white mark on dark backgrounds.
 
+### Operator transparent dial (issue #59)
+
+The Operator dial keeps its approved geometry, but its rim, hub and spokes are real alpha transparency instead of white strokes. The generator draws the cube (faces, seam backing and face shading) inside one `<mask>` whose cutout is the same dial paths in black on a white rectangle, so the page behind the icon shows through. Nothing is painted white or in a background color. The seam backing still surrounds the dial, so the cut-out lines keep the same clearance from the seams. `KNOCKOUT_ROLES` in `scripts/build.py` lists the roles that use this treatment; `tests/test_cube_layers.py` renders the icon and checks the alpha.
+
 ### Layered Driver and ORM (issue #30)
 
 The two layered roles use the same construction along two different axes.
