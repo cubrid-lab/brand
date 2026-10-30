@@ -151,7 +151,7 @@ def glyph_points(role: str) -> list[list[tuple[float, float]]]:
 
 
 class EnlargedMarkTests(unittest.TestCase):
-    """The approved P2 enlargement (issue #21): Docs x1.25, Showcase x1.3."""
+    """The approved small-size enlargement: Docs x1.25, Showcase x1.3 (issue #21, P2)."""
 
     def test_docs_bars_and_gaps_are_at_least_one_pixel_at_24_px(self):
         bars = glyph_points("docs")

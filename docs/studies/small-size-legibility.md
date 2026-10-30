@@ -19,7 +19,7 @@ After reviewing [`small-size-legibility/proposal-before-after.png`](small-size-l
 - [`small-size-legibility/pixels.png`](small-size-legibility/pixels.png): the 16 and 24 px renderings enlarged 6x without smoothing, one block per device pixel.
 - [`small-size-legibility/proposal-before-after.png`](small-size-legibility/proposal-before-after.png): the five icons the proposals below would change, current and proposed, at 16 to 128 px, light and dark.
 
-Regenerate them, and the contrast tables below, with `python scripts/legibility_study.py OUT_DIR` (optional; needs `rsvg-convert` and Pillow; not used by the build or CI). Since P2 is now part of the generator, the script no longer applies it, and running it on a later revision renders the then-current icons.
+Regenerate them, and the contrast tables below, with `python scripts/legibility_study.py OUT_DIR` (optional; needs `rsvg-convert` and Pillow; not used by the build or CI). Since the approved Docs and Showcase enlargement (P2) is now part of the generator, the script no longer applies it, and running it on a later revision renders the then-current icons.
 
 ## Criteria
 
