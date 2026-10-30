@@ -140,8 +140,10 @@ GLYPHS = {
     "operator": '''  <circle cx="12" cy="13.15" r="4.25" fill="none" stroke="#fff" stroke-width="1.25"/>
   <circle cx="12" cy="13.15" r="1.2" fill="none" stroke="#fff" stroke-width="1.1"/>
   <path d="M 12 7.95 V 11.85 M 12 14.45 V 23 M 1 6.81 L 10.9 12.55 M 13.1 13.75 L 16.5 15.75 M 7.5 15.75 L 10.9 13.75 M 13.1 12.55 L 23 6.81" fill="none" stroke="#fff" stroke-width="1.25" stroke-linecap="round"/>''',
-    # Showcase and Docs are enlarged about their own centers (x1.3 and x1.25) for
-    # small sizes, as reviewed in docs/studies/small-size-legibility.md (issue #21, P2).
+    # Showcase and Docs are enlarged about their own centers (x1.3 and x1.25) so
+    # the triangle and the bars stay legible at 16 and 24 px. This is the approved
+    # enlargement alternative in docs/studies/small-size-legibility.md; the declined
+    # alternative was a darker keyline (issue #21, study proposals P2 and P1).
     "showcase": '''  <path d="M 15.63 13.11 L 20.57 16.1 L 15.63 19.09 Z" fill="#fff"/>''',
     "docs": '''  <path d="M 14.375 13.188 L 20.625 9.688 L 20.625 11.312 L 14.375 14.812 Z M 14.375 16.188 L 20.625 12.688 L 20.625 14.312 L 14.375 17.812 Z M 14.375 19.188 L 20.625 15.688 L 20.625 17.312 L 14.375 20.812 Z" fill="#fff"/>''',
     "community": '''  <g fill="#fff"><circle cx="7" cy="14.2" r="1.2"/><circle cx="12" cy="12.8" r="1.25"/><circle cx="17" cy="14.2" r="1.2"/>
