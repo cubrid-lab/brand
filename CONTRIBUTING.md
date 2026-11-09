@@ -1,6 +1,6 @@
 # Contributing to CUBRID Lab Brand
 
-**Title policy:** Use type-only issue titles (`feat:`, `bug:`, `docs:`) without module scopes. Keep Conventional Commits for PRs/commits and verifiable acceptance criteria for issues; triage and PR CI have separate responsibilities. See [organization guidance](https://github.com/cubrid-lab/.github/blob/main/docs/ISSUE_PR_COMMIT_STANDARD.md).
+**Title policy:** Use type-only issue titles (`feat:`, `bug:`, `docs:`) without module scopes. Keep Conventional Commits for PRs/commits and verifiable acceptance criteria for issues; triage and PR CI have separate responsibilities. See [AGENTS.md](AGENTS.md).
 
 This repository uses a tool-neutral PR review policy for people and coding
 agents (OpenCode, Codex, Claude Code, ChatGPT, Copilot, etc.).
