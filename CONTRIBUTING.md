@@ -15,6 +15,32 @@ trademark, licensing and public asset changes retain explicit independent
 design/rights assessment. Do not treat green CI as asset publication approval.
 
 
+
+## Suggest improvements and credit problem discovery
+
+You are welcome to report a confusing page, missing documentation,
+unexpected result, workflow friction or any other useful observation even
+if you do not have a fix. Open **Improvement Idea** through
+[New issue](https://github.com/cubrid-lab/brand/issues/new/choose).
+One short description is sufficient to propose an issue; providing code,
+a complete reproduction, a design or acceptance criteria is **optional at
+intake**. The maintainers check duplicates, scope, evidence, priority,
+ownership and actionable acceptance criteria before scheduling work.
+
+Keep credentials, personal information, private infrastructure logs and
+security reports out of public issues. A new idea does not grant permission
+to change infrastructure, release controls, security configuration or
+architecture, or skip required review. Where existing repository rules
+permit direct small PRs, no preliminary issue is required solely for
+ceremony. Check overlapping work and coordinate before coding.
+
+When the work originates from an external report, link the issue in the PR
+and acknowledge the verified **reporter** as distinct from the
+implementation author. Follow this repository's existing verified
+contributor and release-note rules; a separately labeled
+`reported by @handle` credit may be appropriate, but attribution should
+never be fabricated or imposed as repetitive boilerplate.
+
 ## Issue ownership and agent handoff
 
 Before implementation, check the latest source, open issues and overlapping PRs. Keep each change focused on one independently reviewable brand or asset task. New issues begin with `status: needs triage`; maintainers verify duplicates, scope, type and relative urgency against the local open backlog, then confirm one `priority: critical/high/medium/low` and one `size: XS/S/M/L/XL`. Remove the status only after checking the saved GitHub labels and the actual triage decision.
